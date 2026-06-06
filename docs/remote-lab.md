@@ -4,6 +4,17 @@ AutoSnake Remote Lab ist für Lernende gedacht, die aus der Ferne auf ein gemein
 
 In der ersten Projektphase werden LED-Grid und Kamera simuliert. Der Browser-Simulator liefert die visuelle Grid-Ansicht, während der Python-Simulator automatisierte Tests und Algorithmenentwicklung unterstützt.
 
+## Einzelstationsbetrieb
+
+Das spätere physische Labor stellt nur einen Laborplatz bereit. Deshalb kann immer nur eine Person gleichzeitig aktiv an der realen Arduino-Station arbeiten. Mehrere Lernende können parallel mit Repository, Aufgaben, Tests und Simulator arbeiten, aber der Zugriff auf die Hardware muss nacheinander erfolgen.
+
+Für den Unterricht bedeutet das:
+
+- Der Simulator ist der Standardarbeitsplatz für alle.
+- Die physische Station wird zeitlich zugeteilt.
+- Vor dem Hardware-Zugriff sollen Tests lokal oder in GitHub Actions bestanden sein.
+- Die Kameraansicht dient später als Nachweis, dass der Bot auf der echten LED-Matrix läuft.
+
 ## Geplanter Stationsablauf
 
 1. Lernende lesen die Aufgabe in edrys-Lite.

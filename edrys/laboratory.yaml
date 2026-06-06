@@ -3,23 +3,20 @@ name: AutoSnake Remote Lab
 meta:
   description: >-
     Remote-Labor zur Automatisierung von Snake auf einem Arduino Uno R3 und
-    einem 16x16 RGB-LED-Grid. Das Labor startet simulationsorientiert und wird später
-    mit einem physischen LED-Grid und einer Kamerastation verbunden.
+    einem 16x16 RGB-LED-Grid. Das Labor startet simulationsorientiert und wird
+    später mit einem physischen LED-Grid und einer Kamerastation verbunden.
 selfAssign: true
-defaultNumberOfRooms: 0
+defaultNumberOfRooms: 1
 members:
   teacher: []
   student: []
 modules:
   - url: https://edrys-labs.github.io/module-markdown-it/index.html
     config:
-      content: >-
+      content: |
         # AutoSnake Remote Lab
 
-        AutoSnake ist ein Remote-Labor für eingebettete Systeme. Snake läuft
-        zunächst auf einem simulierten 16x16 RGB-LED-Grid; später kann derselbe
-        Ablauf mit einem Arduino Uno R3, einem echten LED-Grid und einer Kamera
-        verbunden werden.
+        AutoSnake ist ein Remote-Labor für eingebettete Systeme. Snake läuft zunächst auf einem simulierten 16x16 RGB-LED-Grid; später kann derselbe Ablauf mit einem Arduino Uno R3, einem echten LED-Grid und einer Kamera verbunden werden.
 
         Repository:
         https://github.com/Bjoern-Maximilian-Muchow/Snake
@@ -27,24 +24,22 @@ modules:
         Simulator:
         https://bjoern-maximilian-muchow.github.io/Snake/simulator/web/
 
-        Level:
+        **Wichtig:** Es gibt nur einen physischen Laborplatz. Deshalb kann später immer nur eine Person aktiv an der echten Station arbeiten. Alle anderen arbeiten zunächst im Simulator.
+
+        ## Level
 
         1. Schüler: einfache regelbasierte Steuerung.
-
-        2. Student Anfang Studium: strukturierter Bot mit Spielfeldanalyse und
-        sicheren Zügen.
-
-        3. Fortgeschrittener Student: robuste Pfadsuche, Sicherheitsprüfungen,
-        begrenzte Laufzeit und Tests.
+        2. Student Anfang Studium: strukturierter Bot mit Spielfeldanalyse und sicheren Zügen.
+        3. Fortgeschrittener Student: robuste Pfadsuche, Sicherheitsprüfungen, begrenzte Laufzeit und Tests.
     studentConfig:
       content: ""
     teacherConfig:
-      content: >-
+      content: |
         ## Hinweise für Lehrende
 
-        Das GitHub-Repository bleibt die Quelle der Wahrheit. Aktualisiere das
-        Labor, indem du `edrys/laboratory.yaml` bearbeitest und anschließend die
-        edrys-Lite-Deploy-URL erneut öffnest.
+        Das GitHub-Repository bleibt die Quelle der Wahrheit. Aktualisiere das Labor, indem du `edrys/laboratory.yaml` bearbeitest und anschließend die edrys-Lite-Deploy-URL erneut öffnest.
+
+        Da nur ein Laborplatz verfügbar ist, sollte die Nutzung der späteren physischen Station zeitlich vergeben werden. Der Simulator kann parallel von mehreren Lernenden genutzt werden.
 
         Aktuelles Repository:
         https://github.com/Bjoern-Maximilian-Muchow/Snake
@@ -56,23 +51,20 @@ modules:
 
   - url: https://edrys-labs.github.io/module-markdown-it/index.html
     config:
-      content: >-
+      content: |
         # Aufgaben
 
         ## Level 1: Schüler
 
-        Schreibe einen einfachen regelbasierten Bot. Er soll grundlegende
-        Wandkollisionen vermeiden und sich grob in Richtung Futter bewegen.
+        Schreibe einen einfachen regelbasierten Bot. Er soll grundlegende Wandkollisionen vermeiden und sich grob in Richtung Futter bewegen.
 
         ## Level 2: Student Anfang Studium
 
-        Schreibe einen strukturierten Bot, der das Spielfeld analysiert,
-        sichere Züge prüft und optional BFS nutzt, um Futter zu finden.
+        Schreibe einen strukturierten Bot, der das Spielfeld analysiert, sichere Züge prüft und optional BFS nutzt, um Futter zu finden.
 
         ## Level 3: Fortgeschrittener Student
 
-        Schreibe einen robusten Bot mit Pfadsuche, Sicherheitschecks,
-        begrenzter Laufzeit und Tests für schwierige Situationen.
+        Schreibe einen robusten Bot mit Pfadsuche, Sicherheitschecks, begrenzter Laufzeit und Tests für schwierige Situationen.
     studentConfig:
       content: ""
     teacherConfig:
@@ -94,31 +86,28 @@ modules:
 
   - url: https://edrys-labs.github.io/module-markdown-it/index.html
     config:
-      content: >-
+      content: |
         # Station
 
-        Die physische Station ist für eine spätere Projektphase geplant. Sie
-        stellt einen Arduino Uno R3, ein 16x16 RGB-LED-Grid und eine auf das Grid
-        gerichtete Kamera bereit.
+        Die physische Station ist für eine spätere Projektphase geplant. Sie stellt einen Arduino Uno R3, ein 16x16 RGB-LED-Grid und eine auf das Grid gerichtete Kamera bereit.
 
-        Aktuell ersetzt der Browser-Simulator die visuelle LED-Grid- und
-        Kameraansicht. Der Python-Simulator und die Tests laufen ohne
-        Arduino-Hardware.
+        Aktuell ersetzt der Browser-Simulator die visuelle LED-Grid- und Kameraansicht. Der Python-Simulator und die Tests laufen ohne Arduino-Hardware.
+
+        Sobald die Hardware vorhanden ist, gibt es genau einen aktiven Laborplatz. Lernende müssen diesen Platz nacheinander nutzen.
     studentConfig:
       content: ""
     teacherConfig:
-      content: >-
+      content: |
         ## Spätere Stationsintegration
 
-        Spätere Stationsmodule können serielles Flashen, Terminal- oder
-        Code-Ausführung und Kamerastreaming ergänzen. Die aktuelle Konfiguration
-        hält diese Teile bewusst als dokumentierte Platzhalter fest.
+        Spätere Stationsmodule können serielles Flashen, Terminal- oder Code-Ausführung und Kamerastreaming ergänzen.
+
+        Für den Einzelstationsbetrieb sollte die Lehrperson jeweils nur eine aktive Person an die Hardware lassen. Der Rest der Gruppe arbeitet währenddessen im Simulator und mit Tests.
     stationConfig:
-      content: >-
+      content: |
         ## Stationsaufbau
 
-        Der spätere Stationsmodus verbindet Arduino Uno R3, RGB-LED-Grid und
-        Kamerastream.
+        Der spätere Stationsmodus verbindet Arduino Uno R3, RGB-LED-Grid und Kamerastream. Diese Station ist als Einzelarbeitsplatz geplant.
     showInCustom: Station
     width: full
     height: medium

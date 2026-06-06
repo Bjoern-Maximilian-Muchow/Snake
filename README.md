@@ -10,6 +10,8 @@ Das Labor hat genau drei Schwierigkeitslevel:
 - Student Anfang Studium: strukturierter Bot, Spielfeldanalyse, sichere Züge, optional einfache BFS-Suche.
 - Fortgeschrittener Student: robuste Pfadsuche, Sicherheitsprüfung, begrenzte Laufzeit und Tests.
 
+Später steht genau ein physischer Laborplatz zur Verfügung. Mehrere Lernende können parallel im Simulator arbeiten, aber die reale Arduino-Station wird nacheinander genutzt.
+
 ## Projektstruktur
 
 - `docs/`: Architektur, Remote-Lab-Konzept und Levelbeschreibungen.
