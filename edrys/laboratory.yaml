@@ -1,23 +1,122 @@
+id: autosnake-remote-lab
 name: AutoSnake Remote Lab
-description: Remote lab for automating Snake on an Arduino Uno R3 and a 16x16 RGB LED grid.
-
+meta:
+  description: >-
+    Remote lab for automating Snake on an Arduino Uno R3 and a 16x16 RGB LED
+    grid. The lab starts simulation-first and later connects to a physical LED
+    grid and camera station.
+selfAssign: true
+defaultNumberOfRooms: 0
+members:
+  teacher: []
+  student: []
 modules:
-  - name: Aufgaben
-    type: markdown
-    file: tasks.md
-  - name: Station
-    type: markdown
-    file: station.md
-  - name: Simulator
-    type: iframe
-    url: ../simulator/web/index.html
-  - name: Terminal
-    type: terminal
-    description: Placeholder for later code execution and test commands.
+  - url: https://edrys-labs.github.io/module-markdown-it/index.html
+    config:
+      content: >-
+        # AutoSnake Remote Lab
 
-station:
-  hardware:
-    - Arduino Uno R3
-    - 16x16 RGB LED Grid
-    - Camera pointed at the LED grid
-  status: simulated-first placeholder
+        AutoSnake is a remote lab for embedded systems education. Snake runs on
+        a simulated 16x16 RGB LED grid first; later the same workflow can be
+        connected to an Arduino Uno R3, a real LED grid, and a camera.
+
+        Repository:
+        https://github.com/Bjoern-Maximilian-Muchow/Snake
+
+        Simulator:
+        https://bjoern-maximilian-muchow.github.io/Snake/simulator/web/
+
+        Levels:
+
+        1. Schueler: simple rule-based control.
+
+        2. Student Anfang Studium: structured bot with field analysis and safe
+        moves.
+
+        3. Fortgeschrittener Student: robust pathfinding, safety checks,
+        bounded runtime, and tests.
+    studentConfig:
+      content: ""
+    teacherConfig:
+      content: >-
+        ## Teacher Notes
+
+        Keep the GitHub repository as the source of truth. Update this lab by
+        editing `edrys/laboratory.yaml` and opening the edrys-Lite deploy URL
+        again.
+
+        Current repository:
+        https://github.com/Bjoern-Maximilian-Muchow/Snake
+    stationConfig:
+      content: ""
+    showInCustom: Lobby
+    width: full
+    height: medium
+
+  - url: https://edrys-labs.github.io/module-markdown-it/index.html
+    config:
+      content: >-
+        # Tasks
+
+        ## Level 1: Schueler
+
+        Write a simple rule-based bot. It should avoid basic wall collisions
+        and move roughly toward food.
+
+        ## Level 2: Student Anfang Studium
+
+        Write a structured bot that analyzes the field, checks safe moves, and
+        optionally uses BFS to find food.
+
+        ## Level 3: Fortgeschrittener Student
+
+        Write a robust bot with pathfinding, safety checks, bounded runtime,
+        and tests for difficult scenarios.
+    studentConfig:
+      content: ""
+    teacherConfig:
+      content: ""
+    stationConfig:
+      content: ""
+    showInCustom: Lobby
+    width: full
+    height: tall
+
+  - url: https://bjoern-maximilian-muchow.github.io/Snake/simulator/web/
+    config: ""
+    studentConfig: ""
+    teacherConfig: ""
+    stationConfig: ""
+    showInCustom: Lobby
+    width: full
+    height: tall
+
+  - url: https://edrys-labs.github.io/module-markdown-it/index.html
+    config:
+      content: >-
+        # Station
+
+        The physical station is planned for a later project phase. It will
+        provide an Arduino Uno R3, a 16x16 RGB LED grid, and a camera pointed at
+        the grid.
+
+        For now, the browser simulator replaces the visual LED-grid and camera
+        view. The Python simulator and tests run without Arduino hardware.
+    studentConfig:
+      content: ""
+    teacherConfig:
+      content: >-
+        ## Future Station Integration
+
+        Later station modules can add serial flashing, terminal/code execution,
+        and camera streaming. The current configuration intentionally keeps
+        those parts as documented placeholders.
+    stationConfig:
+      content: >-
+        ## Station Setup
+
+        Future station mode will connect the Arduino Uno R3, RGB LED grid, and
+        camera stream.
+    showInCustom: Station
+    width: full
+    height: medium

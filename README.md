@@ -6,7 +6,7 @@ The project follows a simulation-first approach: until the physical LED grid and
 
 The lab has exactly three difficulty levels:
 
-- Schüler: simple rule-based control, no wall collision, rough food targeting.
+- Schueler: simple rule-based control, no wall collision, rough food targeting.
 - Student Anfang Studium: structured bot, field analysis, safe moves, optional simple BFS.
 - Fortgeschrittener Student: robust pathfinding, safety checks, bounded runtime, and tests.
 
@@ -43,4 +43,24 @@ The flash script is currently a placeholder for a future Arduino CLI workflow.
 
 ## Edrys-Lite Integration
 
-The first edrys-Lite configuration lives in `edrys/laboratory.yaml`. It is intentionally lightweight and prepares modules for task descriptions, simulator or station hints, and later terminal/code execution.
+The edrys-Lite configuration lives in `edrys/laboratory.yaml`.
+
+Raw configuration URL:
+
+```text
+https://raw.githubusercontent.com/Bjoern-Maximilian-Muchow/Snake/main/edrys/laboratory.yaml
+```
+
+Open the lab in edrys-Lite:
+
+```text
+https://edrys-labs.github.io/?/deploy/https://raw.githubusercontent.com/Bjoern-Maximilian-Muchow/Snake/main/edrys/laboratory.yaml
+```
+
+The web simulator is prepared for GitHub Pages:
+
+```text
+https://bjoern-maximilian-muchow.github.io/Snake/simulator/web/
+```
+
+Enable GitHub Pages for this repository before using the simulator URL in edrys-Lite.
