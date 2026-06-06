@@ -27,6 +27,7 @@ class BotSnapshot:
     food: Point
     direction: Direction
     snake: tuple[Point, ...]
+    obstacles: tuple[Point, ...]
     score: int
 
 
@@ -35,6 +36,7 @@ class StepResult(str, Enum):
     ATE_FOOD = "ate_food"
     WALL_COLLISION = "wall_collision"
     SELF_COLLISION = "self_collision"
+    OBSTACLE_COLLISION = "obstacle_collision"
 
 
 OPPOSITES = {
@@ -60,12 +62,14 @@ class GameEngine:
         height: int = GRID_HEIGHT,
         snake: list[Point] | None = None,
         food: Point | None = None,
+        obstacles: set[Point] | None = None,
         direction: Direction = Direction.RIGHT,
     ) -> None:
         self.width = width
         self.height = height
         self.snake = snake or [Point(8, 8), Point(7, 8), Point(6, 8)]
         self.food = food or Point(12, 8)
+        self.obstacles = obstacles or set()
         self.direction = direction
         self.score = 0
         self.game_over = False
@@ -77,6 +81,7 @@ class GameEngine:
             food=self.food,
             direction=self.direction,
             snake=tuple(self.snake),
+            obstacles=tuple(sorted(self.obstacles, key=lambda point: (point.y, point.x))),
             score=self.score,
         )
 
@@ -95,7 +100,7 @@ class GameEngine:
                 continue
             head = self.next_head(direction)
             tail_safe_body = set(self.snake[:-1])
-            if self.is_inside(head) and head not in tail_safe_body:
+            if self.is_inside(head) and head not in tail_safe_body and head not in self.obstacles:
                 moves.append(direction)
         return moves
 
@@ -109,6 +114,8 @@ class GameEngine:
         head = self.next_head(self.direction)
         if not self.is_inside(head):
             return self._finish(StepResult.WALL_COLLISION)
+        if head in self.obstacles:
+            return self._finish(StepResult.OBSTACLE_COLLISION)
 
         will_grow = head == self.food
         occupied = set(self.snake if will_grow else self.snake[:-1])
@@ -132,7 +139,7 @@ class GameEngine:
         return result
 
     def _place_food(self) -> None:
-        occupied = set(self.snake)
+        occupied = set(self.snake) | self.obstacles
         for y in range(self.height):
             for x in range(self.width):
                 candidate = Point(x, y)

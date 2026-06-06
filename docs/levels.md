@@ -30,13 +30,14 @@ AutoSnake Remote Lab nutzt genau drei Level. Jedes Level baut auf demselben Spie
 
 - Einen strukturierten Algorithmus mit klaren Hilfsfunktionen bauen.
 - Ein Spielfeldmodell pflegen oder auswerten.
+- Hindernisse als blockierte Felder berücksichtigen.
 - Sichere und unsichere Züge unterscheiden.
 - Optional einfache BFS-Suche nutzen, um Futter zu finden.
 
 ### Anforderungen
 
 - Der Bot bewertet alle erlaubten Züge, bevor er entscheidet.
-- Der Bot vermeidet Wände und den eigenen Körper, wenn möglich.
+- Der Bot vermeidet Wände, Hindernisse und den eigenen Körper, wenn möglich.
 - Der Bot trennt Analyse, Entscheidung und Ausweichlogik.
 - Optional: Der Bot findet auf kleinen Spielfeldern mit BFS einen kürzesten Weg zum Futter.
 
@@ -44,6 +45,7 @@ AutoSnake Remote Lab nutzt genau drei Level. Jedes Level baut auf demselben Spie
 
 - Gültigkeit der Züge über mehrere Spielzustände testen.
 - Prüfen, dass der Bot sichere Züge gegenüber direkten, aber unsicheren Zügen bevorzugt.
+- Prüfen, dass Hindernisse nicht betreten werden.
 - Optionales BFS-Ergebnis mit bekannten kürzesten Wegen vergleichen.
 
 ## 3. Fortgeschrittener Student
@@ -51,6 +53,7 @@ AutoSnake Remote Lab nutzt genau drei Level. Jedes Level baut auf demselben Spie
 ### Lernziele
 
 - Robuste Pfadsuche und Sicherheitsvalidierung implementieren.
+- Hindernisse in die Pfadsuche und Sicherheitsprüfung einbeziehen.
 - Über Sackgassen und zukünftig erreichbaren freien Raum nachdenken.
 - Begrenzte Laufzeit auf eingebetteter Hardware beachten.
 - Verhalten in Randfällen mit Tests absichern.
@@ -58,7 +61,7 @@ AutoSnake Remote Lab nutzt genau drei Level. Jedes Level baut auf demselben Spie
 ### Anforderungen
 
 - Der Bot nutzt Pfadsuche oder eine gleichwertige systematische Strategie.
-- Der Bot prüft, ob ein gewählter Pfad genug sicheren Raum übrig lässt.
+- Der Bot prüft, ob ein gewählter Pfad trotz Hindernissen genug sicheren Raum übrig lässt.
 - Der Bot hat ein begrenztes Rechenzeitbudget.
 - Der Bot enthält Tests für kollisionsreiche Situationen und Beinahe-Sackgassen.
 

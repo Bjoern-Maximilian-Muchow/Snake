@@ -29,8 +29,8 @@ modules:
         ## Level
 
         1. Schüler: einfache regelbasierte Steuerung.
-        2. Student Anfang Studium: strukturierter Bot mit Spielfeldanalyse und sicheren Zügen.
-        3. Fortgeschrittener Student: robuste Pfadsuche, Sicherheitsprüfungen, begrenzte Laufzeit und Tests.
+        2. Student Anfang Studium: strukturierter Bot mit Spielfeldanalyse, Hindernissen und sicheren Zügen.
+        3. Fortgeschrittener Student: robuste Pfadsuche mit Hindernissen, Sicherheitsprüfungen, begrenzte Laufzeit und Tests.
     studentConfig:
       content: ""
     teacherConfig:
@@ -60,11 +60,11 @@ modules:
 
         ## Level 2: Student Anfang Studium
 
-        Schreibe einen strukturierten Bot, der das Spielfeld analysiert, sichere Züge prüft und optional BFS nutzt, um Futter zu finden.
+        Schreibe einen strukturierten Bot, der das Spielfeld analysiert, Hindernisse als blockierte Felder behandelt, sichere Züge prüft und optional BFS nutzt, um Futter zu finden.
 
         ## Level 3: Fortgeschrittener Student
 
-        Schreibe einen robusten Bot mit Pfadsuche, Sicherheitschecks, begrenzter Laufzeit und Tests für schwierige Situationen.
+        Schreibe einen robusten Bot mit Pfadsuche über Hindernisse hinweg, Sicherheitschecks, begrenzter Laufzeit und Tests für schwierige Situationen.
     studentConfig:
       content: ""
     teacherConfig:

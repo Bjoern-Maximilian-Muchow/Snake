@@ -8,15 +8,67 @@
   </head>
   <body>
     <main class="app">
-      <section class="toolbar">
-        <h1>AutoSnake Simulator</h1>
-        <div class="stats">
-          <span>Punkte: <strong id="score">0</strong></span>
-          <span>Status: <strong id="status">Läuft</strong></span>
+      <section class="topbar" aria-label="Simulator-Steuerung">
+        <div>
+          <h1>AutoSnake Simulator</h1>
+          <p>Bot-Logik testen, bevor die echte LED-Matrix im Remote-Labor genutzt wird.</p>
         </div>
-        <button id="reset" type="button">Zurücksetzen</button>
+        <div class="controls">
+          <button id="toggle" type="button">Pause</button>
+          <button id="step" type="button">Schritt</button>
+          <button id="reset" type="button">Zurücksetzen</button>
+        </div>
       </section>
-      <section id="grid" class="grid" aria-label="16 mal 16 Snake-LED-Grid"></section>
+
+      <section class="workspace">
+        <section class="board-area" aria-label="Simulierte LED-Matrix">
+          <div id="grid" class="grid" aria-label="16 mal 16 Snake-LED-Grid"></div>
+        </section>
+
+        <aside class="side-panel" aria-label="Lern- und Statusbereich">
+          <div class="field">
+            <label for="level">Level</label>
+            <select id="level">
+              <option value="1">1 - Schüler</option>
+              <option value="2">2 - Student Anfang Studium</option>
+              <option value="3">3 - Fortgeschrittener Student</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="bot">Bot</label>
+            <select id="bot">
+              <option value="basic">Regelbot</option>
+              <option value="safe">Sicherer Bot</option>
+              <option value="bfs">BFS-Bot</option>
+            </select>
+          </div>
+
+          <dl class="stats">
+            <div>
+              <dt>Punkte</dt>
+              <dd id="score">0</dd>
+            </div>
+            <div>
+              <dt>Länge</dt>
+              <dd id="length">3</dd>
+            </div>
+            <div>
+              <dt>Letzter Zug</dt>
+              <dd id="last-move">rechts</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd id="status">Läuft</dd>
+            </div>
+          </dl>
+
+          <section class="task-box" aria-label="Aufgabe">
+            <h2 id="task-title">Level 1: Schüler</h2>
+            <p id="task-text">Nutze einfache Regeln, um das Futter grob anzusteuern und Wände zu vermeiden.</p>
+          </section>
+        </aside>
+      </section>
     </main>
     <script src="simulator.js"></script>
   </body>

@@ -33,7 +33,7 @@ def safe_rule_bot(snapshot: BotSnapshot, width: int = 16, height: int = 16) -> D
 
 def bfs_bot(snapshot: BotSnapshot, width: int = 16, height: int = 16, time_limit_ms: float = 5.0) -> Direction:
     deadline = perf_counter() + time_limit_ms / 1000.0
-    blocked = set(snapshot.snake[:-1])
+    blocked = set(snapshot.snake[:-1]) | set(snapshot.obstacles)
     queue: deque[tuple[Point, list[Direction]]] = deque([(snapshot.head, [])])
     seen = {snapshot.head}
 
@@ -79,5 +79,5 @@ def _is_safe(snapshot: BotSnapshot, move: Direction, width: int, height: int) ->
         return False
     dx, dy = DELTAS[move]
     nxt = Point(snapshot.head.x + dx, snapshot.head.y + dy)
-    body_without_tail = set(snapshot.snake[:-1])
+    body_without_tail = set(snapshot.snake[:-1]) | set(snapshot.obstacles)
     return 0 <= nxt.x < width and 0 <= nxt.y < height and nxt not in body_without_tail

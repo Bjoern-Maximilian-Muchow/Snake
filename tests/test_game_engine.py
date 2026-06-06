@@ -46,3 +46,16 @@ def test_food_increases_length_and_score():
     assert result == StepResult.ATE_FOOD
     assert game.score == 1
     assert len(game.snake) == 4
+
+
+def test_obstacle_collision_is_detected():
+    game = GameEngine(
+        snake=[Point(8, 8), Point(7, 8), Point(6, 8)],
+        food=Point(12, 8),
+        obstacles={Point(9, 8)},
+    )
+
+    result = game.step(Direction.RIGHT)
+
+    assert result == StepResult.OBSTACLE_COLLISION
+    assert game.game_over is True

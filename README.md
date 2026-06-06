@@ -7,10 +7,12 @@ Das Projekt folgt einem simulationsorientierten Ansatz: Solange das physische LE
 Das Labor hat genau drei Schwierigkeitslevel:
 
 - Schüler: einfache regelbasierte Steuerung, keine Wandkollision, Futter grob ansteuern.
-- Student Anfang Studium: strukturierter Bot, Spielfeldanalyse, sichere Züge, optional einfache BFS-Suche.
-- Fortgeschrittener Student: robuste Pfadsuche, Sicherheitsprüfung, begrenzte Laufzeit und Tests.
+- Student Anfang Studium: strukturierter Bot, Spielfeldanalyse, Hindernisse, sichere Züge, optional einfache BFS-Suche.
+- Fortgeschrittener Student: robuste Pfadsuche mit Hindernissen, Sicherheitsprüfung, begrenzte Laufzeit und Tests.
 
 Später steht genau ein physischer Laborplatz zur Verfügung. Mehrere Lernende können parallel im Simulator arbeiten, aber die reale Arduino-Station wird nacheinander genutzt.
+
+Der Web-Simulator enthält Start/Pause, Einzelschritt, Reset, Bot-Auswahl und ab Level 2 feste Hindernisse auf dem Spielfeld.
 
 ## Projektstruktur
 
