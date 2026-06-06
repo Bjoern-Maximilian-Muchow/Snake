@@ -23,18 +23,25 @@ const tasks = {
   1: {
     title: "Level 1: Schüler",
     text: "Nutze einfache Regeln, um das Futter grob anzusteuern und Wände zu vermeiden.",
+    bot: "Regelbot: folgt grob dem Futter und verhindert nur direkte Rückwärtsfahrten.",
+    defaultBot: "basic",
   },
   2: {
     title: "Level 2: Student Anfang Studium",
     text: "Berücksichtige Hindernisse, prüfe sichere Züge und trenne Analyse von Entscheidung.",
+    bot: "Sicherer Bot: prüft Wand, Körper und Hindernisse, bevor er einen Zug auswählt.",
+    defaultBot: "safe",
   },
   3: {
     title: "Level 3: Fortgeschrittener Student",
     text: "Nutze Pfadsuche mit Sicherheitsprüfung und begrenzter Rechenzeit.",
+    bot: "BFS-Bot: sucht einen Pfad zum Futter und fällt bei Zeitlimit auf sichere Züge zurück.",
+    defaultBot: "bfs",
   },
 };
 
 const grid = document.querySelector("#grid");
+const currentLevelEl = document.querySelector("#current-level");
 const scoreEl = document.querySelector("#score");
 const lengthEl = document.querySelector("#length");
 const statusEl = document.querySelector("#status");
@@ -46,6 +53,7 @@ const levelSelect = document.querySelector("#level");
 const botSelect = document.querySelector("#bot");
 const taskTitle = document.querySelector("#task-title");
 const taskText = document.querySelector("#task-text");
+const botText = document.querySelector("#bot-text");
 
 let state;
 let timerId;
@@ -260,6 +268,7 @@ function render() {
     }
   }
   scoreEl.textContent = String(state.score);
+  currentLevelEl.textContent = String(state.level);
   lengthEl.textContent = String(state.snake.length);
   statusEl.textContent = state.status;
   lastMoveEl.textContent = moveNames[state.lastMove];
@@ -270,6 +279,7 @@ function updateTask() {
   const task = tasks[state.level];
   taskTitle.textContent = task.title;
   taskText.textContent = task.text;
+  botText.textContent = task.bot;
 }
 
 function syncTimer() {
@@ -302,11 +312,16 @@ resetBtn.addEventListener("click", () => {
 
 levelSelect.addEventListener("change", () => {
   running = true;
+  botSelect.value = tasks[Number(levelSelect.value)].defaultBot;
   reset();
   syncTimer();
 });
 
-botSelect.addEventListener("change", render);
+botSelect.addEventListener("change", () => {
+  const label = botSelect.options[botSelect.selectedIndex].textContent;
+  botText.textContent = `${label}: manuell ausgewählter Beispielbot für diesen Lauf.`;
+  render();
+});
 
 reset();
 syncTimer();
