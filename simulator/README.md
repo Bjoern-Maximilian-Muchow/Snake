@@ -4,6 +4,7 @@ Der Simulator ermöglicht AutoSnake-Entwicklung, bevor das physische LED-Grid un
 
 - `web/`: browserbasiertes visuelles 16x16 Grid mit Start/Pause, Einzelschritt, Level-Auswahl, Bot-Auswahl und Hindernissen ab Level 2. Es ersetzt zunächst die visuelle Kameraansicht.
 - `python/`: deterministische Python-Game-Engine und Beispielbots, die von Tests verwendet werden. Die Engine kennt ebenfalls Hindernisse.
+- `python/student_bot.py`: Vorlage und Einstiegspunkt für eigene Bots der Lernenden.
 
 Web-Simulator aus dem Repository-Stamm starten:
 
@@ -15,4 +16,10 @@ Tests ausführen:
 
 ```sh
 ./scripts/run_tests.sh
+```
+
+Eigene Bot-Logik wird hier implementiert:
+
+```text
+simulator/python/student_bot.py
 ```

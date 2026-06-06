@@ -14,6 +14,8 @@ Später steht genau ein physischer Laborplatz zur Verfügung. Mehrere Lernende k
 
 Der Web-Simulator enthält Start/Pause, Einzelschritt, Reset, Bot-Auswahl und ab Level 2 feste Hindernisse auf dem Spielfeld.
 
+Eigene Bots werden in `simulator/python/student_bot.py` implementiert. Die feste Schnittstelle ist `choose_move(snapshot)` und wird durch Tests geprüft. Details stehen in `docs/student-bots.md`.
+
 ## Projektstruktur
 
 - `docs/`: Architektur, Remote-Lab-Konzept und Levelbeschreibungen.

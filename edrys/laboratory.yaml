@@ -58,6 +58,8 @@ modules:
 
         Schreibe einen einfachen regelbasierten Bot. Er soll grundlegende Wandkollisionen vermeiden und sich grob in Richtung Futter bewegen.
 
+        Eigene Bot-Logik wird in `simulator/python/student_bot.py` implementiert. Der Einstiegspunkt ist `choose_move(snapshot)`.
+
         ## Level 2: Student Anfang Studium
 
         Schreibe einen strukturierten Bot, der das Spielfeld analysiert, Hindernisse als blockierte Felder behandelt, sichere Züge prüft und optional BFS nutzt, um Futter zu finden.

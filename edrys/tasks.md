@@ -2,6 +2,8 @@
 
 Lernende automatisieren Snake, indem sie Bots schreiben. Ziel ist nicht die manuelle Steuerung, sondern algorithmische Entscheidungsfindung.
 
+Die eigene Bot-Logik wird in `simulator/python/student_bot.py` implementiert. Die Funktion `choose_move(snapshot)` ist der feste Einstiegspunkt.
+
 ## Level 1: Schüler
 
 Schreibe einen einfachen regelbasierten Bot. Er soll grundlegende Wandkollisionen vermeiden und sich grob in Richtung Futter bewegen.

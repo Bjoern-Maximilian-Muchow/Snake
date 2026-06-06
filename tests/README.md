@@ -10,6 +10,7 @@ Sie validiert:
 - Hinderniskollisionen ab Level 2.
 - Verhalten von Futter, Länge und Punktzahl.
 - Gültigkeit der Züge des Beispielbots.
+- Schnittstelle für eigene Lernenden-Bots in `simulator/python/student_bot.py`.
 - Grundanforderungen der drei Level.
 
 Aus dem Repository-Stamm ausführen:
