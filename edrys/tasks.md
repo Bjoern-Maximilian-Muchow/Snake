@@ -1,15 +1,15 @@
-# AutoSnake Tasks
+# AutoSnake-Aufgaben
 
-Learners automate Snake by writing bots. The goal is not manual control, but algorithmic decision-making.
+Lernende automatisieren Snake, indem sie Bots schreiben. Ziel ist nicht die manuelle Steuerung, sondern algorithmische Entscheidungsfindung.
 
 ## Level 1: Schüler
 
-Write a simple rule-based bot. It should avoid basic wall collisions and move roughly toward the food.
+Schreibe einen einfachen regelbasierten Bot. Er soll grundlegende Wandkollisionen vermeiden und sich grob in Richtung Futter bewegen.
 
 ## Level 2: Student Anfang Studium
 
-Write a structured bot that analyzes the field, checks safe moves, and optionally uses BFS to find food.
+Schreibe einen strukturierten Bot, der das Spielfeld analysiert, sichere Züge prüft und optional BFS nutzt, um Futter zu finden.
 
 ## Level 3: Fortgeschrittener Student
 
-Write a robust bot with pathfinding, safety checks, a bounded runtime, and tests for difficult scenarios.
+Schreibe einen robusten Bot mit Pfadsuche, Sicherheitschecks, begrenzter Laufzeit und Tests für schwierige Situationen.

@@ -92,7 +92,7 @@ function render() {
     }
   }
   scoreEl.textContent = String(state.score);
-  statusEl.textContent = state.over ? "Game over" : "Running";
+  statusEl.textContent = state.over ? "Spielende" : "Läuft";
 }
 
 resetBtn.addEventListener("click", reset);

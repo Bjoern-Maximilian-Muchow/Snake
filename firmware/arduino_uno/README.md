@@ -1,13 +1,13 @@
-# Arduino Uno Firmware
+# Arduino-Uno-Firmware
 
-This folder contains the first Arduino Uno R3 firmware skeleton for AutoSnake Remote Lab.
+Dieser Ordner enthält die erste Firmware-Grundstruktur für den Arduino Uno R3 im AutoSnake Remote Lab.
 
-The code is intentionally small and split into:
+Der Code ist bewusst klein gehalten und aufgeteilt in:
 
-- `game_engine.*`: hardware-independent Snake state and update logic.
-- `bot_interface.h`: compact snapshot and move API.
-- `example_bot_basic.h`: simple rule-based example bot.
-- `led_grid.*`: LED output abstraction placeholder.
-- `AutoSnakeUno.ino`: Arduino entry point.
+- `game_engine.*`: hardwareunabhängiger Snake-Zustand und Update-Logik.
+- `bot_interface.h`: kompakter Spielzustand und Bewegungs-API.
+- `example_bot_basic.h`: einfacher regelbasierter Beispielbot.
+- `led_grid.*`: Platzhalter-Abstraktion für LED-Ausgabe.
+- `AutoSnakeUno.ino`: Arduino-Einstiegspunkt.
 
-The Arduino Uno has limited RAM, so the firmware avoids dynamic allocation and stores the snake body in fixed-size arrays.
+Der Arduino Uno hat wenig RAM. Deshalb vermeidet die Firmware dynamische Speicherallokation und speichert den Snake-Körper in Arrays fester Größe.

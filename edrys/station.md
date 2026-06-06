@@ -1,10 +1,10 @@
 # Station
 
-The future physical station will provide:
+Die spätere physische Station stellt bereit:
 
 - Arduino Uno R3.
-- 16x16 RGB LED grid.
-- Camera pointed at the LED grid.
-- A controlled environment for flashing or transferring learner code.
+- 16x16 RGB-LED-Grid.
+- Kamera, die auf das LED-Grid gerichtet ist.
+- Eine kontrollierte Umgebung zum Flashen oder Übertragen von Lernendencode.
 
-At the current stage, the station is simulated. The browser simulator replaces the visual LED-grid and camera view, while the Python simulator supports tests and bot development.
+Aktuell wird die Station simuliert. Der Browser-Simulator ersetzt die visuelle LED-Grid- und Kameraansicht, während der Python-Simulator Tests und Bot-Entwicklung unterstützt.

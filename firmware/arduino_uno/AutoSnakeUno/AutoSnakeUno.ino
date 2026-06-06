@@ -25,7 +25,7 @@ void loop() {
   ledGrid.render(engine);
 
   if (result == STEP_COLLISION) {
-    Serial.println("Game over");
+    Serial.println("Spielende");
     delay(1000);
     engine.reset();
   }

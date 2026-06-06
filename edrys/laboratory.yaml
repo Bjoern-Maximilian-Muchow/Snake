@@ -2,9 +2,9 @@ id: autosnake-remote-lab
 name: AutoSnake Remote Lab
 meta:
   description: >-
-    Remote lab for automating Snake on an Arduino Uno R3 and a 16x16 RGB LED
-    grid. The lab starts simulation-first and later connects to a physical LED
-    grid and camera station.
+    Remote-Labor zur Automatisierung von Snake auf einem Arduino Uno R3 und
+    einem 16x16 RGB-LED-Grid. Das Labor startet simulationsorientiert und wird später
+    mit einem physischen LED-Grid und einer Kamerastation verbunden.
 selfAssign: true
 defaultNumberOfRooms: 0
 members:
@@ -16,9 +16,10 @@ modules:
       content: >-
         # AutoSnake Remote Lab
 
-        AutoSnake is a remote lab for embedded systems education. Snake runs on
-        a simulated 16x16 RGB LED grid first; later the same workflow can be
-        connected to an Arduino Uno R3, a real LED grid, and a camera.
+        AutoSnake ist ein Remote-Labor für eingebettete Systeme. Snake läuft
+        zunächst auf einem simulierten 16x16 RGB-LED-Grid; später kann derselbe
+        Ablauf mit einem Arduino Uno R3, einem echten LED-Grid und einer Kamera
+        verbunden werden.
 
         Repository:
         https://github.com/Bjoern-Maximilian-Muchow/Snake
@@ -26,26 +27,26 @@ modules:
         Simulator:
         https://bjoern-maximilian-muchow.github.io/Snake/simulator/web/
 
-        Levels:
+        Level:
 
-        1. Schueler: simple rule-based control.
+        1. Schüler: einfache regelbasierte Steuerung.
 
-        2. Student Anfang Studium: structured bot with field analysis and safe
-        moves.
+        2. Student Anfang Studium: strukturierter Bot mit Spielfeldanalyse und
+        sicheren Zügen.
 
-        3. Fortgeschrittener Student: robust pathfinding, safety checks,
-        bounded runtime, and tests.
+        3. Fortgeschrittener Student: robuste Pfadsuche, Sicherheitsprüfungen,
+        begrenzte Laufzeit und Tests.
     studentConfig:
       content: ""
     teacherConfig:
       content: >-
-        ## Teacher Notes
+        ## Hinweise für Lehrende
 
-        Keep the GitHub repository as the source of truth. Update this lab by
-        editing `edrys/laboratory.yaml` and opening the edrys-Lite deploy URL
-        again.
+        Das GitHub-Repository bleibt die Quelle der Wahrheit. Aktualisiere das
+        Labor, indem du `edrys/laboratory.yaml` bearbeitest und anschließend die
+        edrys-Lite-Deploy-URL erneut öffnest.
 
-        Current repository:
+        Aktuelles Repository:
         https://github.com/Bjoern-Maximilian-Muchow/Snake
     stationConfig:
       content: ""
@@ -56,22 +57,22 @@ modules:
   - url: https://edrys-labs.github.io/module-markdown-it/index.html
     config:
       content: >-
-        # Tasks
+        # Aufgaben
 
-        ## Level 1: Schueler
+        ## Level 1: Schüler
 
-        Write a simple rule-based bot. It should avoid basic wall collisions
-        and move roughly toward food.
+        Schreibe einen einfachen regelbasierten Bot. Er soll grundlegende
+        Wandkollisionen vermeiden und sich grob in Richtung Futter bewegen.
 
         ## Level 2: Student Anfang Studium
 
-        Write a structured bot that analyzes the field, checks safe moves, and
-        optionally uses BFS to find food.
+        Schreibe einen strukturierten Bot, der das Spielfeld analysiert,
+        sichere Züge prüft und optional BFS nutzt, um Futter zu finden.
 
         ## Level 3: Fortgeschrittener Student
 
-        Write a robust bot with pathfinding, safety checks, bounded runtime,
-        and tests for difficult scenarios.
+        Schreibe einen robusten Bot mit Pfadsuche, Sicherheitschecks,
+        begrenzter Laufzeit und Tests für schwierige Situationen.
     studentConfig:
       content: ""
     teacherConfig:
@@ -96,27 +97,28 @@ modules:
       content: >-
         # Station
 
-        The physical station is planned for a later project phase. It will
-        provide an Arduino Uno R3, a 16x16 RGB LED grid, and a camera pointed at
-        the grid.
+        Die physische Station ist für eine spätere Projektphase geplant. Sie
+        stellt einen Arduino Uno R3, ein 16x16 RGB-LED-Grid und eine auf das Grid
+        gerichtete Kamera bereit.
 
-        For now, the browser simulator replaces the visual LED-grid and camera
-        view. The Python simulator and tests run without Arduino hardware.
+        Aktuell ersetzt der Browser-Simulator die visuelle LED-Grid- und
+        Kameraansicht. Der Python-Simulator und die Tests laufen ohne
+        Arduino-Hardware.
     studentConfig:
       content: ""
     teacherConfig:
       content: >-
-        ## Future Station Integration
+        ## Spätere Stationsintegration
 
-        Later station modules can add serial flashing, terminal/code execution,
-        and camera streaming. The current configuration intentionally keeps
-        those parts as documented placeholders.
+        Spätere Stationsmodule können serielles Flashen, Terminal- oder
+        Code-Ausführung und Kamerastreaming ergänzen. Die aktuelle Konfiguration
+        hält diese Teile bewusst als dokumentierte Platzhalter fest.
     stationConfig:
       content: >-
-        ## Station Setup
+        ## Stationsaufbau
 
-        Future station mode will connect the Arduino Uno R3, RGB LED grid, and
-        camera stream.
+        Der spätere Stationsmodus verbindet Arduino Uno R3, RGB-LED-Grid und
+        Kamerastream.
     showInCustom: Station
     width: full
     height: medium

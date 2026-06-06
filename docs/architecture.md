@@ -1,36 +1,36 @@
-# Architecture
+# Architektur
 
-AutoSnake Remote Lab is split into small components so learners can develop and test bot logic before real hardware is available.
+AutoSnake Remote Lab ist in kleine Komponenten aufgeteilt, damit Lernende Bot-Logik entwickeln und testen können, bevor echte Hardware verfügbar ist.
 
-## Components
+## Komponenten
 
 ### Game Engine
 
-The game engine owns the Snake state: grid size, snake body, food, direction, score, collisions, and step updates. It should stay as hardware-independent as possible so the same behavior can be mirrored in Arduino firmware, the browser simulator, and the Python test simulator.
+Die Game Engine verwaltet den Snake-Zustand: Rastergröße, Snake-Körper, Futter, Richtung, Punktzahl, Kollisionen und Spielschritte. Sie soll möglichst hardwareunabhängig bleiben, damit dasselbe Verhalten in Arduino-Firmware, Browser-Simulator und Python-Testsimulator abgebildet werden kann.
 
-### Bot Interface
+### Bot-Schnittstelle
 
-The bot interface exposes a compact game snapshot and expects a move decision. On Arduino Uno, this interface must avoid dynamic allocation and large data copies. In the Python simulator, the same idea is represented with simple data classes and pure functions.
+Die Bot-Schnittstelle stellt einen kompakten Spielzustand bereit und erwartet eine Bewegungsentscheidung. Auf dem Arduino Uno muss diese Schnittstelle dynamische Speicherallokation und große Datenkopien vermeiden. Im Python-Simulator wird dieselbe Idee mit einfachen Datenklassen und reinen Funktionen umgesetzt.
 
-### LED Renderer
+### LED-Renderer
 
-The LED renderer translates the abstract game state into pixels for a 16x16 RGB LED grid. During the simulation phase, the browser renderer replaces the physical LEDs.
+Der LED-Renderer übersetzt den abstrakten Spielzustand in Pixel für ein 16x16 RGB-LED-Grid. Während der Simulationsphase ersetzt der Browser-Renderer die physischen LEDs.
 
 ### Simulator
 
-The simulator has two parts:
+Der Simulator besteht aus zwei Teilen:
 
-- A web simulator that displays the 16x16 grid and acts as the first visual camera replacement.
-- A Python simulator that can be used by tests and bot implementations without Arduino hardware.
+- Ein Web-Simulator zeigt das 16x16 Grid und dient zunächst als visuelle Kameraersatzansicht.
+- Ein Python-Simulator kann von Tests und Bot-Implementierungen ohne Arduino-Hardware genutzt werden.
 
 ### Tests
 
-The tests validate movement, collisions, food behavior, bot outputs, and baseline level requirements. They run without Arduino hardware and provide quick feedback for learners and maintainers.
+Die Tests prüfen Bewegung, Kollisionen, Futterverhalten, Bot-Ausgaben und grundlegende Level-Anforderungen. Sie laufen ohne Arduino-Hardware und geben Lernenden und Maintainerinnen schnelles Feedback.
 
-### Edrys-Lite Station
+### Edrys-Lite-Station
 
-The edrys-Lite station will later connect the learner interface with the physical Arduino Uno R3, LED grid, camera stream, and code execution environment. For now, the station files document the intended integration points.
+Die edrys-Lite-Station verbindet später die Lernendenoberfläche mit dem physischen Arduino Uno R3, LED-Grid, Kamerastream und der Code-Ausführungsumgebung. Aktuell dokumentieren die Stationsdateien die geplanten Integrationspunkte.
 
-## Hardware Independence
+## Hardwareunabhängigkeit
 
-The game engine should not depend directly on LED libraries, camera APIs, serial transport, or edrys-Lite details. Hardware-specific code belongs in renderer, station, or transport layers. This keeps the core logic testable and makes it easier to compare simulated and physical behavior.
+Die Game Engine soll nicht direkt von LED-Bibliotheken, Kamera-APIs, serieller Übertragung oder edrys-Lite-Details abhängen. Hardware-spezifischer Code gehört in Renderer-, Stations- oder Transportschichten. Dadurch bleibt die Kernlogik testbar und simuliertes sowie physisches Verhalten lassen sich leichter vergleichen.

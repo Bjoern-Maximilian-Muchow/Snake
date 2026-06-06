@@ -5,7 +5,7 @@ void LedGrid::begin() {
 }
 
 void LedGrid::clear() {
-  // Placeholder for future RGB LED grid driver initialization.
+  // Platzhalter für die spätere Initialisierung des RGB-LED-Grid-Treibers.
 }
 
 void LedGrid::render(const GameEngine& engine) {
@@ -24,5 +24,5 @@ void LedGrid::setPixel(uint8_t x, uint8_t y, uint8_t r, uint8_t g, uint8_t b) {
   (void)r;
   (void)g;
   (void)b;
-  // Placeholder for hardware-specific pixel output.
+  // Platzhalter für die hardwarespezifische Pixelausgabe.
 }

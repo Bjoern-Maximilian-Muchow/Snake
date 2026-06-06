@@ -1,70 +1,70 @@
-# Difficulty Levels
+# Schwierigkeitslevel
 
-AutoSnake Remote Lab uses exactly three levels. Each level builds on the same game and bot interface but expects more structure, safety, and validation.
+AutoSnake Remote Lab nutzt genau drei Level. Jedes Level baut auf demselben Spiel und derselben Bot-Schnittstelle auf, erwartet aber mehr Struktur, Sicherheit und Validierung.
 
 ## 1. Schüler
 
-### Learning Goals
+### Lernziele
 
-- Understand the Snake grid, direction, food, and collisions.
-- Write simple rule-based control logic.
-- Avoid immediate wall collisions.
-- Move roughly toward food.
+- Snake-Grid, Richtung, Futter und Kollisionen verstehen.
+- Einfache regelbasierte Steuerlogik schreiben.
+- Unmittelbare Wandkollisionen vermeiden.
+- Sich grob in Richtung Futter bewegen.
 
-### Requirements
+### Anforderungen
 
-- Bot returns only valid directions.
-- Bot does not intentionally reverse into itself.
-- Bot uses simple comparisons between snake head and food position.
-- Bot includes a fallback move if the preferred direction is unsafe.
+- Der Bot gibt nur gültige Richtungen zurück.
+- Der Bot fährt nicht absichtlich direkt in sich selbst zurück.
+- Der Bot nutzt einfache Vergleiche zwischen Kopfposition und Futterposition.
+- Der Bot enthält einen Ausweichzug, falls die bevorzugte Richtung unsicher ist.
 
-### Assessment Ideas
+### Bewertungsideen
 
-- Run the bot for a fixed number of steps on simple maps.
-- Check that it avoids walls in basic situations.
-- Check that it can move closer to food when no obstacle blocks the path.
+- Bot für eine feste Anzahl Schritte auf einfachen Karten laufen lassen.
+- Prüfen, dass er in einfachen Situationen Wände vermeidet.
+- Prüfen, dass er sich dem Futter nähert, wenn kein Hindernis im Weg ist.
 
 ## 2. Student Anfang Studium
 
-### Learning Goals
+### Lernziele
 
-- Build a structured algorithm with clear helper functions.
-- Maintain or inspect a field model.
-- Distinguish safe and unsafe moves.
-- Optionally use simple BFS to find food.
+- Einen strukturierten Algorithmus mit klaren Hilfsfunktionen bauen.
+- Ein Spielfeldmodell pflegen oder auswerten.
+- Sichere und unsichere Züge unterscheiden.
+- Optional einfache BFS-Suche nutzen, um Futter zu finden.
 
-### Requirements
+### Anforderungen
 
-- Bot evaluates all legal moves before choosing.
-- Bot avoids walls and its own body when possible.
-- Bot separates analysis, decision, and fallback logic.
-- Optional: bot finds a shortest path to food with BFS on small boards.
+- Der Bot bewertet alle erlaubten Züge, bevor er entscheidet.
+- Der Bot vermeidet Wände und den eigenen Körper, wenn möglich.
+- Der Bot trennt Analyse, Entscheidung und Ausweichlogik.
+- Optional: Der Bot findet auf kleinen Spielfeldern mit BFS einen kürzesten Weg zum Futter.
 
-### Assessment Ideas
+### Bewertungsideen
 
-- Test move validity across several game states.
-- Verify that the bot prefers safe moves over direct but unsafe moves.
-- Compare optional BFS output with known shortest paths.
+- Gültigkeit der Züge über mehrere Spielzustände testen.
+- Prüfen, dass der Bot sichere Züge gegenüber direkten, aber unsicheren Zügen bevorzugt.
+- Optionales BFS-Ergebnis mit bekannten kürzesten Wegen vergleichen.
 
 ## 3. Fortgeschrittener Student
 
-### Learning Goals
+### Lernziele
 
-- Implement robust pathfinding and safety validation.
-- Reason about dead ends and future reachable space.
-- Respect limited runtime on embedded hardware.
-- Use tests to validate behavior under edge cases.
+- Robuste Pfadsuche und Sicherheitsvalidierung implementieren.
+- Über Sackgassen und zukünftig erreichbaren freien Raum nachdenken.
+- Begrenzte Laufzeit auf eingebetteter Hardware beachten.
+- Verhalten in Randfällen mit Tests absichern.
 
-### Requirements
+### Anforderungen
 
-- Bot uses pathfinding or an equivalent systematic strategy.
-- Bot checks whether a chosen path leaves enough safe space.
-- Bot has a bounded compute budget.
-- Bot includes tests for collision-heavy and near-dead-end scenarios.
+- Der Bot nutzt Pfadsuche oder eine gleichwertige systematische Strategie.
+- Der Bot prüft, ob ein gewählter Pfad genug sicheren Raum übrig lässt.
+- Der Bot hat ein begrenztes Rechenzeitbudget.
+- Der Bot enthält Tests für kollisionsreiche Situationen und Beinahe-Sackgassen.
 
-### Assessment Ideas
+### Bewertungsideen
 
-- Run deterministic challenge maps.
-- Measure that decision time stays within a configured limit.
-- Test that the bot avoids obvious traps even when food is nearby.
-- Require learner-authored tests for advanced scenarios.
+- Deterministische Challenge-Karten ausführen.
+- Messen, dass die Entscheidungszeit innerhalb eines konfigurierten Limits bleibt.
+- Testen, dass der Bot offensichtliche Fallen vermeidet, auch wenn Futter nahe liegt.
+- Von Lernenden geschriebene Tests für fortgeschrittene Szenarien verlangen.

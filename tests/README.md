@@ -1,17 +1,17 @@
 # Tests
 
-The test suite uses `pytest` and runs without Arduino hardware.
+Die Testsuite nutzt `pytest` und läuft ohne Arduino-Hardware.
 
-It validates:
+Sie validiert:
 
-- Snake movement.
-- Wall collisions.
-- Self collisions.
-- Food, length, and score behavior.
-- Example bot move validity.
-- Baseline requirements for the three levels.
+- Snake-Bewegung.
+- Wandkollisionen.
+- Selbstkollisionen.
+- Verhalten von Futter, Länge und Punktzahl.
+- Gültigkeit der Züge des Beispielbots.
+- Grundanforderungen der drei Level.
 
-Run from the repository root:
+Aus dem Repository-Stamm ausführen:
 
 ```sh
 pytest

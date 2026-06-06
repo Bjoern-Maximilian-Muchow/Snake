@@ -1,21 +1,21 @@
-# Remote Lab Concept
+# Remote-Lab-Konzept
 
-AutoSnake Remote Lab is designed for learners who access a shared embedded system remotely. The physical target is an Arduino Uno R3 connected to a 16x16 RGB LED grid. A camera will later observe the grid so learners can see the result of their bot on real hardware.
+AutoSnake Remote Lab ist für Lernende gedacht, die aus der Ferne auf ein gemeinsam genutztes eingebettetes System zugreifen. Das physische Ziel ist ein Arduino Uno R3 mit einem 16x16 RGB-LED-Grid. Später beobachtet eine Kamera das Grid, damit Lernende das Ergebnis ihres Bots auf echter Hardware sehen können.
 
-During the first project phase, the LED grid and camera are simulated. The browser simulator provides the visual grid, while the Python simulator supports automated tests and algorithm development.
+In der ersten Projektphase werden LED-Grid und Kamera simuliert. Der Browser-Simulator liefert die visuelle Grid-Ansicht, während der Python-Simulator automatisierte Tests und Algorithmenentwicklung unterstützt.
 
-## Planned Station Flow
+## Geplanter Stationsablauf
 
-1. Learner reads the task in edrys-Lite.
-2. Learner develops a Snake bot against the simulator.
-3. Tests validate the bot interface and basic behavior.
-4. Later, the bot can be flashed or transferred to the Arduino station.
-5. The station runs the bot on the LED grid.
-6. A camera stream shows the physical result.
+1. Lernende lesen die Aufgabe in edrys-Lite.
+2. Lernende entwickeln einen Snake-Bot gegen den Simulator.
+3. Tests validieren Bot-Schnittstelle und Grundverhalten.
+4. Später kann der Bot auf die Arduino-Station geflasht oder übertragen werden.
+5. Die Station führt den Bot auf dem LED-Grid aus.
+6. Ein Kamerastream zeigt das physische Ergebnis.
 
-## Design Goals
+## Entwurfsziele
 
-- Keep the game engine deterministic and testable.
-- Keep Arduino firmware small enough for Uno-class memory limits.
-- Let beginners start with simple rules.
-- Let advanced learners work on pathfinding, safety checks, runtime limits, and tests.
+- Game Engine deterministisch und testbar halten.
+- Arduino-Firmware klein genug für die Speichergrenzen der Uno-Klasse halten.
+- Einsteigerinnen und Einsteiger mit einfachen Regeln starten lassen.
+- Fortgeschrittene Lernende an Pfadsuche, Sicherheitschecks, Laufzeitgrenzen und Tests arbeiten lassen.
