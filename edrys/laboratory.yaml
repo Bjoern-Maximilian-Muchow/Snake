@@ -1,0 +1,23 @@
+name: AutoSnake Remote Lab
+description: Remote lab for automating Snake on an Arduino Uno R3 and a 16x16 RGB LED grid.
+
+modules:
+  - name: Aufgaben
+    type: markdown
+    file: tasks.md
+  - name: Station
+    type: markdown
+    file: station.md
+  - name: Simulator
+    type: iframe
+    url: ../simulator/web/index.html
+  - name: Terminal
+    type: terminal
+    description: Placeholder for later code execution and test commands.
+
+station:
+  hardware:
+    - Arduino Uno R3
+    - 16x16 RGB LED Grid
+    - Camera pointed at the LED grid
+  status: simulated-first placeholder
