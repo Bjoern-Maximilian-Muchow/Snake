@@ -16,11 +16,9 @@ inline Direction chooseBasicMove(const BotSnapshot& snapshot) {
     preferred = DIR_UP;
   }
 
-  if (!isOpposite(preferred, snapshot.currentDirection)) {
-    return preferred;
-  }
-
-  return snapshot.currentDirection;
+  return isOpposite(preferred, snapshot.currentDirection)
+    ? snapshot.currentDirection
+    : preferred;
 }
 
 #endif

@@ -34,3 +34,9 @@ Die edrys-Lite-Station verbindet später die Lernendenoberfläche mit dem physis
 ## Hardwareunabhängigkeit
 
 Die Game Engine soll nicht direkt von LED-Bibliotheken, Kamera-APIs, serieller Übertragung oder edrys-Lite-Details abhängen. Hardware-spezifischer Code gehört in Renderer-, Stations- oder Transportschichten. Dadurch bleibt die Kernlogik testbar und simuliertes sowie physisches Verhalten lassen sich leichter vergleichen.
+
+## Arduino-Uno-Speichermodell
+
+Die Uno-Firmware nutzt einen Ringpuffer mit kompakten 8-Bit-Positionen für den Snake-Körper. Zwei Bitfelder mit jeweils 32 Byte repräsentieren Snake-Belegung und Hindernisse auf allen 256 Feldern. Dadurch müssen Körpersegmente bei einem Spielschritt nicht verschoben werden und die Kollisionsprüfung bleibt konstant schnell.
+
+Die Level-Bots laufen über dieselbe kompakte Snapshot-Schnittstelle. Der Level-3-Bot nutzt einen statisch begrenzten BFS-Arbeitsbereich und ein Mikrosekunden-Zeitlimit, damit RAM- und Laufzeitbedarf vorhersagbar bleiben.

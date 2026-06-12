@@ -45,7 +45,9 @@ Arduino später flashen:
 ./scripts/flash_uno.sh
 ```
 
-Die Arduino-Firmware nutzt keine externen Bibliotheken und gibt über Serial eine Live-Statistik zu Schrittzeit und freiem RAM aus. Unter Windows kann der Monitor mit `.\scripts\monitor_uno.ps1 -Port COM3` gestartet werden.
+Die Arduino-Firmware nutzt keine externen Bibliotheken. Sie enthält die drei Bot-Stufen, Hindernisse ab Level 2 sowie eine Live-Statistik für Bot-, Engine- und Renderzeit, Rechenlast und freien RAM. Das Repository enthält eine `platformio.ini` für Build, Upload auf `COM3` und den seriellen Monitor. Unter Windows kann alternativ `.\scripts\monitor_uno.ps1 -Port COM3` verwendet werden.
+
+Ein automatisierter Hardwarevergleich der drei Level ist mit `scripts/sample_uno.py` möglich. GitHub Actions kompiliert neben den Python-Tests auch die Uno-Firmware über PlatformIO.
 
 ## Edrys-Lite-Integration
 

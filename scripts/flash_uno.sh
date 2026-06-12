@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
 set -eu
 
-echo "Arduino-Flashen ist noch nicht konfiguriert."
-echo "Später kann dafür zum Beispiel Arduino CLI genutzt werden:"
-echo "arduino-cli compile --fqbn arduino:avr:uno firmware/arduino_uno/AutoSnakeUno"
-echo "arduino-cli upload -p <PORT> --fqbn arduino:avr:uno firmware/arduino_uno/AutoSnakeUno"
+echo "Firmware mit PlatformIO bauen und auf den Uno laden:"
+echo "platformio run --environment uno --target upload"
+echo "Seriellen Monitor öffnen:"
+echo "platformio device monitor --environment uno"
 echo "Die Firmware nutzt keine externen Arduino-Bibliotheken."

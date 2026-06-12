@@ -63,6 +63,7 @@ AutoSnake Remote Lab nutzt genau drei Level. Jedes Level baut auf demselben Spie
 - Der Bot nutzt Pfadsuche oder eine gleichwertige systematische Strategie.
 - Der Bot prüft, ob ein gewählter Pfad trotz Hindernissen genug sicheren Raum übrig lässt.
 - Der Bot hat ein begrenztes Rechenzeitbudget.
+- Die Firmware begrenzt die Level-3-Botentscheidung auf ungefähr 3 Millisekunden pro Spielschritt.
 - Der Bot enthält Tests für kollisionsreiche Situationen und Beinahe-Sackgassen.
 
 ### Bewertungsideen

@@ -11,9 +11,9 @@ void LedGrid::clear() {
 
 void LedGrid::render(const GameEngine& engine) {
   digitalWrite(LED_BUILTIN, engine.gameOver() ? HIGH : LOW);
-  const Point* snake = engine.body();
-  for (uint8_t i = 0; i < engine.length(); ++i) {
-    setPixel(snake[i].x, snake[i].y, i == 0 ? 0 : 0, i == 0 ? 255 : 80, 0);
+  for (uint16_t i = 0; i < engine.length(); ++i) {
+    Point segment = engine.bodyPoint(i);
+    setPixel(segment.x, segment.y, 0, i == 0 ? 255 : 80, 0);
   }
   BotSnapshot snapshot = engine.snapshot();
   setPixel(snapshot.food.x, snapshot.food.y, 255, 0, 0);
