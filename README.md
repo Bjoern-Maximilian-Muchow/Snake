@@ -45,7 +45,7 @@ Arduino später flashen:
 ./scripts/flash_uno.sh
 ```
 
-Das Flash-Skript ist aktuell ein Platzhalter für einen späteren Arduino-CLI-Workflow.
+Die Arduino-Firmware nutzt keine externen Bibliotheken und gibt über Serial eine Live-Statistik zu Schrittzeit und freiem RAM aus. Unter Windows kann der Monitor mit `.\scripts\monitor_uno.ps1 -Port COM3` gestartet werden.
 
 ## Edrys-Lite-Integration
 

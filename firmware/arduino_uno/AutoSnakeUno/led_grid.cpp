@@ -1,15 +1,16 @@
 #include "led_grid.h"
 
 void LedGrid::begin() {
+  pinMode(LED_BUILTIN, OUTPUT);
   clear();
 }
 
 void LedGrid::clear() {
-  // Platzhalter für die spätere Initialisierung des RGB-LED-Grid-Treibers.
+  digitalWrite(LED_BUILTIN, LOW);
 }
 
 void LedGrid::render(const GameEngine& engine) {
-  clear();
+  digitalWrite(LED_BUILTIN, engine.gameOver() ? HIGH : LOW);
   const Point* snake = engine.body();
   for (uint8_t i = 0; i < engine.length(); ++i) {
     setPixel(snake[i].x, snake[i].y, i == 0 ? 0 : 0, i == 0 ? 255 : 80, 0);

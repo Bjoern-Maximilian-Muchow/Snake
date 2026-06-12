@@ -17,7 +17,7 @@ void GameEngine::reset() {
 
 StepResult GameEngine::step(Direction requestedDirection) {
   if (over) {
-    return STEP_COLLISION;
+    return STEP_SELF_COLLISION;
   }
 
   if (!isOpposite(requestedDirection, direction)) {
@@ -25,12 +25,18 @@ StepResult GameEngine::step(Direction requestedDirection) {
   }
 
   Point head = nextHead(direction);
-  if (isWall(head) || contains(head)) {
+  if (isWall(head)) {
     over = true;
-    return STEP_COLLISION;
+    return STEP_WALL_COLLISION;
   }
 
   bool ateFood = (head.x == food.x && head.y == food.y);
+  uint8_t collisionLength = ateFood ? snakeLength : snakeLength - 1;
+  if (containsFirst(head, collisionLength)) {
+    over = true;
+    return STEP_SELF_COLLISION;
+  }
+
   uint8_t newLength = snakeLength;
   if (ateFood && snakeLength < GRID_CELLS) {
     newLength++;
@@ -77,7 +83,17 @@ bool GameEngine::gameOver() const {
 }
 
 bool GameEngine::contains(Point p) const {
+  return containsFirst(p, snakeLength);
+}
+
+bool GameEngine::containsFirst(Point p, uint8_t count) const {
+  if (count > snakeLength) {
+    count = snakeLength;
+  }
   for (uint8_t i = 0; i < snakeLength; ++i) {
+    if (i >= count) {
+      break;
+    }
     if (snake[i].x == p.x && snake[i].y == p.y) {
       return true;
     }

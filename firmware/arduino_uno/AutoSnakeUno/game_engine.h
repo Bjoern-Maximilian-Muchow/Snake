@@ -6,7 +6,8 @@
 enum StepResult : uint8_t {
   STEP_OK = 0,
   STEP_ATE_FOOD = 1,
-  STEP_COLLISION = 2
+  STEP_WALL_COLLISION = 2,
+  STEP_SELF_COLLISION = 3
 };
 
 class GameEngine {
@@ -29,6 +30,7 @@ private:
   bool over;
 
   bool contains(Point p) const;
+  bool containsFirst(Point p, uint8_t count) const;
   bool isWall(Point p) const;
   Point nextHead(Direction nextDirection) const;
   void placeFood();
