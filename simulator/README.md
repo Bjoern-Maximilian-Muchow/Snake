@@ -12,6 +12,13 @@ Web-Simulator aus dem Repository-Stamm starten:
 ./scripts/run_simulator.sh
 ```
 
+Lernphasen können direkt verlinkt werden, zum Beispiel:
+
+```text
+http://localhost:8000/?mode=assignment&level=1
+http://localhost:8000/?mode=challenge&level=1
+```
+
 Tests ausführen:
 
 ```sh

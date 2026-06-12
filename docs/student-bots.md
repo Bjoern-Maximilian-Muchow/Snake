@@ -1,6 +1,9 @@
 # Eigene Bots
 
-Lernende implementieren ihre Bot-Logik in `simulator/python/student_bot.py`.
+Die Referenzschnittstelle liegt in `simulator/python/student_bot.py`. Die eigentlichen Lernaufgaben sind getrennt:
+
+- Level 2: `learning/level2/student_bot.py`
+- Level 3: `learning/level3/student_bot.h`
 
 Der Einstiegspunkt ist immer:
 
@@ -45,3 +48,15 @@ Die Schnittstelle wird mit pytest geprüft:
 ```
 
 Die Tests laufen ohne Arduino-Hardware.
+
+Die Level-2-Aufgabentests werden bewusst separat gestartet, weil die Vorlage zunächst unvollständig ist:
+
+```sh
+python -m pytest learning/level2/test_student_bot.py
+```
+
+Der Level-3-Arbeitsstand wird separat kompiliert:
+
+```sh
+platformio run --environment uno-student
+```

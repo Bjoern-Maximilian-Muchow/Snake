@@ -14,15 +14,18 @@ Später steht genau ein physischer Laborplatz zur Verfügung. Mehrere Lernende k
 
 Der Web-Simulator enthält Start/Pause, Einzelschritt, Reset, Bot-Auswahl und ab Level 2 feste Hindernisse auf dem Spielfeld.
 
+Der Lernarbeitsplatz trennt drei Modi: Im Demo-Modus werden Referenzbots beobachtet, im Aufgabenmodus entstehen eigene Regeln oder eigener Code, und im Challenge-Modus wird eine unbekannte Situation bewertet. Level 1 besitzt einen ausführbaren Blockeditor; Level 2 und 3 nutzen getrennte Python- und C++-Arbeitsvorlagen unter `learning/`.
+
 Eigene Bots werden in `simulator/python/student_bot.py` implementiert. Die feste Schnittstelle ist `choose_move(snapshot)` und wird durch Tests geprüft. Details stehen in `docs/student-bots.md`.
 
 ## Projektstruktur
 
-- `docs/`: Architektur, Remote-Lab-Konzept und Levelbeschreibungen.
+- `docs/`: Architektur, Didaktik, Ausführungsweg, Remote-Lab-Konzept und Levelbeschreibungen.
 - `firmware/arduino_uno/`: Firmware-Grundstruktur für den Arduino Uno R3 mit Engine, Bot-Schnittstelle und LED-Ausgabe.
 - `simulator/`: Browser- und Python-Simulatoren für hardwareunabhängige Entwicklung.
 - `tests/`: pytest-basierte Tests für Engine, Bot-Schnittstelle und Beispielbots.
 - `edrys/`: edrys-Lite-Konfiguration, Stationshinweise und Aufgaben.
+- `learning/`: absichtlich unvollständige Arbeitsvorlagen und Lernendentests für Level 2 und 3.
 - `scripts/`: Hilfsskripte für Tests, Simulatorstart und späteres Flashen.
 
 ## Schnellstart

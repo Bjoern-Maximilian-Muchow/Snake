@@ -3,26 +3,38 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AutoSnake Simulator</title>
+    <title>AutoSnake Lernlabor</title>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <main class="app">
-      <section class="topbar" aria-label="Simulator-Steuerung">
+      <header class="topbar">
         <div>
-          <h1>AutoSnake Simulator</h1>
-          <p>Bot-Logik testen, bevor die echte LED-Matrix im Remote-Labor genutzt wird.</p>
+          <h1>AutoSnake Lernlabor</h1>
+          <p>Beobachten, selbst bauen, testen und erst danach auf die Hardware wechseln.</p>
         </div>
-        <div class="controls">
+        <div class="controls" aria-label="Simulator-Steuerung">
           <button id="toggle" type="button">Pause</button>
           <button id="step" type="button">Schritt</button>
           <button id="reset" type="button">Zurücksetzen</button>
         </div>
-      </section>
+      </header>
+
+      <nav class="mode-tabs" aria-label="Arbeitsmodus">
+        <button class="mode-tab active" data-mode="demo" type="button">Demo</button>
+        <button class="mode-tab" data-mode="assignment" type="button">Aufgabe</button>
+        <button class="mode-tab" data-mode="challenge" type="button">Challenge</button>
+      </nav>
 
       <section class="workspace">
         <section class="board-area" aria-label="Simulierte LED-Matrix">
           <div id="grid" class="grid" aria-label="16 mal 16 Snake-LED-Grid"></div>
+          <div class="legend" aria-label="Legende">
+            <span><i class="legend-head"></i>Kopf</span>
+            <span><i class="legend-snake"></i>Snake</span>
+            <span><i class="legend-food"></i>Futter</span>
+            <span><i class="legend-obstacle"></i>Hindernis</span>
+          </div>
         </section>
 
         <aside class="side-panel" aria-label="Lern- und Statusbereich">
@@ -35,8 +47,8 @@
             </select>
           </div>
 
-          <div class="field">
-            <label for="bot">Bot</label>
+          <div id="demo-bot-field" class="field">
+            <label for="bot">Beispielbot</label>
             <select id="bot">
               <option value="basic">Regelbot</option>
               <option value="safe">Sicherer Bot</option>
@@ -45,37 +57,96 @@
           </div>
 
           <dl class="stats">
-            <div>
-              <dt>Aktuelles Level</dt>
-              <dd id="current-level">1</dd>
-            </div>
-            <div>
-              <dt>Punkte</dt>
-              <dd id="score">0</dd>
-            </div>
-            <div>
-              <dt>Länge</dt>
-              <dd id="length">3</dd>
-            </div>
-            <div>
-              <dt>Letzter Zug</dt>
-              <dd id="last-move">rechts</dd>
-            </div>
-            <div>
-              <dt>Status</dt>
-              <dd id="status">Läuft</dd>
-            </div>
+            <div><dt>Level</dt><dd id="current-level">1</dd></div>
+            <div><dt>Punkte</dt><dd id="score">0</dd></div>
+            <div><dt>Länge</dt><dd id="length">3</dd></div>
+            <div><dt>Schritte</dt><dd id="steps">0</dd></div>
+            <div><dt>Letzter Zug</dt><dd id="last-move">rechts</dd></div>
+            <div><dt>Status</dt><dd id="status">Läuft</dd></div>
           </dl>
 
-          <section class="task-box" aria-label="Aufgabe">
-            <h2 id="task-title">Level 1: Schüler</h2>
-            <p id="task-text">Nutze einfache Regeln, um das Futter grob anzusteuern und Wände zu vermeiden.</p>
-            <p id="bot-text">Regelbot: folgt grob dem Futter und verhindert nur direkte Rückwärtsfahrten.</p>
-            <p>Eigene Python-Bots starten in <code>simulator/python/student_bot.py</code>.</p>
+          <section class="task-box" aria-label="Aktueller Auftrag">
+            <p class="eyebrow" id="mode-label">Demo</p>
+            <h2 id="task-title">Level 1 beobachten</h2>
+            <p id="task-text"></p>
+            <p id="bot-text"></p>
           </section>
         </aside>
       </section>
+
+      <section class="workbench" aria-label="Arbeitsbereich">
+        <section id="demo-panel" class="mode-panel">
+          <div>
+            <p class="eyebrow">Beobachten</p>
+            <h2>Entscheidungen nachvollziehen</h2>
+          </div>
+          <p>Nutze Pause und Einzelschritt. Sage vor jedem Schritt voraus, welche Richtung der Beispielbot wählen wird, und vergleiche deine Vermutung mit der Anzeige.</p>
+        </section>
+
+        <section id="assignment-panel" class="mode-panel hidden">
+          <div id="level-1-builder" class="learning-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Level 1 · Selbst bauen</p>
+                <h2>Regelblöcke zusammensetzen</h2>
+              </div>
+              <button id="add-rule" type="button">Regel hinzufügen</button>
+            </div>
+            <p>Die erste passende Regel gewinnt. Baue eine Prioritätenliste und teste sie mit Einzelschritten.</p>
+            <div id="rule-list" class="rule-list"></div>
+            <div class="builder-actions">
+              <button id="apply-rules" type="button">Eigene Regeln ausführen</button>
+              <button id="restore-rules" type="button">Startregeln laden</button>
+            </div>
+            <div class="builder-output">
+              <section>
+                <h3>Erzeugte Logik</h3>
+                <pre id="generated-code"></pre>
+              </section>
+              <section>
+                <h3>Prüfung</h3>
+                <ul id="rule-feedback" class="feedback-list"></ul>
+              </section>
+            </div>
+          </div>
+
+          <div id="level-2-work" class="learning-panel hidden">
+            <p class="eyebrow">Level 2 · Python</p>
+            <h2>Sichere Züge selbst implementieren</h2>
+            <p>Bearbeite <code>learning/level2/student_bot.py</code>. Implementiere zuerst <code>is_blocked</code>, dann <code>safe_moves</code> und zuletzt <code>choose_move</code>.</p>
+            <pre>def choose_move(snapshot):
+    moves = safe_moves(snapshot)
+    # TODO: sicheren Zug auswählen
+    return snapshot.direction</pre>
+            <p>Der Simulator zeigt dir die Hinderniskarte. Ausgeführt und bewertet wird dein Python-Code durch die Level-Tests.</p>
+          </div>
+
+          <div id="level-3-work" class="learning-panel hidden">
+            <p class="eyebrow">Level 3 · Embedded C++</p>
+            <h2>Bot unter Hardwaregrenzen entwickeln</h2>
+            <p>Bearbeite <code>learning/level3/student_bot.h</code>. Nutze feste Arrays, ein Zeitlimit und einen sicheren Fallback. Dynamische Speicherallokation ist nicht erlaubt.</p>
+            <pre>Direction chooseStudentMove(const BotSnapshot&amp; snapshot) {
+  // TODO: begrenzte Pfadsuche und Sicherheitsprüfung
+  return snapshot.currentDirection;
+}</pre>
+            <p>PlatformIO zeigt Flash und SRAM. Die Uno-Telemetrie liefert Botzeit, Last und freien RAM.</p>
+          </div>
+        </section>
+
+        <section id="challenge-panel" class="mode-panel hidden">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Unbekannte Situation</p>
+              <h2 id="challenge-title">Drei Futterstücke erreichen</h2>
+            </div>
+            <button id="load-challenge" type="button">Challenge neu laden</button>
+          </div>
+          <p id="challenge-text">Deine Regeln müssen drei Futterstücke erreichen. Die Karte wird erst beim Start sichtbar.</p>
+          <p id="challenge-result" class="challenge-result">Noch nicht abgeschlossen.</p>
+        </section>
+      </section>
     </main>
+    <script src="block_editor.js"></script>
     <script src="simulator.js"></script>
   </body>
 </html>

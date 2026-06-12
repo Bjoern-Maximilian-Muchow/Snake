@@ -5,6 +5,10 @@
 #include "example_bot_bfs.h"
 #include "perf_monitor.h"
 
+#ifdef AUTOSNAKE_STUDENT_BOT
+#include "student_bot.h"
+#endif
+
 GameEngine engine;
 LedGrid ledGrid;
 PerfMonitor perf;
@@ -12,6 +16,9 @@ unsigned long lastStep = 0;
 StepResult lastResult = STEP_OK;
 
 Direction chooseMove(const BotSnapshot& snapshot) {
+#ifdef AUTOSNAKE_STUDENT_BOT
+  return chooseStudentMove(snapshot);
+#else
   if (snapshot.level == 1) {
     return chooseBasicMove(snapshot);
   }
@@ -19,6 +26,7 @@ Direction chooseMove(const BotSnapshot& snapshot) {
     return chooseSafeMove(snapshot);
   }
   return chooseBfsMove(snapshot);
+#endif
 }
 
 void printHelp() {

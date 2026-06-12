@@ -1,17 +1,22 @@
 # AutoSnake-Aufgaben
 
-Lernende automatisieren Snake, indem sie Bots schreiben. Ziel ist nicht die manuelle Steuerung, sondern algorithmische Entscheidungsfindung.
+## Level 1: Regelblöcke
 
-Die eigene Bot-Logik wird in `simulator/python/student_bot.py` implementiert. Die Funktion `choose_move(snapshot)` ist der feste Einstiegspunkt.
+Baue im Aufgabenmodus des Web-Simulators eine eigene Prioritätenliste aus Bedingungen und Aktionen. Nutze Einzelschritte und bestehe anschließend die unbekannte Challenge-Karte.
 
-## Level 1: Schüler
+## Level 2: Python
 
-Schreibe einen einfachen regelbasierten Bot. Er soll grundlegende Wandkollisionen vermeiden und sich grob in Richtung Futter bewegen.
+Bearbeite `learning/level2/student_bot.py`:
 
-## Level 2: Student Anfang Studium
+1. blockierte Felder erkennen
+2. sichere Züge erzeugen
+3. einen sicheren Zug auswählen
+4. eigene Tests ergänzen
 
-Schreibe einen strukturierten Bot, der das Spielfeld analysiert, sichere Züge prüft und optional BFS nutzt, um Futter zu finden.
+## Level 3: Embedded C++
 
-## Level 3: Fortgeschrittener Student
+Bearbeite `learning/level3/student_bot.h`. Die Lösung muss Hindernisse berücksichtigen, ohne dynamischen Speicher auskommen, eine sichere Rückfallstrategie besitzen und das Zeitbudget einhalten.
 
-Schreibe einen robusten Bot mit Pfadsuche, Sicherheitschecks, begrenzter Laufzeit und Tests für schwierige Situationen.
+## Hardwarefreigabe
+
+Die einzelne physische Station wird erst nach bestandenen Tests genutzt. Vorher arbeiten alle parallel in Simulator und Editor.
