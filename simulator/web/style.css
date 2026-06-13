@@ -104,6 +104,13 @@ button:focus-visible, select:focus-visible { outline: 2px solid var(--accent); o
 .legend-obstacle { background: var(--obstacle); }
 
 .side-panel { display: grid; gap: 14px; }
+.locked-level-title {
+  margin: 0;
+  border-left: 4px solid var(--accent);
+  background: var(--surface-strong);
+  padding: 12px 14px;
+  font-size: 1.25rem;
+}
 .field { display: grid; gap: 6px; }
 label, dt, .eyebrow { color: var(--muted); font-size: 0.82rem; }
 .eyebrow { margin-bottom: 5px; text-transform: uppercase; font-weight: 700; }

@@ -11,7 +11,7 @@ members:
   student: []
 modules:
   # Lobby: zuerst erleben, danach den Lernweg verstehen.
-  - url: https://bjoern-maximilian-muchow.github.io/Snake/simulator/web/?mode=demo&lockMode=demo&level=1&v=4
+  - url: https://bjoern-maximilian-muchow.github.io/Snake/simulator/web/?mode=demo&lockMode=demo&level=1&lockLevel=1&v=5
     config: ""
     studentConfig: ""
     teacherConfig: ""
@@ -106,7 +106,7 @@ modules:
     width: full
     height: tall
 
-  - url: https://bjoern-maximilian-muchow.github.io/Snake/simulator/web/?mode=assignment&level=1&lockLevel=1&v=4
+  - url: https://bjoern-maximilian-muchow.github.io/Snake/simulator/web/?mode=assignment&level=1&lockLevel=1&v=5
     config: ""
     studentConfig: ""
     teacherConfig: ""
@@ -154,7 +154,7 @@ modules:
     width: full
     height: tall
 
-  - url: https://bjoern-maximilian-muchow.github.io/Snake/simulator/web/?mode=assignment&level=2&lockLevel=2&v=4
+  - url: https://bjoern-maximilian-muchow.github.io/Snake/simulator/web/?mode=assignment&level=2&lockLevel=2&v=5
     config: ""
     studentConfig: ""
     teacherConfig: ""
@@ -246,7 +246,7 @@ modules:
     width: full
     height: tall
 
-  - url: https://bjoern-maximilian-muchow.github.io/Snake/simulator/web/?mode=assignment&level=3&lockLevel=3&v=4
+  - url: https://bjoern-maximilian-muchow.github.io/Snake/simulator/web/?mode=assignment&level=3&lockLevel=3&v=5
     config: ""
     studentConfig: ""
     teacherConfig: ""

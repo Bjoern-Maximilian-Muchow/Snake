@@ -37,6 +37,7 @@ const toggleBtn = document.querySelector("#toggle");
 const stepBtn = document.querySelector("#step");
 const levelSelect = document.querySelector("#level");
 const levelField = document.querySelector("#level-field");
+const lockedLevelTitle = document.querySelector("#locked-level-title");
 const botSelect = document.querySelector("#bot");
 const demoBotField = document.querySelector("#demo-bot-field");
 const taskTitle = document.querySelector("#task-title");
@@ -348,6 +349,8 @@ if ([1, 2, 3].includes(requestedLockedLevel)) lockedLevel = requestedLockedLevel
 if (lockedLevel !== null) {
   levelSelect.value = String(lockedLevel);
   levelField.classList.add("hidden");
+  lockedLevelTitle.textContent = `Level ${lockedLevel}`;
+  lockedLevelTitle.classList.remove("hidden");
 }
 if (["demo", "assignment", "challenge"].includes(requestedLockedMode)) lockedMode = requestedLockedMode;
 if (lockedMode !== null) document.querySelector(".mode-tabs").classList.add("hidden");
