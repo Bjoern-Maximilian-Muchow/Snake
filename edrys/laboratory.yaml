@@ -4,8 +4,8 @@ meta:
   description: >-
     Lernlabor für regelbasierte Bots, Python-Algorithmen und hardwarenahes C++
     auf einem Arduino Uno R3 mit simuliertem 16x16 RGB-LED-Grid.
+  defaultNumberOfRooms: 3
 selfAssign: true
-defaultNumberOfRooms: 3
 members:
   teacher: []
   student: []

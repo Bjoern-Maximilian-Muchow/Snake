@@ -23,7 +23,7 @@ Die Oberfläche trennt Orientierung und aktive Arbeit:
 
 Jeder Levelraum beantwortet dieselben drei Fragen: Was ist der Auftrag? Wann ist das Level bestanden? Was kann ich danach? Dadurch müssen Lernende nicht zwischen fachlich fremden Modulen suchen und sehen ihr Ziel direkt neben dem Arbeitswerkzeug.
 
-edrys-Lite erzeugt Standardräume technisch als `Room 1`, `Room 2` und `Room 3`. `showInCustom` ordnet Module diesen vorhandenen Räumen zu, erzeugt aber selbst keine Räume. Die Levelbezeichnung steht deshalb jeweils gut sichtbar im ersten Modul des Raums.
+edrys-Lite erzeugt über `meta.defaultNumberOfRooms` die Standardräume `Room 1`, `Room 2` und `Room 3`. `showInCustom` ordnet Module diesen vorhandenen Räumen zu, erzeugt aber selbst keine Räume. Die Levelbezeichnung steht deshalb jeweils gut sichtbar im ersten Modul des Raums.
 
 ## Level 1: Regeln sichtbar machen
 
