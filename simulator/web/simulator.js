@@ -26,7 +26,6 @@ const levelTasks = {
 };
 
 const grid = document.querySelector("#grid");
-const currentLevelEl = document.querySelector("#current-level");
 const scoreEl = document.querySelector("#score");
 const lengthEl = document.querySelector("#length");
 const stepsEl = document.querySelector("#steps");
@@ -268,7 +267,6 @@ function render() {
       grid.appendChild(cell);
     }
   }
-  currentLevelEl.textContent = String(state.level);
   scoreEl.textContent = String(state.score);
   lengthEl.textContent = String(state.snake.length);
   stepsEl.textContent = String(state.steps);

@@ -31,6 +31,7 @@ def test_web_simulator_contains_block_editor_and_learning_modes():
     assert 'data-mode="challenge"' in html
     assert 'id="rule-list"' in html
     assert 'src="block_editor.js"' in html
+    assert 'id="current-level"' not in html
 
     script = (ROOT / "simulator" / "web" / "simulator.js").read_text(encoding="utf-8")
     assert 'startup.get("lockLevel")' in script
