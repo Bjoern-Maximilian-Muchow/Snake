@@ -61,6 +61,10 @@ modules:
         Die Lobby dient nur als Einstieg und Orientierung. Lernende arbeiten anschließend im Raum ihres Levels.
 
         Referenzbots ausschließlich zur Beobachtung und zum Vergleich verwenden. Hardwarefreigabe erst nach erfüllten Erfolgskriterien erteilen.
+
+        ## Einmalige Raumeinrichtung
+
+        Öffne links oben das Seitenmenü. Falls dort nur die Lobby vorhanden ist, klicke als Eigentümer der Klasse unten dreimal auf **Neuer Raum**. Dadurch entstehen `Room 1`, `Room 2` und `Room 3`; die passenden Levelmodule werden automatisch eingeblendet.
     stationConfig:
       content: ""
     showInCustom: Lobby

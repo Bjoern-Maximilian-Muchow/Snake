@@ -86,6 +86,8 @@ Die physische Station wird auf dem Arduino-Laptop gestartet:
 
 Danach den Edrys-Raum auf demselben Laptop in der Rolle **Station** öffnen. Details stehen in `station/README.md`.
 
+Hinweis zur ersten Edrys-Einrichtung: Die Räume befinden sich im Seitenmenü links oben. Falls eine neue Klasse trotz `meta.defaultNumberOfRooms: 3` nur die Lobby enthält, muss der Eigentümer dort einmalig dreimal **Neuer Raum** wählen. `Room 1` bis `Room 3` werden anschließend automatisch mit den jeweiligen Levelmodulen gefüllt.
+
 ## Weitere Ausbaustufen
 
 Als Nächstes folgen die Anbindung eines echten 16x16-RGB-LED-Grids, eine kombinierte Kamera- und Digitalansicht sowie der Betrieb der gesamten Station in Docker auf einem Raspberry Pi. Der Simulator bleibt dabei als digitaler Zwilling erhalten. Die technischen Entscheidungen und die empfohlene Reihenfolge stehen in `docs/roadmap.md`.

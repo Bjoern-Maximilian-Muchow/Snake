@@ -25,6 +25,8 @@ Jeder Levelraum beantwortet dieselben drei Fragen: Was ist der Auftrag? Wann ist
 
 edrys-Lite erzeugt über `meta.defaultNumberOfRooms` die Standardräume `Room 1`, `Room 2` und `Room 3`. `showInCustom` ordnet Module diesen vorhandenen Räumen zu, erzeugt aber selbst keine Räume. Die Levelbezeichnung steht deshalb jeweils gut sichtbar im ersten Modul des Raums.
 
+In der aktuellen edrys-Lite-Version kann die automatische Standardraumerzeugung beim ersten Rollenwechsel ausbleiben. Dann öffnet die Person, die die Klasse bereitgestellt hat, das Seitenmenü und klickt dreimal auf **Neuer Raum**. Sobald `Room 1` bis `Room 3` existieren, greift die Modulzuordnung ohne weitere Konfigurationsänderung.
+
 ## Level 1: Regeln sichtbar machen
 
 Lernende bauen im Browser eine geordnete Liste aus Bedingungs- und Aktionsblöcken. Die erste passende Regel bestimmt den Zug. Dadurch werden Bedingungen, Prioritäten, Rückfallregeln und Ursache-Wirkung sichtbar, ohne dass Syntax im Weg steht.
