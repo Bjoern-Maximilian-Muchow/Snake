@@ -11,7 +11,7 @@ members:
   student: []
 modules:
   # Lobby: zuerst erleben, danach den Lernweg verstehen.
-  - url: https://bjoern-maximilian-muchow.github.io/Snake/simulator/web/?mode=demo&level=1
+  - url: https://bjoern-maximilian-muchow.github.io/Snake/simulator/web/?v=3
     config: ""
     studentConfig: ""
     teacherConfig: ""
@@ -106,7 +106,7 @@ modules:
     width: full
     height: tall
 
-  - url: https://bjoern-maximilian-muchow.github.io/Snake/simulator/web/?mode=assignment&level=1
+  - url: https://bjoern-maximilian-muchow.github.io/Snake/simulator/web/?mode=assignment&level=1&lockLevel=1&v=3
     config: ""
     studentConfig: ""
     teacherConfig: ""
@@ -150,6 +150,15 @@ modules:
         Tests schrittweise bearbeiten lassen: zuerst `is_blocked`, danach `safe_moves`, zuletzt `choose_move`. Eigene Randfälle vor der Challenge besprechen.
     stationConfig:
       content: ""
+    showInCustom: Room 2
+    width: full
+    height: tall
+
+  - url: https://bjoern-maximilian-muchow.github.io/Snake/simulator/web/?mode=assignment&level=2&lockLevel=2&v=3
+    config: ""
+    studentConfig: ""
+    teacherConfig: ""
+    stationConfig: ""
     showInCustom: Room 2
     width: full
     height: tall
@@ -233,6 +242,15 @@ modules:
         Hardwarezugriff einzeln freigeben. Nach dem Upload nicht nur das Spielergebnis, sondern auch Messwerte und Fallback-Verhalten reflektieren lassen.
     stationConfig:
       content: ""
+    showInCustom: Room 3
+    width: full
+    height: tall
+
+  - url: https://bjoern-maximilian-muchow.github.io/Snake/simulator/web/?mode=assignment&level=3&lockLevel=3&v=3
+    config: ""
+    studentConfig: ""
+    teacherConfig: ""
+    stationConfig: ""
     showInCustom: Room 3
     width: full
     height: tall

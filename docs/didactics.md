@@ -23,9 +23,13 @@ Die Oberfläche trennt Orientierung und aktive Arbeit:
 
 Jeder Levelraum beantwortet dieselben drei Fragen: Was ist der Auftrag? Wann ist das Level bestanden? Was kann ich danach? Dadurch müssen Lernende nicht zwischen fachlich fremden Modulen suchen und sehen ihr Ziel direkt neben dem Arbeitswerkzeug.
 
+Der Lernlabor-Simulator ist in jedem Levelraum vorhanden und über `lockLevel` auf genau dieses Level begrenzt. In der Lobby bleibt er bewusst ungesperrt, damit Demo, Aufgabe und Challenge aller Level zur Orientierung ausprobiert werden können.
+
 edrys-Lite erzeugt über `meta.defaultNumberOfRooms` die Standardräume `Room 1`, `Room 2` und `Room 3`. `showInCustom` ordnet Module diesen vorhandenen Räumen zu, erzeugt aber selbst keine Räume. Die Levelbezeichnung steht deshalb jeweils gut sichtbar im ersten Modul des Raums.
 
 In der aktuellen edrys-Lite-Version kann die automatische Standardraumerzeugung beim ersten Rollenwechsel ausbleiben. Dann öffnet die Person, die die Klasse bereitgestellt hat, das Seitenmenü und klickt dreimal auf **Neuer Raum**. Sobald `Room 1` bis `Room 3` existieren, greift die Modulzuordnung ohne weitere Konfigurationsänderung.
+
+Die Standardräume lassen sich in der aktuellen edrys-Lite-Oberfläche nicht über die Labor-YAML in `Level 1`, `Level 2` und `Level 3` umbenennen. Deshalb beginnt jeder Raum mit einer eindeutigen Levelüberschrift; technisch bleiben die Namen `Room 1` bis `Room 3` bestehen.
 
 ## Level 1: Regeln sichtbar machen
 

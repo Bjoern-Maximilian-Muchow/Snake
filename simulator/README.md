@@ -19,6 +19,12 @@ http://localhost:8000/?mode=assignment&level=1
 http://localhost:8000/?mode=challenge&level=1
 ```
 
+Mit `lockLevel=1`, `lockLevel=2` oder `lockLevel=3` wird der Level-Wähler für einen edrys-Raum gesperrt:
+
+```text
+http://localhost:8000/?mode=assignment&level=2&lockLevel=2
+```
+
 Tests ausführen:
 
 ```sh

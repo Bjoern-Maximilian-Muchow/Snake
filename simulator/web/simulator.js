@@ -36,6 +36,7 @@ const resetBtn = document.querySelector("#reset");
 const toggleBtn = document.querySelector("#toggle");
 const stepBtn = document.querySelector("#step");
 const levelSelect = document.querySelector("#level");
+const levelField = document.querySelector("#level-field");
 const botSelect = document.querySelector("#bot");
 const demoBotField = document.querySelector("#demo-bot-field");
 const taskTitle = document.querySelector("#task-title");
@@ -68,6 +69,7 @@ let timerId;
 let running = true;
 let mode = "demo";
 let customRulesApplied = false;
+let lockedLevel = null;
 
 function reset({ challenge = mode === "challenge" } = {}) {
   const level = Number(levelSelect.value);
@@ -311,6 +313,10 @@ toggleBtn.addEventListener("click", () => { running = !running; syncTimer(); ren
 stepBtn.addEventListener("click", () => { running = false; syncTimer(); step(); });
 resetBtn.addEventListener("click", () => { running = mode === "demo" || (state.level === 1 && customRulesApplied); reset(); syncTimer(); });
 levelSelect.addEventListener("change", () => {
+  if (lockedLevel !== null) {
+    levelSelect.value = String(lockedLevel);
+    return;
+  }
   botSelect.value = Number(levelSelect.value) === 1 ? "basic" : Number(levelSelect.value) === 2 ? "safe" : "bfs";
   updateLearningPanel();
   setMode(mode);
@@ -334,8 +340,17 @@ document.querySelector("#load-challenge").addEventListener("click", () => {
 
 const startup = new URLSearchParams(window.location.search);
 const startupLevel = Number(startup.get("level"));
+const requestedLockedLevel = Number(startup.get("lockLevel"));
 const startupMode = startup.get("mode");
+if ([1, 2, 3].includes(requestedLockedLevel)) lockedLevel = requestedLockedLevel;
+if (lockedLevel !== null) {
+  levelSelect.value = String(lockedLevel);
+  levelSelect.disabled = true;
+  levelField.classList.add("level-locked");
+  levelField.querySelector("label").textContent = `Level ${lockedLevel} ist für diesen Raum festgelegt`;
+}
 if ([1, 2, 3].includes(startupLevel)) levelSelect.value = String(startupLevel);
+if (lockedLevel !== null) levelSelect.value = String(lockedLevel);
 if (["demo", "assignment", "challenge"].includes(startupMode)) mode = startupMode;
 updateLearningPanel();
 setMode(mode);

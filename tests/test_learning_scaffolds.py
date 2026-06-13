@@ -32,6 +32,10 @@ def test_web_simulator_contains_block_editor_and_learning_modes():
     assert 'id="rule-list"' in html
     assert 'src="block_editor.js"' in html
 
+    script = (ROOT / "simulator" / "web" / "simulator.js").read_text(encoding="utf-8")
+    assert 'startup.get("lockLevel")' in script
+    assert "levelSelect.disabled = true" in script
+
 
 def test_edrys_contains_python_and_cpp_editors():
     laboratory = (ROOT / "edrys" / "laboratory.yaml").read_text(encoding="utf-8")
@@ -49,10 +53,13 @@ def test_edrys_contains_python_and_cpp_editors():
 def test_edrys_separates_lobby_and_three_level_rooms():
     laboratory = (ROOT / "edrys" / "laboratory.yaml").read_text(encoding="utf-8")
 
-    assert "?mode=demo&level=1" in laboratory
+    assert "simulator/web/?v=3" in laboratory
     assert "  defaultNumberOfRooms: 3" in laboratory
     assert "showInCustom: Lobby" in laboratory
     assert "showInCustom: Room 1" in laboratory
     assert "showInCustom: Room 2" in laboratory
     assert "showInCustom: Room 3" in laboratory
+    assert "level=1&lockLevel=1" in laboratory
+    assert "level=2&lockLevel=2" in laboratory
+    assert "level=3&lockLevel=3" in laboratory
     assert "Das kannst du danach" in laboratory
