@@ -50,8 +50,9 @@ def test_edrys_separates_lobby_and_three_level_rooms():
     laboratory = (ROOT / "edrys" / "laboratory.yaml").read_text(encoding="utf-8")
 
     assert "?mode=demo&level=1" in laboratory
+    assert "defaultNumberOfRooms: 3" in laboratory
     assert "showInCustom: Lobby" in laboratory
-    assert "showInCustom: Level 1" in laboratory
-    assert "showInCustom: Level 2" in laboratory
-    assert "showInCustom: Level 3" in laboratory
+    assert "showInCustom: Room 1" in laboratory
+    assert "showInCustom: Room 2" in laboratory
+    assert "showInCustom: Room 3" in laboratory
     assert "Das kannst du danach" in laboratory

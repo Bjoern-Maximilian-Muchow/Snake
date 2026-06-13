@@ -16,12 +16,14 @@ AutoSnake trennt Referenzlösungen konsequent von den eigentlichen Lernaufgaben.
 Die Oberfläche trennt Orientierung und aktive Arbeit:
 
 - **Lobby:** laufendes Beispiel, Überblick über die drei Level und Erklärung des Lernwegs
-- **Level 1:** Regelblöcke, Einzelschritte und Challenge
-- **Level 2:** Python-Auftrag, Codeeditor, Testausgabe und eigene Randfälle
-- **Level 3:** Embedded-C++-Auftrag, Build-/Upload-Ausgabe und Ressourcenreflexion
+- **Room 1 / Level 1:** Regelblöcke, Einzelschritte und Challenge
+- **Room 2 / Level 2:** Python-Auftrag, Codeeditor, Testausgabe und eigene Randfälle
+- **Room 3 / Level 3:** Embedded-C++-Auftrag, Build-/Upload-Ausgabe und Ressourcenreflexion
 - **Station:** technische Hinweise für den einzelnen physischen Arbeitsplatz
 
 Jeder Levelraum beantwortet dieselben drei Fragen: Was ist der Auftrag? Wann ist das Level bestanden? Was kann ich danach? Dadurch müssen Lernende nicht zwischen fachlich fremden Modulen suchen und sehen ihr Ziel direkt neben dem Arbeitswerkzeug.
+
+edrys-Lite erzeugt Standardräume technisch als `Room 1`, `Room 2` und `Room 3`. `showInCustom` ordnet Module diesen vorhandenen Räumen zu, erzeugt aber selbst keine Räume. Die Levelbezeichnung steht deshalb jeweils gut sichtbar im ersten Modul des Raums.
 
 ## Level 1: Regeln sichtbar machen
 

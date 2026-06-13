@@ -5,7 +5,7 @@ meta:
     Lernlabor für regelbasierte Bots, Python-Algorithmen und hardwarenahes C++
     auf einem Arduino Uno R3 mit simuliertem 16x16 RGB-LED-Grid.
 selfAssign: true
-defaultNumberOfRooms: 1
+defaultNumberOfRooms: 3
 members:
   teacher: []
   student: []
@@ -98,7 +98,7 @@ modules:
         Nicht die fertigen Demo-Bots als Lösung anbieten. Bei Problemen mit einer konkreten Spielsituation und der Reihenfolge der Regeln arbeiten.
     stationConfig:
       content: ""
-    showInCustom: Level 1
+    showInCustom: Room 1
     width: full
     height: tall
 
@@ -107,7 +107,7 @@ modules:
     studentConfig: ""
     teacherConfig: ""
     stationConfig: ""
-    showInCustom: Level 1
+    showInCustom: Room 1
     width: full
     height: tall
 
@@ -146,7 +146,7 @@ modules:
         Tests schrittweise bearbeiten lassen: zuerst `is_blocked`, danach `safe_moves`, zuletzt `choose_move`. Eigene Randfälle vor der Challenge besprechen.
     stationConfig:
       content: ""
-    showInCustom: Level 2
+    showInCustom: Room 2
     width: full
     height: tall
 
@@ -178,7 +178,7 @@ modules:
     studentConfig: ""
     teacherConfig: ""
     stationConfig: ""
-    showInCustom: Level 2
+    showInCustom: Room 2
     width: full
     height: tall
 
@@ -193,7 +193,7 @@ modules:
       enable:
         teacher: false
         student: false
-    showInCustom: Level 2
+    showInCustom: Room 2
     width: full
     height: medium
 
@@ -229,7 +229,7 @@ modules:
         Hardwarezugriff einzeln freigeben. Nach dem Upload nicht nur das Spielergebnis, sondern auch Messwerte und Fallback-Verhalten reflektieren lassen.
     stationConfig:
       content: ""
-    showInCustom: Level 3
+    showInCustom: Room 3
     width: full
     height: tall
 
@@ -255,7 +255,7 @@ modules:
     studentConfig: ""
     teacherConfig: ""
     stationConfig: ""
-    showInCustom: Level 3
+    showInCustom: Room 3
     width: full
     height: tall
 
@@ -270,7 +270,7 @@ modules:
       enable:
         teacher: false
         student: false
-    showInCustom: Level 3
+    showInCustom: Room 3
     width: full
     height: medium
 
