@@ -26,6 +26,7 @@ Eigene Bots werden in `simulator/python/student_bot.py` implementiert. Die feste
 - `tests/`: pytest-basierte Tests für Engine, Bot-Schnittstelle und Beispielbots.
 - `edrys/`: edrys-Lite-Konfiguration, Stationshinweise und Aufgaben.
 - `learning/`: absichtlich unvollständige Arbeitsvorlagen und Lernendentests für Level 2 und 3.
+- `station/`: begrenzter Ausführungsdienst für Edrys, Python-Tests und exklusiven Arduino-Upload.
 - `scripts/`: Hilfsskripte für Tests, Simulatorstart und späteres Flashen.
 
 ## Schnellstart
@@ -75,3 +76,12 @@ https://bjoern-maximilian-muchow.github.io/Snake/simulator/web/
 ```
 
 Aktiviere GitHub Pages für dieses Repository, bevor du die Simulator-URL in edrys-Lite verwendest.
+
+Die physische Station wird auf dem Arduino-Laptop gestartet:
+
+```powershell
+.\scripts\setup_station.ps1
+.\scripts\start_station.ps1 -ArduinoPort COM3
+```
+
+Danach den Edrys-Raum auf demselben Laptop in der Rolle **Station** öffnen. Details stehen in `station/README.md`.

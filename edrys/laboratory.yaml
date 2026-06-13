@@ -108,6 +108,21 @@ modules:
     width: full
     height: tall
 
+  - url: https://edrys-labs.github.io/module-pyxtermjs/index.html
+    config: ""
+    studentConfig: ""
+    teacherConfig: ""
+    stationConfig:
+      server: http://localhost:5000/pty
+      execute: autosnake-python
+      script: 'autosnake-run python $CODE'
+      enable:
+        teacher: false
+        student: false
+    showInCustom: Lobby
+    width: full
+    height: medium
+
   - url: https://edrys-labs.github.io/module-markdown-it/index.html
     config:
       content: |
@@ -159,6 +174,21 @@ modules:
     width: full
     height: tall
 
+  - url: https://edrys-labs.github.io/module-pyxtermjs/index.html
+    config: ""
+    studentConfig: ""
+    teacherConfig: ""
+    stationConfig:
+      server: http://localhost:5000/pty
+      execute: autosnake-cpp
+      script: 'autosnake-run cpp $CODE --upload --port COM3'
+      enable:
+        teacher: false
+        student: false
+    showInCustom: Lobby
+    width: full
+    height: medium
+
   - url: https://edrys-labs.github.io/module-markdown-it/index.html
     config:
       content: |
@@ -184,7 +214,7 @@ modules:
         - Botzeit ungefähr unter 3 ms
         - Messwerte erklärt
 
-        Die Ausführen-Schaltflächen der Editoren publizieren `autosnake-python` bzw. `autosnake-cpp`. Der ausführende Stationsdienst wird im nächsten Integrationsschritt angeschlossen.
+        Die Ausführen-Schaltflächen publizieren `autosnake-python` bzw. `autosnake-cpp`. Der Stationsdienst testet Python in einer temporären Arbeitskopie und lädt bestandenen C++-Code exklusiv auf den Uno an `COM3`.
     studentConfig:
       content: ""
     teacherConfig:
@@ -212,7 +242,7 @@ modules:
         Nur eine aktive Person an die Hardware lassen. Nach Upload Messwerte und Kamerabild gemeinsam auswerten.
     stationConfig:
       content: |
-        Nächster Ausbau: pyxtermjs-Dienst mit den Topics `autosnake-python` und `autosnake-cpp` verbinden.
+        Vor dem Öffnen der Station `scripts/start_station.ps1` ausführen. Der Dienst verbindet die Topics `autosnake-python` und `autosnake-cpp` mit Tests, Build und Upload.
     showInCustom: Station
     width: full
     height: medium

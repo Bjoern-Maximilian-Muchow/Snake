@@ -24,11 +24,25 @@ platformio run --environment uno-student
 
 Mit `AUTOSNAKE_STUDENT_BOT` bindet die Firmware `learning/level3/student_bot.h` statt der Referenzbots ein. Dadurch werden exakt dieselbe Engine, Telemetrie und Hardwareausgabe verwendet.
 
-## Edrys
+## Edrys und Stationsdienst
 
 Die Monaco-Editoren publizieren ihren Inhalt über zwei getrennte Topics:
 
 - `autosnake-python`
 - `autosnake-cpp`
 
-Der nächste Stationsausbau verbindet diese Topics mit einem isolierten Ausführungsdienst. Bis dahin dokumentiert edrys die lokalen Befehle transparent, statt eine nicht vorhandene Ausführung vorzutäuschen.
+Zwei pyxtermjs-Ausgabemodule hören stationsseitig auf diese Topics. Der Windows-kompatible Socket.IO-Server unter `station/server.py` akzeptiert ausschließlich `autosnake-run python` und `autosnake-run cpp`. Der begrenzte Runner unter `station/runner.py` akzeptiert nur Base64-kodierten Editorinhalt und führt keine frei wählbaren Shell-Befehle aus.
+
+- Python wird in eine temporäre Arbeitskopie geschrieben und mit einem Zeitlimit getestet.
+- Python-Importe, Dunder-Zugriffe und Datei-/Prozessfunktionen werden vor der Ausführung per AST-Prüfung abgelehnt.
+- C++ wird auf verbotene dynamische Speicherallokation geprüft, exklusiv gebaut und auf `COM3` geladen.
+- `.station-runtime/hardware.lock` verhindert gleichzeitige Hardwarezugriffe.
+
+Station unter Windows starten:
+
+```powershell
+.\scripts\setup_station.ps1
+.\scripts\start_station.ps1 -ArduinoPort COM3
+```
+
+Danach muss derselbe Laptop den Edrys-Raum in der Rolle **Station** öffnen. Die Browsermodule erreichen den lokalen Dienst unter `http://localhost:5000/pty`.
