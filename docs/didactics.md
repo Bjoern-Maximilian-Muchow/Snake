@@ -23,7 +23,7 @@ Die Oberfläche trennt Orientierung und aktive Arbeit:
 
 Jeder Levelraum beantwortet dieselben drei Fragen: Was ist der Auftrag? Wann ist das Level bestanden? Was kann ich danach? Dadurch müssen Lernende nicht zwischen fachlich fremden Modulen suchen und sehen ihr Ziel direkt neben dem Arbeitswerkzeug.
 
-Der Lernlabor-Simulator ist in jedem Levelraum vorhanden und über `lockLevel` auf genau dieses Level begrenzt. In der Lobby bleibt er bewusst ungesperrt, damit Demo, Aufgabe und Challenge aller Level zur Orientierung ausprobiert werden können.
+Der Lernlabor-Simulator ist in jedem Levelraum vorhanden und über `lockLevel` auf genau dieses Level begrenzt. Der Levelwähler wird dort vollständig ausgeblendet. In der Lobby erzwingt `lockMode=demo` eine reine Beispielansicht ohne Aufgaben- oder Challenge-Auswahl.
 
 edrys-Lite erzeugt über `meta.defaultNumberOfRooms` die Standardräume `Room 1`, `Room 2` und `Room 3`. `showInCustom` ordnet Module diesen vorhandenen Räumen zu, erzeugt aber selbst keine Räume. Die Levelbezeichnung steht deshalb jeweils gut sichtbar im ersten Modul des Raums.
 

@@ -25,6 +25,8 @@ Mit `lockLevel=1`, `lockLevel=2` oder `lockLevel=3` wird der Level-Wähler für 
 http://localhost:8000/?mode=assignment&level=2&lockLevel=2
 ```
 
+Mit `lockMode=demo` wird zusätzlich die Modusauswahl ausgeblendet. Dies wird für die reine Demoansicht in der Lobby genutzt.
+
 Tests ausführen:
 
 ```sh

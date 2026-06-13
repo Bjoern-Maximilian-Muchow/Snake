@@ -70,6 +70,7 @@ let running = true;
 let mode = "demo";
 let customRulesApplied = false;
 let lockedLevel = null;
+let lockedMode = null;
 
 function reset({ challenge = mode === "challenge" } = {}) {
   const level = Number(levelSelect.value);
@@ -289,7 +290,7 @@ function updateTask() {
 }
 
 function setMode(nextMode) {
-  mode = nextMode;
+  mode = lockedMode || nextMode;
   modeTabs.forEach((tab) => tab.classList.toggle("active", tab.dataset.mode === mode));
   Object.entries(modePanels).forEach(([name, panel]) => panel.classList.toggle("hidden", name !== mode));
   demoBotField.classList.toggle("hidden", mode !== "demo");
@@ -342,15 +343,17 @@ const startup = new URLSearchParams(window.location.search);
 const startupLevel = Number(startup.get("level"));
 const requestedLockedLevel = Number(startup.get("lockLevel"));
 const startupMode = startup.get("mode");
+const requestedLockedMode = startup.get("lockMode");
 if ([1, 2, 3].includes(requestedLockedLevel)) lockedLevel = requestedLockedLevel;
 if (lockedLevel !== null) {
   levelSelect.value = String(lockedLevel);
-  levelSelect.disabled = true;
-  levelField.classList.add("level-locked");
-  levelField.querySelector("label").textContent = `Level ${lockedLevel} ist für diesen Raum festgelegt`;
+  levelField.classList.add("hidden");
 }
+if (["demo", "assignment", "challenge"].includes(requestedLockedMode)) lockedMode = requestedLockedMode;
+if (lockedMode !== null) document.querySelector(".mode-tabs").classList.add("hidden");
 if ([1, 2, 3].includes(startupLevel)) levelSelect.value = String(startupLevel);
 if (lockedLevel !== null) levelSelect.value = String(lockedLevel);
 if (["demo", "assignment", "challenge"].includes(startupMode)) mode = startupMode;
+if (lockedMode !== null) mode = lockedMode;
 updateLearningPanel();
 setMode(mode);
