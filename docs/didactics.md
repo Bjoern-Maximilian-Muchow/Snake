@@ -11,6 +11,18 @@ AutoSnake trennt Referenzlösungen konsequent von den eigentlichen Lernaufgaben.
 5. **Hardware:** Erst nach erfolgreichen Tests auf die einzelne Uno-Station wechseln.
 6. **Reflexion:** Entscheidung, Laufzeit und Speicherbedarf erklären.
 
+## Räume in edrys-Lite
+
+Die Oberfläche trennt Orientierung und aktive Arbeit:
+
+- **Lobby:** laufendes Beispiel, Überblick über die drei Level und Erklärung des Lernwegs
+- **Level 1:** Regelblöcke, Einzelschritte und Challenge
+- **Level 2:** Python-Auftrag, Codeeditor, Testausgabe und eigene Randfälle
+- **Level 3:** Embedded-C++-Auftrag, Build-/Upload-Ausgabe und Ressourcenreflexion
+- **Station:** technische Hinweise für den einzelnen physischen Arbeitsplatz
+
+Jeder Levelraum beantwortet dieselben drei Fragen: Was ist der Auftrag? Wann ist das Level bestanden? Was kann ich danach? Dadurch müssen Lernende nicht zwischen fachlich fremden Modulen suchen und sehen ihr Ziel direkt neben dem Arbeitswerkzeug.
+
 ## Level 1: Regeln sichtbar machen
 
 Lernende bauen im Browser eine geordnete Liste aus Bedingungs- und Aktionsblöcken. Die erste passende Regel bestimmt den Zug. Dadurch werden Bedingungen, Prioritäten, Rückfallregeln und Ursache-Wirkung sichtbar, ohne dass Syntax im Weg steht.

@@ -29,11 +29,13 @@ Die Tests prüfen Bewegung, Kollisionen, Futterverhalten, Bot-Ausgaben und grund
 
 ### Edrys-Lite-Station
 
-Die edrys-Lite-Station verbindet später die Lernendenoberfläche mit dem physischen Arduino Uno R3, LED-Grid, Kamerastream und der Code-Ausführungsumgebung. Aktuell dokumentieren die Stationsdateien die geplanten Integrationspunkte.
+Die edrys-Lite-Station verbindet die Lernendenoberfläche mit Code-Ausführung und Arduino-Upload. Später kommen das physische LED-Grid und ein Kamerastream hinzu. Die Station soll langfristig containerisiert auf einem Raspberry Pi laufen.
 
 ## Hardwareunabhängigkeit
 
 Die Game Engine soll nicht direkt von LED-Bibliotheken, Kamera-APIs, serieller Übertragung oder edrys-Lite-Details abhängen. Hardware-spezifischer Code gehört in Renderer-, Stations- oder Transportschichten. Dadurch bleibt die Kernlogik testbar und simuliertes sowie physisches Verhalten lassen sich leichter vergleichen.
+
+Der Web-Simulator bleibt auch nach Inbetriebnahme der Hardware als digitaler Zwilling erhalten. Die Kamera zeigt den realen Istzustand, während Simulator beziehungsweise Telemetrie den erwarteten Sollzustand darstellen. Die geplanten Migrationsschritte stehen in `docs/roadmap.md`.
 
 ## Arduino-Uno-Speichermodell
 

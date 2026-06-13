@@ -24,6 +24,12 @@ Für den Unterricht bedeutet das:
 5. Die Station führt den Bot auf dem LED-Grid aus.
 6. Ein Kamerastream zeigt das physische Ergebnis.
 
+Die spätere Laboransicht soll Kamerabild und digitale Zustandsanzeige kombinieren. Damit können Lernende den erwarteten Engine-Zustand direkt mit der tatsächlichen LED-Ausgabe vergleichen.
+
+## Spätere Stationsplattform
+
+Stationsdienst, Tests, Arduino-Upload und Kamerastream sollen in Docker auf einem Raspberry Pi betrieben werden. Hardwarezugriffe werden über konfigurierbare Gerätepfade bereitgestellt; Windows `COM3` darf deshalb keine dauerhafte Plattformannahme werden. Details und offene Entscheidungen stehen in `docs/roadmap.md`.
+
 ## Entwurfsziele
 
 - Game Engine deterministisch und testbar halten.

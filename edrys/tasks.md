@@ -1,5 +1,7 @@
 # AutoSnake-Aufgaben
 
+Die Aufgaben sind in edrys-Lite auf drei eigene Levelräume verteilt. Die Lobby zeigt zuerst ein fertiges Beispiel und erklärt anschließend Lernweg und Kompetenzen.
+
 ## Level 1: Regelblöcke
 
 Baue im Aufgabenmodus des Web-Simulators eine eigene Prioritätenliste aus Bedingungen und Aktionen. Nutze Einzelschritte und bestehe anschließend die unbekannte Challenge-Karte.

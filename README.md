@@ -85,3 +85,7 @@ Die physische Station wird auf dem Arduino-Laptop gestartet:
 ```
 
 Danach den Edrys-Raum auf demselben Laptop in der Rolle **Station** öffnen. Details stehen in `station/README.md`.
+
+## Weitere Ausbaustufen
+
+Als Nächstes folgen die Anbindung eines echten 16x16-RGB-LED-Grids, eine kombinierte Kamera- und Digitalansicht sowie der Betrieb der gesamten Station in Docker auf einem Raspberry Pi. Der Simulator bleibt dabei als digitaler Zwilling erhalten. Die technischen Entscheidungen und die empfohlene Reihenfolge stehen in `docs/roadmap.md`.

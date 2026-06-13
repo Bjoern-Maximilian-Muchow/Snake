@@ -10,40 +10,8 @@ members:
   teacher: []
   student: []
 modules:
-  - url: https://edrys-labs.github.io/module-markdown-it/index.html
-    config:
-      content: |
-        # AutoSnake Remote Lab
-
-        In diesem Labor entwickelst du deinen Bot selbst. Die Beispielbots sind nur im Demo-Modus sichtbar und dienen als Vergleich.
-
-        ## Lernpfad
-
-        1. **Demo:** Strategie beobachten und nächsten Zug vorhersagen.
-        2. **Aufgabe:** Eigene Blöcke oder eigenen Code entwickeln.
-        3. **Test:** Bekannte Situationen prüfen.
-        4. **Challenge:** Unbekannte Karte bearbeiten.
-        5. **Hardware:** Erst nach bestandenen Tests auf den einzelnen Uno-Arbeitsplatz wechseln.
-
-        Es gibt nur eine physische Station. Simulator und Editoren können parallel genutzt werden; die Hardware wird nacheinander freigegeben.
-
-        Repository: https://github.com/Bjoern-Maximilian-Muchow/Snake
-    studentConfig:
-      content: ""
-    teacherConfig:
-      content: |
-        ## Hinweise für Lehrende
-
-        Referenzbots ausschließlich für Demonstration und Vergleich nutzen. Im Aufgabenmodus bearbeiten Lernende eigene Artefakte.
-
-        Hardwarefreigabe erst nach den jeweiligen Tests. Level 3 zusätzlich anhand von Botzeit, SRAM und Flash reflektieren.
-    stationConfig:
-      content: ""
-    showInCustom: Lobby
-    width: full
-    height: medium
-
-  - url: https://bjoern-maximilian-muchow.github.io/Snake/simulator/web/?mode=assignment&level=1
+  # Lobby: zuerst erleben, danach den Lernweg verstehen.
+  - url: https://bjoern-maximilian-muchow.github.io/Snake/simulator/web/?mode=demo&level=1
     config: ""
     studentConfig: ""
     teacherConfig: ""
@@ -55,26 +23,132 @@ modules:
   - url: https://edrys-labs.github.io/module-markdown-it/index.html
     config:
       content: |
-        # Level 2: Python-Arbeitsbereich
+        # Willkommen im AutoSnake Remote Lab
 
-        Implementiere nacheinander `is_blocked`, `safe_moves` und `choose_move`. Der Editor startet absichtlich mit einer unvollständigen Lösung.
+        Oben siehst du einen fertigen Bot in Aktion. In diesem Labor steuerst du Snake nicht selbst: Du entwickelst Regeln und Algorithmen, die eigenständig entscheiden.
 
-        Lokaler Testbefehl:
+        ## Dein Lernweg
 
-        ```sh
-        python -m pytest learning/level2/test_student_bot.py
-        ```
+        ### Level 1: Regeln bauen
 
-        Ziel: Alle Tests grün, danach mindestens zwei eigene Randfälle ergänzen.
+        Du setzt Bedingungen und Aktionen zu einem Bot zusammen. Danach kannst du erklären, wie Reihenfolge, Prioritäten und Rückfallregeln eine Entscheidung bestimmen.
+
+        ### Level 2: Spielfeld analysieren
+
+        Du überträgst die Regeln in Python, modellierst blockierte Felder und erzeugst sichere Züge. Danach kannst du einen Algorithmus in Hilfsfunktionen zerlegen und mit Tests verbessern.
+
+        ### Level 3: Auf echter Hardware optimieren
+
+        Du implementierst den Bot hardwarenah in C++, beachtest Speicher und Laufzeit und lädst ihn auf den Arduino Uno. Danach kannst du algorithmische Qualität gegen Ressourcenverbrauch abwägen.
+
+        ## So arbeitest du
+
+        1. Öffne den Raum deines Levels.
+        2. Lies Auftrag und Erfolgskriterien.
+        3. Entwickle deine eigene Lösung.
+        4. Nutze Tests und Challenge statt einer fertigen Bot-Auswahl.
+        5. Erkläre am Ende, warum dein Bot so entscheidet.
+
+        Es gibt nur eine physische Station. Simulation und Editoren können parallel genutzt werden; Level 3 greift nach Freigabe nacheinander auf den Uno zu.
+
+        Repository: https://github.com/Bjoern-Maximilian-Muchow/Snake
     studentConfig:
       content: ""
     teacherConfig:
-      content: ""
+      content: |
+        ## Hinweise für Lehrende
+
+        Die Lobby dient nur als Einstieg und Orientierung. Lernende arbeiten anschließend im Raum ihres Levels.
+
+        Referenzbots ausschließlich zur Beobachtung und zum Vergleich verwenden. Hardwarefreigabe erst nach erfüllten Erfolgskriterien erteilen.
     stationConfig:
       content: ""
     showInCustom: Lobby
     width: full
-    height: medium
+    height: tall
+
+  # Level 1: visuelle Regeln.
+  - url: https://edrys-labs.github.io/module-markdown-it/index.html
+    config:
+      content: |
+        # Level 1: Regeln bauen
+
+        ## Auftrag
+
+        Entwickle im Aufgabenmodus einen eigenen Snake-Bot aus geordneten Regelblöcken. Der Bot soll Futter grob ansteuern und eine unmittelbar unsichere Richtung vermeiden.
+
+        Arbeite zunächst mit Einzelschritten: Sage vor jedem Schritt voraus, welche Regel ausgeführt wird, und vergleiche deine Vorhersage mit dem Ergebnis.
+
+        ## Du hast das Level bestanden, wenn ...
+
+        - deine Regeln eine sinnvolle Reihenfolge besitzen,
+        - eine Sicherheitsregel auf eine blockierte Richtung reagiert,
+        - mindestens eine Regel das Futter berücksichtigt,
+        - eine Rückfallregel immer einen Zug ermöglicht,
+        - dein Bot die unbekannte Challenge-Karte bewältigt,
+        - du eine Entscheidung deines Bots mit eigenen Worten erklären kannst.
+
+        ## Das kannst du danach
+
+        Du kannst Bedingungen, Aktionen und Prioritäten zu einem einfachen Algorithmus verbinden. Du erkennst, dass dieselben Regeln je nach Reihenfolge zu anderem Verhalten führen.
+    studentConfig:
+      content: ""
+    teacherConfig:
+      content: |
+        Nicht die fertigen Demo-Bots als Lösung anbieten. Bei Problemen mit einer konkreten Spielsituation und der Reihenfolge der Regeln arbeiten.
+    stationConfig:
+      content: ""
+    showInCustom: Level 1
+    width: full
+    height: tall
+
+  - url: https://bjoern-maximilian-muchow.github.io/Snake/simulator/web/?mode=assignment&level=1
+    config: ""
+    studentConfig: ""
+    teacherConfig: ""
+    stationConfig: ""
+    showInCustom: Level 1
+    width: full
+    height: tall
+
+  # Level 2: strukturierter Python-Bot.
+  - url: https://edrys-labs.github.io/module-markdown-it/index.html
+    config:
+      content: |
+        # Level 2: Spielfeld analysieren
+
+        ## Auftrag
+
+        Implementiere nacheinander:
+
+        1. `is_blocked`: Rand, Snake-Körper und Hindernisse erkennen
+        2. `safe_moves`: alle aktuell sicheren Richtungen erzeugen
+        3. `choose_move`: einen sicheren und begründeten Zug auswählen
+
+        Ergänze anschließend mindestens zwei eigene Randfälle. Ein guter Test beschreibt eine konkrete Gefahr, nicht nur einen bereits geprüften Normalfall.
+
+        ## Du hast das Level bestanden, wenn ...
+
+        - alle vorgegebenen Python-Tests grün sind,
+        - dein Bot nur gültige und möglichst sichere Züge auswählt,
+        - Hindernisse ab Level 2 berücksichtigt werden,
+        - Analyse und Entscheidung in verständliche Funktionen getrennt sind,
+        - mindestens zwei eigene Tests vorhanden sind,
+        - du erklären kannst, warum Tests Fehler früher sichtbar machen.
+
+        ## Das kannst du danach
+
+        Du kannst einen Spielzustand als Datenmodell auswerten, einen Algorithmus strukturieren und sein Verhalten mit automatisierten Tests absichern.
+    studentConfig:
+      content: ""
+    teacherConfig:
+      content: |
+        Tests schrittweise bearbeiten lassen: zuerst `is_blocked`, danach `safe_moves`, zuletzt `choose_move`. Eigene Randfälle vor der Challenge besprechen.
+    stationConfig:
+      content: ""
+    showInCustom: Level 2
+    width: full
+    height: tall
 
   - url: https://edrys-labs.github.io/module-monaco-editor/
     config:
@@ -104,7 +178,7 @@ modules:
     studentConfig: ""
     teacherConfig: ""
     stationConfig: ""
-    showInCustom: Lobby
+    showInCustom: Level 2
     width: full
     height: tall
 
@@ -119,34 +193,45 @@ modules:
       enable:
         teacher: false
         student: false
-    showInCustom: Lobby
+    showInCustom: Level 2
     width: full
     height: medium
 
+  # Level 3: Embedded C++ und reale Hardware.
   - url: https://edrys-labs.github.io/module-markdown-it/index.html
     config:
       content: |
-        # Level 3: Embedded-C++-Arbeitsbereich
+        # Level 3: Auf Hardware optimieren
 
-        Implementiere `chooseStudentMove`. Verwende feste Arrays, ein Zeitlimit und einen sicheren Fallback. Dynamische Speicherallokation ist nicht erlaubt.
+        ## Auftrag
 
-        Build und Messung:
+        Implementiere `chooseStudentMove` als robuste C++-Strategie. Nutze feste Speichergrenzen, eine sichere Rückfallstrategie und eine zeitlich begrenzte Suche. Dynamische Speicherallokation ist nicht erlaubt.
 
-        ```sh
-        platformio run --environment uno-student
-        platformio run --environment uno-student --target upload
-        ```
+        Nach erfolgreichem Build wird der Code exklusiv auf den Arduino Uno geladen. Werte anschließend Botzeit, SRAM und Flash aus.
 
-        Ziel: gültiger Bot, ungefähr 3 ms Entscheidungszeit und nachvollziehbare SRAM-/Flash-Werte.
+        ## Du hast das Level bestanden, wenn ...
+
+        - `uno-student` erfolgreich kompiliert,
+        - keine dynamische Speicherallokation verwendet wird,
+        - Hindernisse und der eigene Körper geprüft werden,
+        - eine sichere Rückfallstrategie vorhanden ist,
+        - die Botentscheidung ungefähr unter 3 ms bleibt,
+        - du die gemessenen SRAM-, Flash- und Laufzeitwerte erklären kannst,
+        - dein Bot eine unbekannte Challenge-Situation robust bearbeitet.
+
+        ## Das kannst du danach
+
+        Du kannst einen Algorithmus unter realen Speicher- und Zeitgrenzen implementieren, messen und begründet optimieren. Du verstehst den Weg vom getesteten Code bis zur Ausführung auf einem Mikrocontroller.
     studentConfig:
       content: ""
     teacherConfig:
-      content: ""
+      content: |
+        Hardwarezugriff einzeln freigeben. Nach dem Upload nicht nur das Spielergebnis, sondern auch Messwerte und Fallback-Verhalten reflektieren lassen.
     stationConfig:
       content: ""
-    showInCustom: Lobby
+    showInCustom: Level 3
     width: full
-    height: medium
+    height: tall
 
   - url: https://edrys-labs.github.io/module-monaco-editor/
     config:
@@ -170,7 +255,7 @@ modules:
     studentConfig: ""
     teacherConfig: ""
     stationConfig: ""
-    showInCustom: Lobby
+    showInCustom: Level 3
     width: full
     height: tall
 
@@ -185,64 +270,26 @@ modules:
       enable:
         teacher: false
         student: false
-    showInCustom: Lobby
+    showInCustom: Level 3
     width: full
     height: medium
 
+  # Nur auf dem Stationsrechner sichtbar.
   - url: https://edrys-labs.github.io/module-markdown-it/index.html
     config:
       content: |
-        # Tests und Hardwarefreigabe
+        # Physische AutoSnake-Station
 
-        ## Level 1
-
-        - Rückfallregel vorhanden
-        - Reaktion auf blockierte Richtung
-        - unbekannte Challenge-Karte abgeschlossen
-
-        ## Level 2
-
-        - vorgegebene Python-Tests grün
-        - mindestens zwei eigene Tests
-        - unbekannte Hinderniskarte sicher bearbeitet
-
-        ## Level 3
-
-        - `uno-student` kompiliert
-        - keine dynamische Speicherallokation
-        - sichere Rückfallstrategie
-        - Botzeit ungefähr unter 3 ms
-        - Messwerte erklärt
-
-        Die Ausführen-Schaltflächen publizieren `autosnake-python` bzw. `autosnake-cpp`. Der Stationsdienst testet Python in einer temporären Arbeitskopie und lädt bestandenen C++-Code exklusiv auf den Uno an `COM3`.
-    studentConfig:
-      content: ""
-    teacherConfig:
-      content: |
-        Hardwarefreigabe dokumentieren. Es kann immer nur eine Person gleichzeitig auf die physische Station zugreifen.
-    stationConfig:
-      content: ""
-    showInCustom: Lobby
-    width: full
-    height: tall
-
-  - url: https://edrys-labs.github.io/module-markdown-it/index.html
-    config:
-      content: |
-        # Physische Station
-
-        Die Station stellt später Arduino Uno R3, 16x16 RGB-LED-Grid, Kamera und den Ausführungsdienst bereit.
-
-        Aktuell läuft die Game Engine bereits auf dem Uno und liefert Live-Telemetrie für Botzeit, Enginezeit, Last, SRAM und Flash.
+        Diese Station verbindet Edrys mit dem Arduino Uno R3. Aktuell laufen Game Engine, Lernenden-Bot und Live-Telemetrie bereits auf dem Uno. Das echte 16x16-RGB-Grid und die Kamera werden später ergänzt.
     studentConfig:
       content: |
-        Warte auf die Freigabe durch die Lehrperson. Simulator, Tests und Editor bleiben währenddessen verfügbar.
+        Warte auf die Freigabe durch die Lehrperson. Simulator und Editor bleiben währenddessen verfügbar.
     teacherConfig:
       content: |
-        Nur eine aktive Person an die Hardware lassen. Nach Upload Messwerte und Kamerabild gemeinsam auswerten.
+        Nur eine aktive Person an die Hardware lassen. Nach dem Upload Messwerte und später Kamerabild gemeinsam auswerten.
     stationConfig:
       content: |
-        Vor dem Öffnen der Station `scripts/start_station.ps1` ausführen. Der Dienst verbindet die Topics `autosnake-python` und `autosnake-cpp` mit Tests, Build und Upload.
+        Vor dem Öffnen der Station `scripts/start_station.ps1` ausführen. Der Dienst verbindet `autosnake-python` und `autosnake-cpp` mit Tests, Build und Upload.
     showInCustom: Station
     width: full
     height: medium
