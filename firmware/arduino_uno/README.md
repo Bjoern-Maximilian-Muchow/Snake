@@ -14,8 +14,15 @@ Der Code ist bewusst klein gehalten und nutzt keine externen Arduino-Bibliotheke
 - `example_bot_bfs.h`: zeitlich begrenzter Level-3-Bot mit BFS und Freiraumprüfung.
 - `led_grid.*`: aktuell No-Library-Platzhalter mit eingebauter LED; später Anschluss an das reale LED-Grid.
 - `perf_monitor.*`: Live-Statistik zu Schrittzeit und RAM.
+- `led_chase/led_chase.ino`: sicherer erster LED-Panel-Test an Digital-Pin 9.
 
 Der Arduino Uno hat wenig RAM. Deshalb vermeidet die Firmware dynamische Speicherallokation. Der Snake-Körper liegt als 256-Byte-Ringpuffer vor. Snake-Belegung und Hindernisse nutzen jeweils ein 32-Byte-Bitfeld.
+
+## LED-Panel-Test
+
+Der Sketch `led_chase/led_chase.ino` testet ein 16x16-WS2812/NeoPixel-kompatibles RGB-Panel an Digital-Pin 9. Er verwendet keine externen Bibliotheken und schaltet immer nur eine LED mit niedriger Helligkeit ein. Damit bleibt die Stromaufnahme für erste Tests mit einer kleinen 5-V-Versorgung deutlich begrenzt.
+
+Wichtig: Die externe 5-V-Versorgung, das LED-Panel und der Arduino müssen eine gemeinsame Masse besitzen. Der Datenpin liegt auf D9. Falls das Panel nicht WS2812/NeoPixel-kompatibel ist, braucht es einen anderen Treiber.
 
 ## Level auf dem Uno
 
@@ -121,3 +128,16 @@ Mit Arduino IDE:
 arduino-cli compile --fqbn arduino:avr:uno firmware/arduino_uno/AutoSnakeUno
 arduino-cli upload -p COM3 --fqbn arduino:avr:uno firmware/arduino_uno/AutoSnakeUno
 ```
+
+### LED-Panel-Test hochladen
+
+Für den sparsamen LED-Test kann `firmware/arduino_uno/led_chase/led_chase.ino` direkt in der Arduino IDE geöffnet werden.
+
+Mit PlatformIO:
+
+```powershell
+platformio run --project-dir firmware/arduino_uno/led_chase
+platformio run --project-dir firmware/arduino_uno/led_chase --target upload
+```
+
+Der Sketch nutzt D9 und schaltet jeweils nur eine LED mit niedriger Helligkeit ein.
