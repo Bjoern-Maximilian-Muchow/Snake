@@ -41,6 +41,14 @@ def test_web_simulator_contains_block_editor_and_learning_modes():
     assert 'document.querySelector(".mode-tabs").classList.add("hidden")' in script
 
 
+def test_web_simulator_loads_edrys_client_for_station_messages():
+    html = (ROOT / "simulator" / "web" / "index.html").read_text(encoding="utf-8")
+    script = (ROOT / "simulator" / "web" / "simulator.js").read_text(encoding="utf-8")
+
+    assert "https://edrys-labs.github.io/module/edrys.js" in html
+    assert 'Edrys.sendMessage("autosnake-rules"' in script
+
+
 def test_edrys_contains_python_and_cpp_editors():
     laboratory = (ROOT / "edrys" / "laboratory.yaml").read_text(encoding="utf-8")
 
