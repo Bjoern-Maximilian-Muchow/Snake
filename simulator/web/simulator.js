@@ -39,6 +39,7 @@ const levelField = document.querySelector("#level-field");
 const lockedLevelTitle = document.querySelector("#locked-level-title");
 const botSelect = document.querySelector("#bot");
 const demoBotField = document.querySelector("#demo-bot-field");
+const botDescription = document.querySelector("#bot-description");
 const taskTitle = document.querySelector("#task-title");
 const taskText = document.querySelector("#task-text");
 const botText = document.querySelector("#bot-text");
@@ -57,6 +58,11 @@ const learningPanels = {
 const challengeTitle = document.querySelector("#challenge-title");
 const challengeText = document.querySelector("#challenge-text");
 const challengeResult = document.querySelector("#challenge-result");
+const botDescriptions = {
+  basic: "Der Regelbot steuert zuerst grob auf das Futter zu. Er prüft nur einfache Regeln und erkennt Gefahren nicht vollständig.",
+  safe: "Der sichere Bot prüft vor jedem Zug Wände, den eigenen Körper und Hindernisse. Erst danach wählt er einen passenden Weg zum Futter.",
+  bfs: "Der BFS-Bot sucht Schritt für Schritt nach einem kurzen Weg zum Futter. Wenn kein Weg gefunden wird, nutzt er die Sicherheitsprüfung.",
+};
 
 const blockEditor = new AutoSnakeBlockEditor({
   listElement: document.querySelector("#rule-list"),
@@ -284,6 +290,7 @@ function updateTask() {
   taskTitle.textContent = title;
   taskText.textContent = text;
   botText.textContent = bot;
+  botDescription.textContent = botDescriptions[botSelect.value];
   challengeTitle.textContent = levelTasks[state.level].challenge[0];
   challengeText.textContent = levelTasks[state.level].challenge[1];
 }
