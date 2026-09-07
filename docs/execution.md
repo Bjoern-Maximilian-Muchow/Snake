@@ -26,13 +26,15 @@ Mit `AUTOSNAKE_STUDENT_BOT` bindet die Firmware `learning/level3/student_bot.h` 
 
 ## Edrys und Stationsdienst
 
-Die Monaco-Editoren publizieren ihren Inhalt über zwei getrennte Topics:
+Die Monaco-Editoren und der Level-1-Blockeditor publizieren ihre Inhalte über drei getrennte Topics:
 
+- `autosnake-rules`
 - `autosnake-python`
 - `autosnake-cpp`
 
-Zwei pyxtermjs-Ausgabemodule hören stationsseitig auf diese Topics. Der Windows-kompatible Socket.IO-Server unter `station/server.py` akzeptiert ausschließlich `autosnake-run python` und `autosnake-run cpp`. Der begrenzte Runner unter `station/runner.py` akzeptiert nur Base64-kodierten Editorinhalt und führt keine frei wählbaren Shell-Befehle aus.
+Drei pyxtermjs-Ausgabemodule hören stationsseitig auf diese Topics. Der Windows-kompatible Socket.IO-Server unter `station/server.py` akzeptiert ausschließlich `autosnake-run rules`, `autosnake-run python` und `autosnake-run cpp`. Der begrenzte Runner unter `station/runner.py` akzeptiert nur Base64-kodierte Regeln oder Editorinhalte und führt keine frei wählbaren Shell-Befehle aus.
 
+- Level-1-Regeln werden als JSON übertragen, in einen C++-Bot übersetzt und im virtuellen Arduino ausgeführt.
 - Python wird in eine temporäre Arbeitskopie geschrieben und mit einem Zeitlimit getestet.
 - Python-Importe, Dunder-Zugriffe und Datei-/Prozessfunktionen werden vor der Ausführung per AST-Prüfung abgelehnt.
 - C++ wird auf verbotene dynamische Speicherallokation geprüft, exklusiv gebaut und auf `COM3` geladen.

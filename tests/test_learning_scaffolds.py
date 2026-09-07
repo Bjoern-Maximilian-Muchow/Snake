@@ -30,7 +30,8 @@ def test_web_simulator_contains_block_editor_and_learning_modes():
     assert 'data-mode="assignment"' in html
     assert 'data-mode="challenge"' in html
     assert 'id="rule-list"' in html
-    assert 'src="block_editor.js"' in html
+    assert 'src="block_editor.js?v=7"' in html
+    assert 'src="simulator.js?v=7"' in html
     assert 'id="current-level"' not in html
 
     script = (ROOT / "simulator" / "web" / "simulator.js").read_text(encoding="utf-8")
@@ -46,8 +47,9 @@ def test_web_simulator_loads_edrys_client_for_station_messages():
     script = (ROOT / "simulator" / "web" / "simulator.js").read_text(encoding="utf-8")
 
     assert "https://edrys-labs.github.io/module/edrys.js" in html
-    assert 'input_${Edrys.role}_${executeTopic}' in script
-    assert "autosnake-run rules ${encodedRules} --virtual" in script
+    assert "Edrys.sendMessage(executeTopic, JSON.stringify(blockEditor.rules))" in script
+    assert "Edrys.onMessage(({ subject, body }) => {" in script
+    assert "}, true);" in script
     assert 'pty-output_autosnake-${topic}' in script
 
 
@@ -60,6 +62,8 @@ def test_edrys_contains_python_and_cpp_editors():
     assert laboratory.count("module-pyxtermjs") == 3
     assert "execute: autosnake-python" in laboratory
     assert "execute: autosnake-cpp" in laboratory
+    assert "execute: autosnake-rules" in laboratory
+    assert "autosnake-run rules $CODE --virtual" in laboratory
     assert "autosnake-run python $CODE --virtual" in laboratory
     assert "autosnake-run cpp $CODE --virtual" in laboratory
 
@@ -67,7 +71,7 @@ def test_edrys_contains_python_and_cpp_editors():
 def test_edrys_separates_lobby_and_three_level_rooms():
     laboratory = (ROOT / "edrys" / "laboratory.yaml").read_text(encoding="utf-8")
 
-    assert "mode=demo&lockMode=demo&level=1&lockLevel=1&v=6" in laboratory
+    assert "mode=demo&lockMode=demo&level=1&lockLevel=1&v=7" in laboratory
     assert "  defaultNumberOfRooms: 3" in laboratory
     assert "showInCustom: Lobby" in laboratory
     assert "showInCustom: Room 1" in laboratory

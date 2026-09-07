@@ -327,7 +327,7 @@ if (typeof Edrys !== "undefined" && typeof Edrys.onMessage === "function") {
         arduinoStatus.textContent = line.replace(/^.*ERGEBNIS:\s*/, "");
       }
     });
-  });
+  }, true);
 }
 
 function setMode(nextMode) {
@@ -379,9 +379,7 @@ runRulesArduinoButton.addEventListener("click", async () => {
   try {
     if (typeof Edrys !== "undefined" && typeof Edrys.sendMessage === "function") {
       const executeTopic = "autosnake-rules";
-      const encodedRules = btoa(unescape(encodeURIComponent(JSON.stringify(blockEditor.rules))));
-      const command = `\u0003\u0003\nautosnake-run rules ${encodedRules} --virtual\n`;
-      Edrys.sendMessage(`input_${Edrys.role}_${executeTopic}`, command);
+      Edrys.sendMessage(executeTopic, JSON.stringify(blockEditor.rules));
       arduinoRunStatus.textContent = "Regeln wurden über Edrys an den virtuellen Arduino gesendet.";
       return;
     }
