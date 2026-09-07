@@ -345,7 +345,8 @@ runRulesArduinoButton.addEventListener("click", async () => {
   arduinoRunStatus.textContent = "Regeln werden an den virtuellen Arduino gesendet ...";
   try {
     if (typeof Edrys !== "undefined" && typeof Edrys.sendMessage === "function") {
-      Edrys.sendMessage("autosnake-rules", JSON.stringify(blockEditor.rules));
+      const executeTopic = "autosnake-rules";
+      Edrys.sendMessage(`input_${Edrys.role}_${executeTopic}`, JSON.stringify(blockEditor.rules));
       arduinoRunStatus.textContent = "Regeln wurden über Edrys an den virtuellen Arduino gesendet.";
       return;
     }

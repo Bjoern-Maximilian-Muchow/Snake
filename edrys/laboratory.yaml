@@ -125,7 +125,7 @@ modules:
       script: 'autosnake-run rules $CODE --virtual'
       enable:
         teacher: false
-        student: false
+        student: true
     showInCustom: Room 1
     width: full
     height: medium
