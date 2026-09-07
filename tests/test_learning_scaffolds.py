@@ -50,14 +50,14 @@ def test_edrys_contains_python_and_cpp_editors():
     assert laboratory.count("module-pyxtermjs") == 2
     assert "execute: autosnake-python" in laboratory
     assert "execute: autosnake-cpp" in laboratory
-    assert "autosnake-run python $CODE" in laboratory
-    assert "autosnake-run cpp $CODE --upload --port COM3" in laboratory
+    assert "autosnake-run python $CODE --virtual" in laboratory
+    assert "autosnake-run cpp $CODE --virtual" in laboratory
 
 
 def test_edrys_separates_lobby_and_three_level_rooms():
     laboratory = (ROOT / "edrys" / "laboratory.yaml").read_text(encoding="utf-8")
 
-    assert "mode=demo&lockMode=demo&level=1&lockLevel=1&v=5" in laboratory
+    assert "mode=demo&lockMode=demo&level=1&lockLevel=1&v=6" in laboratory
     assert "  defaultNumberOfRooms: 3" in laboratory
     assert "showInCustom: Lobby" in laboratory
     assert "showInCustom: Room 1" in laboratory

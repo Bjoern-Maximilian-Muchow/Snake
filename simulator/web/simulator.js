@@ -58,6 +58,8 @@ const learningPanels = {
 const challengeTitle = document.querySelector("#challenge-title");
 const challengeText = document.querySelector("#challenge-text");
 const challengeResult = document.querySelector("#challenge-result");
+const runRulesArduinoButton = document.querySelector("#run-rules-arduino");
+const arduinoRunStatus = document.querySelector("#arduino-run-status");
 const botDescriptions = {
   basic: "Der Regelbot steuert zuerst grob auf das Futter zu. Er prüft nur einfache Regeln und erkennt Gefahren nicht vollständig.",
   safe: "Der sichere Bot prüft vor jedem Zug Wände, den eigenen Körper und Hindernisse. Erst danach wählt er einen passenden Weg zum Futter.",
@@ -337,6 +339,23 @@ document.querySelector("#apply-rules").addEventListener("click", () => {
   running = true;
   reset();
   syncTimer();
+});
+runRulesArduinoButton.addEventListener("click", async () => {
+  runRulesArduinoButton.disabled = true;
+  arduinoRunStatus.textContent = "Regeln werden an den virtuellen Arduino gesendet ...";
+  try {
+    const response = await fetch("http://localhost:5000/virtual/rules", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(blockEditor.rules),
+    });
+    if (!response.ok) throw new Error("Station antwortet nicht erfolgreich.");
+    arduinoRunStatus.textContent = "Virtueller Arduino läuft. Öffne den Live-Monitor in VS Code.";
+  } catch (error) {
+    arduinoRunStatus.textContent = `Start fehlgeschlagen: ${error.message}`;
+  } finally {
+    runRulesArduinoButton.disabled = false;
+  }
 });
 document.querySelector("#load-challenge").addEventListener("click", () => {
   running = state.level === 1 && customRulesApplied;

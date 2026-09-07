@@ -20,10 +20,8 @@ constexpr uint8_t LOW = 0;
 constexpr uint8_t OUTPUT = 1;
 constexpr uint8_t LED_BUILTIN = 13;
 #define _BV(bit) (static_cast<unsigned int>(1U) << (bit))
-constexpr uint16_t VIRTUAL_RAM_USED = 770;
+constexpr uint16_t VIRTUAL_RAM_BASE_USED = 770;
 constexpr uint16_t VIRTUAL_RAM_TOTAL = 2048;
-constexpr uint16_t VIRTUAL_FLASH_USED = 7958;
-constexpr uint16_t VIRTUAL_FLASH_TOTAL = 32256;
 
 template <typename T, typename Lower, typename Upper>
 T constrain(T value, Lower lower, Upper upper) {
@@ -146,6 +144,9 @@ inline void virtualMonitorEmit(uint8_t level, uint16_t score, uint16_t length,
   static uint16_t steps = 0;
   const uint32_t workUs = botUs + engineUs + renderUs;
   const uint32_t cpuMilliPercent = (workUs * 100000UL) / 180000UL;
+  const uint16_t simulatedRamUsed = static_cast<uint16_t>(
+    VIRTUAL_RAM_BASE_USED + length * 4 + level * 8
+  );
   std::cout << "AUTOSNAKE_MONITOR {\"frame\":" << virtualFrameNumber()
             << ",\"level\":" << static_cast<unsigned int>(level)
             << ",\"score\":" << score
@@ -153,10 +154,8 @@ inline void virtualMonitorEmit(uint8_t level, uint16_t score, uint16_t length,
             << ",\"steps\":" << ++steps
             << ",\"state\":" << state
             << ",\"cpu_milli_percent\":" << cpuMilliPercent
-            << ",\"ram_used\":" << VIRTUAL_RAM_USED
+            << ",\"ram_used\":" << simulatedRamUsed
             << ",\"ram_total\":" << VIRTUAL_RAM_TOTAL
-            << ",\"flash_used\":" << VIRTUAL_FLASH_USED
-            << ",\"flash_total\":" << VIRTUAL_FLASH_TOTAL
             << ",\"pins\":{\"D9\":0,\"D13\":" << static_cast<unsigned int>(virtualPins()[LED_BUILTIN])
             << "},\"grid\":[";
   for (uint8_t y = 0; y < 16; ++y) {

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import base64
+import json
 import re
 import subprocess
 import sys
@@ -14,7 +16,7 @@ from flask_socketio import SocketIO, join_room
 ROOT = Path(__file__).resolve().parents[1]
 RUNNER = ROOT / "station" / "runner.py"
 COMMAND_PATTERN = re.compile(
-    r"^autosnake-run\s+(python|cpp)\s+([A-Za-z0-9+/=]+)"
+    r"^autosnake-run\s+(python|cpp|rules)\s+([A-Za-z0-9+/=]+)"
     r"(?:\s+(--upload|--virtual))?(?:\s+--port\s+(COM\d+))?$",
     re.IGNORECASE,
 )
@@ -34,7 +36,7 @@ def parse_station_command(line: str, default_port: str) -> StationCommand | None
     if not match:
         return None
     mode, encoded_code, action, port = match.groups()
-    if action == "--virtual" and mode.lower() != "cpp":
+    if action == "--virtual" and mode.lower() not in {"python", "cpp", "rules"}:
         return None
     return StationCommand(
         mode=mode.lower(),
@@ -111,6 +113,14 @@ def create_app(default_port: str = "COM3") -> tuple[Flask, SocketIO]:
     def monitor():
         return send_from_directory(str(ROOT / "simulator" / "web"), "arduino-monitor.html")
 
+    @app.get("/arduino-monitor.css")
+    def monitor_css():
+        return send_from_directory(str(ROOT / "simulator" / "web"), "arduino-monitor.css")
+
+    @app.get("/arduino-monitor.js")
+    def monitor_js():
+        return send_from_directory(str(ROOT / "simulator" / "web"), "arduino-monitor.js")
+
     @app.post("/virtual/stop")
     def stop_virtual():
         with processes_lock:
@@ -118,10 +128,40 @@ def create_app(default_port: str = "COM3") -> tuple[Flask, SocketIO]:
         stopped = 0
         for process in processes:
             if process.poll() is None:
-                process.kill()
+                if sys.platform == "win32":
+                    subprocess.run(
+                        ["taskkill", "/T", "/F", "/PID", str(process.pid)],
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL,
+                        check=False,
+                    )
+                else:
+                    process.kill()
                 stopped += 1
         emit_monitor("AUTOSNAKE_STATUS gestoppt\n")
         return jsonify(stopped=stopped, status="ok")
+
+    @app.post("/virtual/rules")
+    def start_virtual_rules():
+        rules = request.get_json(silent=True)
+        if not isinstance(rules, list):
+            return jsonify(error="Regeln müssen als Liste übertragen werden."), 400
+        encoded = base64.b64encode(json.dumps(rules).encode("utf-8")).decode("ascii")
+        command = StationCommand(
+            mode="rules",
+            encoded_code=encoded,
+            upload=False,
+            virtual=True,
+            port=default_port,
+        )
+        socketio.start_background_task(execute, "http", command)
+        return jsonify(status="started")
+
+    @app.after_request
+    def allow_local_browser_access(response):
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+        return response
 
     @socketio.on("connect", namespace="/pty")
     def connect():

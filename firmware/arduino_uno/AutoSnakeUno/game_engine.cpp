@@ -82,6 +82,9 @@ BotSnapshot GameEngine::snapshot() const {
   result.currentDirection = direction;
   result.snakeLength = snakeLength;
   result.level = currentLevel;
+  result.score = currentScore;
+  result.body = body;
+  result.bodyStart = headIndex;
   result.occupied = occupied;
   result.obstacles = obstacles;
   return result;

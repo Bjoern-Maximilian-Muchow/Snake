@@ -31,6 +31,8 @@ Die Tests prüfen Bewegung, Kollisionen, Futterverhalten, Bot-Ausgaben und grund
 
 Die edrys-Lite-Station verbindet die Lernendenoberfläche mit Code-Ausführung und Arduino-Upload. Später kommen das physische LED-Grid und ein Kamerastream hinzu. Die Station soll langfristig containerisiert auf einem Raspberry Pi laufen.
 
+In der hardwarefreien Betriebsart verwenden alle drei Level dieselbe virtuelle Arduino-Engine: Level 1 überträgt validierte Regelblöcke, Level 2 beantwortet externe Python-Bot-Anfragen und Level 3 kompiliert den C++-Bot direkt gegen die virtuelle Firmware.
+
 ## Hardwareunabhängigkeit
 
 Die Game Engine soll nicht direkt von LED-Bibliotheken, Kamera-APIs, serieller Übertragung oder edrys-Lite-Details abhängen. Hardware-spezifischer Code gehört in Renderer-, Stations- oder Transportschichten. Dadurch bleibt die Kernlogik testbar und simuliertes sowie physisches Verhalten lassen sich leichter vergleichen.

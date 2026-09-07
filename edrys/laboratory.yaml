@@ -202,7 +202,7 @@ modules:
     stationConfig:
       server: http://localhost:5000/pty
       execute: autosnake-python
-      script: 'autosnake-run python $CODE'
+      script: 'autosnake-run python $CODE --virtual'
       enable:
         teacher: false
         student: false

@@ -21,6 +21,9 @@ struct BotSnapshot {
   Direction currentDirection;
   uint16_t snakeLength;
   uint8_t level;
+  uint16_t score;
+  const uint8_t* body;
+  uint8_t bodyStart;
   const uint8_t* occupied;
   const uint8_t* obstacles;
 };

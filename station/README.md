@@ -23,7 +23,7 @@ PlatformIO wird aus der VS-Code-Installation unter `%USERPROFILE%\.platformio` e
 
 Anschließend den Edrys-Raum auf diesem Laptop in der Rolle **Station** öffnen. Die beiden Ausgabemodule verbinden sich mit `http://localhost:5000/pty`.
 
-Für die hardwarefreie Simulation verwendet Edrys den Befehl `autosnake-run cpp $CODE --virtual`. Der Stationsdienst baut den eingereichten Bot und startet danach das native virtuelle Arduino-Programm. Es wird kein Arduino-Port benötigt.
+Für die hardwarefreie Simulation verwendet Edrys die Befehle `autosnake-run rules $RULES --virtual`, `autosnake-run python $CODE --virtual` und `autosnake-run cpp $CODE --virtual`. Der Stationsdienst startet jeweils den virtuellen Arduino mit der passenden Bot-Adapter-Schicht. Es wird kein Arduino-Port benötigt.
 
 Der Live-Monitor ist im VS-Code-Browser unter `http://localhost:5000/monitor` erreichbar. Er zeigt LED-Frames, Pin-Zustände, simulierte CPU-/RAM-Auslastung und beendet den laufenden virtuellen Arduino über **Simulation beenden**.
 

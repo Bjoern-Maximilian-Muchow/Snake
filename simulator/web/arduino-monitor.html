@@ -35,23 +35,6 @@
         </section>
 
         <aside class="side-column">
-          <section class="panel" aria-labelledby="state-title">
-            <div class="panel-heading">
-              <div>
-                <p class="eyebrow">Laufzeit</p>
-                <h2 id="state-title">Arduino-Zustand</h2>
-              </div>
-              <span id="run-state" class="state-badge">Wartet</span>
-            </div>
-            <dl class="stats">
-              <div><dt>Level</dt><dd id="level">-</dd></div>
-              <div><dt>Schritte</dt><dd id="steps">-</dd></div>
-              <div><dt>Punkte</dt><dd id="score">-</dd></div>
-              <div><dt>Länge</dt><dd id="length">-</dd></div>
-              <div><dt>Letzter Zustand</dt><dd id="step-state">-</dd></div>
-            </dl>
-          </section>
-
           <section class="panel" aria-labelledby="resources-title">
             <div class="panel-heading">
               <div>
@@ -64,24 +47,9 @@
               <div class="meter"><span id="cpu-meter"></span></div>
             </div>
             <div class="meter-block">
-              <div class="meter-label"><span>Simulierter RAM</span><strong id="ram-value">-</strong></div>
+              <div class="meter-label"><span>Simulierter RAM · live</span><strong id="ram-value">-</strong></div>
               <div class="meter"><span id="ram-meter"></span></div>
             </div>
-            <div class="meter-block">
-              <div class="meter-label"><span>Arduino Flash</span><strong id="flash-value">-</strong></div>
-              <div class="meter"><span id="flash-meter"></span></div>
-            </div>
-          </section>
-
-          <section class="panel" aria-labelledby="pins-title">
-            <div class="panel-heading">
-              <div>
-                <p class="eyebrow">Hardware-I/O</p>
-                <h2 id="pins-title">Pin-Aktivität</h2>
-              </div>
-            </div>
-            <div id="pin-list" class="pin-list"></div>
-            <p class="hint">D9 ist für das spätere RGB-Panel reserviert. D13 bildet die eingebaute Arduino-LED ab.</p>
           </section>
         </aside>
       </section>

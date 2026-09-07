@@ -9,6 +9,49 @@
 #include "student_bot.h"
 #endif
 
+#ifdef AUTOSNAKE_EXTERNAL_BOT
+#include <string>
+
+Direction requestExternalMove(const BotSnapshot& snapshot) {
+  std::cout << "AUTOSNAKE_REQUEST {\"head\":[" << static_cast<unsigned int>(snapshot.head.x)
+            << "," << static_cast<unsigned int>(snapshot.head.y)
+            << "],\"food\":[" << static_cast<unsigned int>(snapshot.food.x)
+            << "," << static_cast<unsigned int>(snapshot.food.y)
+            << "],\"direction\":" << static_cast<unsigned int>(snapshot.currentDirection)
+            << ",\"length\":" << snapshot.snakeLength
+            << ",\"level\":" << static_cast<unsigned int>(snapshot.level)
+            << ",\"score\":" << snapshot.score
+            << ",\"body\":[";
+  for (uint16_t i = 0; i < snapshot.snakeLength; ++i) {
+    if (i > 0) std::cout << ',';
+    const uint8_t storageIndex = static_cast<uint8_t>(snapshot.bodyStart + i);
+    std::cout << static_cast<unsigned int>(snapshot.body[storageIndex]);
+  }
+  std::cout << "],\"occupied\":[";
+  for (uint8_t i = 0; i < GRID_BITSET_BYTES; ++i) {
+    if (i > 0) std::cout << ',';
+    std::cout << static_cast<unsigned int>(snapshot.occupied[i]);
+  }
+  std::cout << "],\"obstacles\":[";
+  for (uint8_t i = 0; i < GRID_BITSET_BYTES; ++i) {
+    if (i > 0) std::cout << ',';
+    std::cout << static_cast<unsigned int>(snapshot.obstacles[i]);
+  }
+  std::cout << "]}\n" << std::flush;
+
+  std::string response;
+  if (!std::getline(std::cin, response)) return snapshot.currentDirection;
+  const std::string prefix = "AUTOSNAKE_MOVE ";
+  if (response.rfind(prefix, 0) != 0) return snapshot.currentDirection;
+  const char move = response[prefix.size()];
+  if (move == '0') return DIR_UP;
+  if (move == '1') return DIR_RIGHT;
+  if (move == '2') return DIR_DOWN;
+  if (move == '3') return DIR_LEFT;
+  return snapshot.currentDirection;
+}
+#endif
+
 GameEngine engine;
 LedGrid ledGrid;
 PerfMonitor perf;
@@ -16,7 +59,9 @@ unsigned long lastStep = 0;
 StepResult lastResult = STEP_OK;
 
 Direction chooseMove(const BotSnapshot& snapshot) {
-#ifdef AUTOSNAKE_STUDENT_BOT
+#ifdef AUTOSNAKE_EXTERNAL_BOT
+  return requestExternalMove(snapshot);
+#elif defined(AUTOSNAKE_STUDENT_BOT)
   return chooseStudentMove(snapshot);
 #else
   if (snapshot.level == 1) {

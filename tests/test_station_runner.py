@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import base64
+import json
 
 import pytest
 
@@ -70,6 +71,24 @@ def test_cpp_validation_rejects_additional_includes():
         runner.validate_cpp(code)
 
 
+def test_level_one_rules_are_validated_and_translated():
+    rules = [{"condition": "front_blocked", "action": "turn_left"}, {"condition": "always", "action": "forward"}]
+    encoded = base64.b64encode(json.dumps(rules).encode()).decode()
+
+    assert runner.decode_rules(encoded) == rules
+    generated = runner.generate_rule_bot(rules)
+    assert "snapshotBlocked" in generated
+    assert "turnLeft" in generated
+
+
+def test_level_one_rules_reject_unknown_actions():
+    rules = [{"condition": "always", "action": "run_shell"}]
+    encoded = base64.b64encode(json.dumps(rules).encode()).decode()
+
+    with pytest.raises(runner.StationError, match="Ungültige"):
+        runner.decode_rules(encoded)
+
+
 def test_python_submission_runs_in_temporary_workspace():
     assert runner.run_python(WORKING_PYTHON_BOT) == 0
 
@@ -88,6 +107,10 @@ def test_station_server_accepts_only_fixed_commands():
     assert virtual_command is not None
     assert virtual_command.virtual
     assert not virtual_command.upload
+    rules_command = parse_station_command(f"autosnake-run rules {encoded} --virtual", "COM4")
+    assert rules_command is not None
+    assert rules_command.mode == "rules"
+    assert rules_command.virtual
     assert parse_station_command("Get-ChildItem", "COM3") is None
 
 
