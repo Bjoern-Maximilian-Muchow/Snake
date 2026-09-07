@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AutoSnake Arduino Monitor</title>
+    <link rel="stylesheet" href="arduino-monitor.css">
+  </head>
+  <body>
+    <main class="monitor-app">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Virtuelle Hardware</p>
+          <h1>Arduino Monitor</h1>
+          <p id="connection-status" class="muted">Verbinde mit der Station ...</p>
+        </div>
+        <button id="stop-button" class="stop-button" type="button">Simulation beenden</button>
+      </header>
+
+      <section class="content-grid">
+        <section class="panel led-panel" aria-labelledby="led-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Ausgabe</p>
+              <h2 id="led-title">16x16 LED-Grid</h2>
+            </div>
+            <span id="frame-label" class="badge">Kein Frame</span>
+          </div>
+          <div id="led-grid" class="led-grid" aria-label="Virtuelles 16 mal 16 LED-Grid"></div>
+          <div class="legend">
+            <span><i class="legend-head"></i>Kopf</span>
+            <span><i class="legend-snake"></i>Snake</span>
+            <span><i class="legend-food"></i>Futter</span>
+          </div>
+        </section>
+
+        <aside class="side-column">
+          <section class="panel" aria-labelledby="state-title">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Laufzeit</p>
+                <h2 id="state-title">Arduino-Zustand</h2>
+              </div>
+              <span id="run-state" class="state-badge">Wartet</span>
+            </div>
+            <dl class="stats">
+              <div><dt>Level</dt><dd id="level">-</dd></div>
+              <div><dt>Schritte</dt><dd id="steps">-</dd></div>
+              <div><dt>Punkte</dt><dd id="score">-</dd></div>
+              <div><dt>Länge</dt><dd id="length">-</dd></div>
+              <div><dt>Letzter Zustand</dt><dd id="step-state">-</dd></div>
+            </dl>
+          </section>
+
+          <section class="panel" aria-labelledby="resources-title">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Ressourcen</p>
+                <h2 id="resources-title">Systemauslastung</h2>
+              </div>
+            </div>
+            <div class="meter-block">
+              <div class="meter-label"><span>Simulierte CPU</span><strong id="cpu-value">-</strong></div>
+              <div class="meter"><span id="cpu-meter"></span></div>
+            </div>
+            <div class="meter-block">
+              <div class="meter-label"><span>Simulierter RAM</span><strong id="ram-value">-</strong></div>
+              <div class="meter"><span id="ram-meter"></span></div>
+            </div>
+            <div class="meter-block">
+              <div class="meter-label"><span>Arduino Flash</span><strong id="flash-value">-</strong></div>
+              <div class="meter"><span id="flash-meter"></span></div>
+            </div>
+          </section>
+
+          <section class="panel" aria-labelledby="pins-title">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Hardware-I/O</p>
+                <h2 id="pins-title">Pin-Aktivität</h2>
+              </div>
+            </div>
+            <div id="pin-list" class="pin-list"></div>
+            <p class="hint">D9 ist für das spätere RGB-Panel reserviert. D13 bildet die eingebaute Arduino-LED ab.</p>
+          </section>
+        </aside>
+      </section>
+    </main>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="arduino-monitor.js"></script>
+  </body>
+</html>

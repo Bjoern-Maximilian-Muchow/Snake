@@ -87,6 +87,13 @@ void loop() {
   uint32_t afterRender = micros();
 
   perf.recordStep(afterBot - startedAt, afterEngine - afterBot, afterRender - afterEngine, lastResult);
+#ifdef AUTOSNAKE_VIRTUAL
+  virtualMonitorEmit(
+    engine.level(), engine.score(), engine.length(),
+    afterBot - startedAt, afterEngine - afterBot, afterRender - afterEngine,
+    static_cast<int>(lastResult)
+  );
+#endif
 
   if (perf.due(now)) {
     perf.print(Serial, engine, lastResult);

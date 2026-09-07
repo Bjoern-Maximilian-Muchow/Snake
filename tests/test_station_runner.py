@@ -82,7 +82,12 @@ def test_station_server_accepts_only_fixed_commands():
     assert command is not None
     assert command.mode == "cpp"
     assert command.upload
+    assert not command.virtual
     assert command.port == "COM3"
+    virtual_command = parse_station_command(f"autosnake-run cpp {encoded} --virtual", "COM4")
+    assert virtual_command is not None
+    assert virtual_command.virtual
+    assert not virtual_command.upload
     assert parse_station_command("Get-ChildItem", "COM3") is None
 
 

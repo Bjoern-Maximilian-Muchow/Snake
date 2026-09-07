@@ -23,6 +23,7 @@ MAX_CODE_BYTES = 24_000
 PYTHON_TIMEOUT_SECONDS = 12
 BUILD_TIMEOUT_SECONDS = 90
 UPLOAD_TIMEOUT_SECONDS = 60
+VIRTUAL_TIMEOUT_SECONDS = 30
 
 
 class StationError(RuntimeError):
@@ -228,21 +229,26 @@ def hardware_lock():
         LOCK_FILE.unlink(missing_ok=True)
 
 
-def run_cpp(code: str, *, upload: bool, port: str) -> int:
+def run_cpp(code: str, *, upload: bool, port: str, virtual_run: bool = False) -> int:
     validate_cpp(code)
     CPP_RUNTIME_DIR.mkdir(parents=True, exist_ok=True)
 
     with hardware_lock():
         CPP_RUNTIME_HEADER.write_text(code, encoding="utf-8")
         executable = platformio_executable()
+        environment_name = "virtual-student" if virtual_run else "uno-student"
         environment = os.environ.copy()
         environment["AUTOSNAKE_UPLOAD_PORT"] = port
 
-        command = [executable, "run", "--environment", "uno-student"]
+        command = [executable, "run", "--environment", environment_name]
         if upload:
             command.extend(["--target", "upload", "--upload-port", port])
 
-        print("AutoSnake Level 3: " + ("Build und Upload" if upload else "Build"), flush=True)
+        if upload and virtual_run:
+            raise StationError("Virtueller Arduino kann nicht hochgeladen werden.")
+
+        action = "Virtueller Build" if virtual_run else ("Build und Upload" if upload else "Build")
+        print("AutoSnake Level 3: " + action, flush=True)
         try:
             result = subprocess.run(
                 command,
@@ -264,6 +270,22 @@ def run_cpp(code: str, *, upload: bool, port: str) -> int:
         print(result.stdout, end="")
 
     if result.returncode == 0:
+        if virtual_run:
+            program_candidates = [
+                ROOT / ".pio" / "build" / environment_name / "program.exe",
+                ROOT / ".pio" / "build" / environment_name / "program",
+            ]
+            program = next((candidate for candidate in program_candidates if candidate.exists()), None)
+            if program is None:
+                raise StationError("Das virtuelle Arduino-Programm wurde nicht gefunden.")
+            print("AutoSnake Level 3: Virtuellen Arduino starten", flush=True)
+            return_code = run_command(
+                [str(program)],
+                cwd=ROOT,
+                timeout=VIRTUAL_TIMEOUT_SECONDS,
+            )
+            print("ERGEBNIS: Virtueller Arduino erfolgreich beendet." if return_code == 0 else "ERGEBNIS: Virtueller Arduino fehlgeschlagen.")
+            return return_code
         print("ERGEBNIS: Firmware erfolgreich " + ("auf den Uno geladen." if upload else "gebaut."))
     else:
         print("ERGEBNIS: Build oder Upload fehlgeschlagen.")
@@ -275,6 +297,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("mode", choices=("python", "cpp"))
     parser.add_argument("--base64", required=True, dest="encoded_code")
     parser.add_argument("--upload", action="store_true")
+    parser.add_argument("--virtual", action="store_true")
     parser.add_argument("--port", default=os.environ.get("AUTOSNAKE_PORT", "COM3"))
     return parser.parse_args()
 
@@ -285,7 +308,7 @@ def main() -> int:
         code = decode_code(args.encoded_code)
         if args.mode == "python":
             return run_python(code)
-        return run_cpp(code, upload=args.upload, port=args.port)
+        return run_cpp(code, upload=args.upload, port=args.port, virtual_run=args.virtual)
     except StationError as exc:
         print(f"FEHLER: {exc}", file=sys.stderr)
         return 2

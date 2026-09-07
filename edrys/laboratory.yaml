@@ -288,7 +288,7 @@ modules:
     stationConfig:
       server: http://localhost:5000/pty
       execute: autosnake-cpp
-      script: 'autosnake-run cpp $CODE --upload --port COM3'
+      script: 'autosnake-run cpp $CODE --virtual'
       enable:
         teacher: false
         student: false
@@ -302,7 +302,7 @@ modules:
       content: |
         # Physische AutoSnake-Station
 
-        Diese Station verbindet Edrys mit dem Arduino Uno R3. Aktuell laufen Game Engine, Lernenden-Bot und Live-Telemetrie bereits auf dem Uno. Das echte 16x16-RGB-Grid und die Kamera werden später ergänzt.
+        Diese Station verbindet Edrys mit dem virtuellen Arduino. Game Engine, Lernenden-Bot und Live-Telemetrie laufen hardwarefrei als native Firmware-Simulation.
     studentConfig:
       content: |
         Warte auf die Freigabe durch die Lehrperson. Simulator und Editor bleiben währenddessen verfügbar.
@@ -311,7 +311,7 @@ modules:
         Nur eine aktive Person an die Hardware lassen. Nach dem Upload Messwerte und später Kamerabild gemeinsam auswerten.
     stationConfig:
       content: |
-        Vor dem Öffnen der Station `scripts/start_station.ps1` ausführen. Der Dienst verbindet `autosnake-python` und `autosnake-cpp` mit Tests, Build und Upload.
+        Vor dem Öffnen der Station `scripts/start_station.ps1` ausführen. Der Dienst verbindet `autosnake-python` mit Tests und `autosnake-cpp` mit Build und Start des virtuellen Arduino.
     showInCustom: Station
     width: full
     height: medium

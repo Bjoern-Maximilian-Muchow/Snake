@@ -2,11 +2,17 @@
 
 void LedGrid::begin() {
   pinMode(LED_BUILTIN, OUTPUT);
+#ifdef AUTOSNAKE_VIRTUAL
+  virtualLedGridBegin();
+#endif
   clear();
 }
 
 void LedGrid::clear() {
   digitalWrite(LED_BUILTIN, LOW);
+#ifdef AUTOSNAKE_VIRTUAL
+  virtualLedGridClear();
+#endif
 }
 
 void LedGrid::render(const GameEngine& engine) {
@@ -17,13 +23,20 @@ void LedGrid::render(const GameEngine& engine) {
   }
   BotSnapshot snapshot = engine.snapshot();
   setPixel(snapshot.food.x, snapshot.food.y, 255, 0, 0);
+#ifdef AUTOSNAKE_VIRTUAL
+  virtualLedGridPresent();
+#endif
 }
 
 void LedGrid::setPixel(uint8_t x, uint8_t y, uint8_t r, uint8_t g, uint8_t b) {
+#ifdef AUTOSNAKE_VIRTUAL
+  virtualLedGridSetPixel(x, y, r, g, b);
+#else
   (void)x;
   (void)y;
   (void)r;
   (void)g;
   (void)b;
   // Platzhalter für die hardwarespezifische Pixelausgabe.
+#endif
 }

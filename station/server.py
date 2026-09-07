@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from threading import Lock
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_socketio import SocketIO, join_room
 
 
@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 RUNNER = ROOT / "station" / "runner.py"
 COMMAND_PATTERN = re.compile(
     r"^autosnake-run\s+(python|cpp)\s+([A-Za-z0-9+/=]+)"
-    r"(?:\s+(--upload))?(?:\s+--port\s+(COM\d+))?$",
+    r"(?:\s+(--upload|--virtual))?(?:\s+--port\s+(COM\d+))?$",
     re.IGNORECASE,
 )
 
@@ -25,6 +25,7 @@ class StationCommand:
     mode: str
     encoded_code: str
     upload: bool
+    virtual: bool
     port: str
 
 
@@ -32,11 +33,14 @@ def parse_station_command(line: str, default_port: str) -> StationCommand | None
     match = COMMAND_PATTERN.fullmatch(line.strip())
     if not match:
         return None
-    mode, encoded_code, upload_flag, port = match.groups()
+    mode, encoded_code, action, port = match.groups()
+    if action == "--virtual" and mode.lower() != "cpp":
+        return None
     return StationCommand(
         mode=mode.lower(),
         encoded_code=encoded_code,
-        upload=bool(upload_flag),
+        upload=action == "--upload",
+        virtual=action == "--virtual",
         port=(port or default_port).upper(),
     )
 
@@ -47,9 +51,14 @@ def create_app(default_port: str = "COM3") -> tuple[Flask, SocketIO]:
     socketio = SocketIO(app, cors_allowed_origins="*", async_mode="threading")
     buffers: dict[str, str] = {}
     buffers_lock = Lock()
+    active_virtual_processes: dict[str, subprocess.Popen] = {}
+    processes_lock = Lock()
 
     def emit_output(session_id: str, output: str) -> None:
         socketio.emit("pty-output", {"output": output}, room=session_id, namespace="/pty")
+
+    def emit_monitor(output: str) -> None:
+        socketio.emit("monitor-output", {"output": output}, namespace="/monitor")
 
     def execute(session_id: str, command: StationCommand) -> None:
         args = [
@@ -63,6 +72,8 @@ def create_app(default_port: str = "COM3") -> tuple[Flask, SocketIO]:
         ]
         if command.upload:
             args.append("--upload")
+        if command.virtual:
+            args.append("--virtual")
 
         emit_output(session_id, f"\r\nAutoSnake startet {command.mode.upper()} ...\r\n")
         process = subprocess.Popen(
@@ -74,15 +85,43 @@ def create_app(default_port: str = "COM3") -> tuple[Flask, SocketIO]:
             encoding="utf-8",
             errors="replace",
         )
+        if command.virtual:
+            with processes_lock:
+                active_virtual_processes[session_id] = process
         assert process.stdout is not None
-        for line in process.stdout:
-            emit_output(session_id, line.replace("\n", "\r\n"))
-        return_code = process.wait()
+        try:
+            for line in process.stdout:
+                emit_output(session_id, line.replace("\n", "\r\n"))
+                if command.virtual:
+                    emit_monitor(line)
+            return_code = process.wait()
+        finally:
+            if command.virtual:
+                with processes_lock:
+                    active_virtual_processes.pop(session_id, None)
         emit_output(session_id, f"\r\nProzess beendet: {return_code}\r\n")
+        if command.virtual:
+            emit_monitor(f"AUTOSNAKE_STATUS beendet {return_code}\n")
 
     @app.get("/health")
     def health():
         return jsonify(status="ok", port=default_port)
+
+    @app.get("/monitor")
+    def monitor():
+        return send_from_directory(str(ROOT / "simulator" / "web"), "arduino-monitor.html")
+
+    @app.post("/virtual/stop")
+    def stop_virtual():
+        with processes_lock:
+            processes = list(active_virtual_processes.values())
+        stopped = 0
+        for process in processes:
+            if process.poll() is None:
+                process.kill()
+                stopped += 1
+        emit_monitor("AUTOSNAKE_STATUS gestoppt\n")
+        return jsonify(stopped=stopped, status="ok")
 
     @socketio.on("connect", namespace="/pty")
     def connect():
@@ -91,6 +130,10 @@ def create_app(default_port: str = "COM3") -> tuple[Flask, SocketIO]:
         with buffers_lock:
             buffers[session_id] = ""
         emit_output(session_id, "AutoSnake-Station verbunden.\r\n")
+
+    @socketio.on("connect", namespace="/monitor")
+    def monitor_connect():
+        emit_monitor("AUTOSNAKE_STATUS Monitor verbunden\n")
 
     @socketio.on("pty-input", namespace="/pty")
     def pty_input(data):

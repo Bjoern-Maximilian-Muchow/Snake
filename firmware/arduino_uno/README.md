@@ -91,6 +91,26 @@ Alle drei Level lassen sich automatisiert vergleichen, wenn das Skript mit einer
 
 ## Kompilieren und Flashen
 
+### Virtuellen Arduino ausführen
+
+Der virtuelle Arduino verwendet denselben Firmware-Loop, dieselbe Game Engine und dieselbe Bot-Schnittstelle. Zeit, Serial und LED-Grid werden durch Host-Dienste ersetzt; die Matrix erscheint als 16x16-Textbild im Terminal. Es wird keine Hardware und kein Upload-Port benötigt.
+
+Im Repository-Stamm:
+
+```powershell
+& "$env:USERPROFILE\.platformio\penv\Scripts\platformio.exe" run --environment virtual
+& ".pio\build\virtual\program.exe"
+```
+
+Für den eigenen Level-3-Bot wird statt des Referenzbots die Vorlage aus `learning/level3/student_bot.h` gebaut:
+
+```powershell
+& "$env:USERPROFILE\.platformio\penv\Scripts\platformio.exe" run --environment virtual-student
+& ".pio\build\virtual-student\program.exe"
+```
+
+Die Zeichen `S`, `H` und `F` stehen für Snake, Kopf und Futter; `.` bezeichnet ein leeres Feld. Der virtuelle Lauf simuliert 100 Spielschritte und endet danach selbstständig.
+
 ### PlatformIO in VS Code
 
 Im Repository-Stamm liegt eine `platformio.ini`. Sie verwendet direkt den vorhandenen Firmware-Ordner und ist für Arduino Uno, `COM3` und `115200` Baud konfiguriert.

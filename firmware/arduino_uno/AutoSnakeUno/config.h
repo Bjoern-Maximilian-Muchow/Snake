@@ -1,7 +1,11 @@
 #ifndef AUTOSNAKE_CONFIG_H
 #define AUTOSNAKE_CONFIG_H
 
+#ifdef AUTOSNAKE_VIRTUAL
+#include "virtual_arduino.h"
+#else
 #include <Arduino.h>
+#endif
 
 const uint8_t GRID_WIDTH = 16;
 const uint8_t GRID_HEIGHT = 16;

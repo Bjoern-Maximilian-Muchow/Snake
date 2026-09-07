@@ -12,6 +12,7 @@ if (-not (Test-Path -LiteralPath $python)) {
 }
 
 Write-Host "AutoSnake-Station startet auf http://localhost:$Port/pty"
+Write-Host "Virtueller Arduino-Monitor: http://localhost:$Port/monitor"
 Write-Host "Repository: $repo"
 Write-Host "Arduino: $ArduinoPort"
 Write-Host "Dieses Fenster für die Dauer der Edrys-Station geöffnet lassen."

@@ -1,0 +1,87 @@
+:root {
+  color-scheme: dark;
+  --background: #0f1419;
+  --surface: #18212a;
+  --surface-strong: #202b36;
+  --line: #3a4654;
+  --grid: #26313d;
+  --snake: #35d07f;
+  --head: #f3e76b;
+  --food: #ef4f4f;
+  --text: #eef3f7;
+  --muted: #aeb9c5;
+  --accent: #58a6ff;
+  --danger: #ff6b6b;
+  --success: #48c78e;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--background);
+  color: var(--text);
+}
+
+button { font: inherit; }
+
+.monitor-app { width: min(1180px, 94vw); margin: 0 auto; padding: 24px 0 36px; }
+.topbar, .panel-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; }
+.topbar { margin-bottom: 20px; }
+h1, h2, p { margin-top: 0; }
+h1 { margin-bottom: 4px; font-size: 1.6rem; }
+h2 { margin-bottom: 0; font-size: 1.05rem; }
+.eyebrow { margin-bottom: 5px; color: var(--muted); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.muted, .hint { color: var(--muted); }
+.muted { margin-bottom: 0; }
+.stop-button { border: 1px solid var(--danger); border-radius: 6px; background: transparent; color: var(--danger); cursor: pointer; padding: 9px 13px; }
+.stop-button:hover { background: var(--danger); color: #1a0c0c; }
+.stop-button:disabled { cursor: wait; opacity: 0.7; }
+
+.content-grid { display: grid; grid-template-columns: minmax(420px, 1fr) 330px; gap: 18px; align-items: start; }
+.side-column { display: grid; gap: 14px; }
+.panel { border: 1px solid var(--line); background: var(--surface); padding: 14px; }
+.led-panel { min-width: 0; }
+.led-grid { display: grid; grid-template-columns: repeat(16, 1fr); gap: 3px; width: min(100%, 660px); aspect-ratio: 1; margin: 18px auto 0; padding: 10px; background: #090d11; border: 1px solid var(--line); }
+.led-cell { aspect-ratio: 1; background: var(--grid); }
+.led-S { background: var(--snake); }
+.led-H { background: var(--head); }
+.led-F { background: var(--food); }
+.badge, .state-badge { border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: 0.75rem; padding: 4px 8px; white-space: nowrap; }
+.state-badge.running { border-color: var(--success); color: var(--success); }
+.state-badge.stopped { border-color: var(--danger); color: var(--danger); }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; color: var(--muted); font-size: 0.82rem; }
+.legend span { display: flex; align-items: center; gap: 5px; }
+.legend i { width: 11px; height: 11px; display: inline-block; }
+.legend-head { background: var(--head); }
+.legend-snake { background: var(--snake); }
+.legend-food { background: var(--food); }
+
+.stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 18px 0 0; }
+.stats div { border: 1px solid var(--line); background: var(--surface-strong); padding: 10px; }
+dt { color: var(--muted); font-size: 0.76rem; }
+dd { margin: 4px 0 0; font-size: 1rem; font-weight: 700; }
+.meter-block { margin-top: 18px; }
+.meter-label { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 0.84rem; }
+.meter-label strong { color: var(--text); }
+.meter { height: 9px; margin-top: 7px; overflow: hidden; background: #0b1015; border: 1px solid var(--line); }
+.meter span { display: block; width: 0; height: 100%; background: var(--accent); transition: width 180ms ease; }
+.pin-list { display: grid; gap: 8px; margin-top: 16px; }
+.pin-row { display: flex; justify-content: space-between; border-bottom: 1px solid var(--line); padding: 8px 0; }
+.pin-name { font-weight: 700; }
+.pin-state { font-size: 0.78rem; font-weight: 700; }
+.pin-state.active { color: var(--success); }
+.pin-state.low { color: var(--muted); }
+.hint { margin: 12px 0 0; font-size: 0.78rem; line-height: 1.45; }
+
+@media (max-width: 850px) {
+  .content-grid { grid-template-columns: 1fr; }
+  .led-grid { width: 100%; }
+}
+
+@media (max-width: 540px) {
+  .topbar { align-items: flex-start; flex-direction: column; }
+  .stop-button { width: 100%; }
+}
