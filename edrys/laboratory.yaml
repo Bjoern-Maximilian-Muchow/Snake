@@ -120,7 +120,7 @@ modules:
     studentConfig: ""
     teacherConfig: ""
     stationConfig:
-      server: http://localhost:5000/pty
+      server: http://127.0.0.1:5000/pty
       execute: autosnake-rules
       script: 'autosnake-run rules $CODE --virtual'
       enable:
@@ -215,7 +215,7 @@ modules:
     studentConfig: ""
     teacherConfig: ""
     stationConfig:
-      server: http://localhost:5000/pty
+      server: http://127.0.0.1:5000/pty
       execute: autosnake-python
       script: 'autosnake-run python $CODE --virtual'
       enable:
@@ -301,7 +301,7 @@ modules:
     studentConfig: ""
     teacherConfig: ""
     stationConfig:
-      server: http://localhost:5000/pty
+      server: http://127.0.0.1:5000/pty
       execute: autosnake-cpp
       script: 'autosnake-run cpp $CODE --virtual'
       enable:
