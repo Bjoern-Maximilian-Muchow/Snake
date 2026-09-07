@@ -126,7 +126,7 @@ modules:
       enable:
         teacher: false
         student: true
-    showInCustom: Lobby
+    showInCustom: Station
     width: full
     height: medium
 
