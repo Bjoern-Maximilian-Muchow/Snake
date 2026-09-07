@@ -47,6 +47,7 @@ def test_web_simulator_loads_edrys_client_for_station_messages():
 
     assert "https://edrys-labs.github.io/module/edrys.js" in html
     assert 'input_${Edrys.role}_${executeTopic}' in script
+    assert 'pty-output_autosnake-${topic}' in script
 
 
 def test_edrys_contains_python_and_cpp_editors():

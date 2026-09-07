@@ -218,6 +218,9 @@ inline void virtualMonitorEmit(uint8_t level, uint16_t score, uint16_t length,
   const uint64_t hostRamBytes = virtualHostRamBytes();
   const uint64_t hostRamTotalBytes = virtualHostRamTotalBytes();
   const bool botWithinBudget = botUs <= VIRTUAL_BOT_TIME_LIMIT_US;
+  const uint32_t workUs = botUs + engineUs + renderUs;
+  const uint32_t arduinoCpuMilliPercent = (workUs * 100000UL) / 180000UL;
+  const uint32_t botBudgetMilliPercent = (botUs * 100000UL) / VIRTUAL_BOT_TIME_LIMIT_US;
   if (!botWithinBudget) virtualBudgetFailed() = true;
   std::cout << "AUTOSNAKE_MONITOR {\"frame\":" << virtualFrameNumber()
             << ",\"level\":" << static_cast<unsigned int>(level)
@@ -226,6 +229,8 @@ inline void virtualMonitorEmit(uint8_t level, uint16_t score, uint16_t length,
             << ",\"steps\":" << ++steps
             << ",\"state\":" << state
             << ",\"cpu_percent\":" << cpuPercent
+            << ",\"arduino_cpu_percent\":" << (arduinoCpuMilliPercent / 1000.0)
+            << ",\"bot_budget_percent\":" << (botBudgetMilliPercent / 1000.0)
             << ",\"bot_us\":" << botUs
             << ",\"bot_budget_us\":" << VIRTUAL_BOT_TIME_LIMIT_US
             << ",\"budget_ok\":" << (botWithinBudget ? "true" : "false")

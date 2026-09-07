@@ -40,6 +40,11 @@ const lockedLevelTitle = document.querySelector("#locked-level-title");
 const botSelect = document.querySelector("#bot");
 const demoBotField = document.querySelector("#demo-bot-field");
 const botDescription = document.querySelector("#bot-description");
+const arduinoOutput = document.querySelector("#arduino-output");
+const arduinoStatus = document.querySelector("#arduino-status");
+const arduinoMiniGrid = document.querySelector("#arduino-mini-grid");
+const arduinoCpu = document.querySelector("#arduino-cpu");
+const arduinoRam = document.querySelector("#arduino-ram");
 const taskTitle = document.querySelector("#task-title");
 const taskText = document.querySelector("#task-text");
 const botText = document.querySelector("#bot-text");
@@ -295,6 +300,34 @@ function updateTask() {
   botDescription.textContent = botDescriptions[botSelect.value];
   challengeTitle.textContent = levelTasks[state.level].challenge[0];
   challengeText.textContent = levelTasks[state.level].challenge[1];
+}
+
+function renderArduinoFrame(data) {
+  arduinoOutput.classList.remove("hidden");
+  arduinoStatus.textContent = `Läuft · Frame ${data.frame}`;
+  arduinoMiniGrid.innerHTML = data.grid.flatMap((row) => [...row].map((cellValue) => `<span class="arduino-mini-cell arduino-mini-${cellValue}"></span>`)).join("");
+  arduinoCpu.textContent = `${Number(data.arduino_cpu_percent || 0).toFixed(2)} % Intervallbudget`;
+  arduinoRam.textContent = `${data.arduino_ram_used} / ${data.arduino_ram_total} Byte`;
+}
+
+if (typeof Edrys !== "undefined" && typeof Edrys.onMessage === "function") {
+  const executionStatus = document.querySelector("#arduino-run-status");
+  if (executionStatus) executionStatus.textContent = "Warte auf Stationsausgabe über Edrys ...";
+  Edrys.onMessage(({ subject, body }) => {
+    const executionTopics = ["rules", "python", "cpp"];
+    if (!executionTopics.some((topic) => subject === `pty-output_autosnake-${topic}`) || typeof body !== "string") return;
+    body.split(/\r?\n/).filter(Boolean).forEach((line) => {
+      if (line.startsWith("AUTOSNAKE_MONITOR ")) {
+        try {
+          renderArduinoFrame(JSON.parse(line.slice("AUTOSNAKE_MONITOR ".length)));
+          if (executionStatus) executionStatus.textContent = "Live-Ausgabe vom virtuellen Arduino empfangen.";
+        } catch (_error) { /* ignore incomplete output */ }
+      } else if (line.includes("ERGEBNIS:")) {
+        arduinoOutput.classList.remove("hidden");
+        arduinoStatus.textContent = line.replace(/^.*ERGEBNIS:\s*/, "");
+      }
+    });
+  });
 }
 
 function setMode(nextMode) {

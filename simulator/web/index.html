@@ -72,6 +72,21 @@
             <p id="task-text"></p>
             <p id="bot-text"></p>
           </section>
+
+          <section id="arduino-output" class="arduino-output hidden" aria-live="polite">
+            <div class="arduino-output-heading">
+              <div>
+                <p class="eyebrow">Virtuelle Hardware</p>
+                <h2>Arduino-Ausführung</h2>
+              </div>
+              <span id="arduino-status" class="arduino-status">Wartet</span>
+            </div>
+            <div class="arduino-mini-grid" id="arduino-mini-grid" aria-label="Live-LED-Grid des virtuellen Arduino"></div>
+            <div class="arduino-metrics">
+                <span>Arduino-CPU <strong id="arduino-cpu">-</strong></span>
+              <span>SRAM <strong id="arduino-ram">-</strong></span>
+            </div>
+          </section>
         </aside>
       </section>
 
