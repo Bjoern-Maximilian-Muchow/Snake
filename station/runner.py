@@ -435,6 +435,8 @@ def check_uno_budget(environment_name: str) -> None:
         raise StationError(
             f"Arduino-Budget überschritten: RAM {ram_used}/{ram_total}, Flash {flash_used}/{flash_total}."
         )
+    os.environ["AUTOSNAKE_FLASH_USED"] = str(flash_used)
+    os.environ["AUTOSNAKE_FLASH_TOTAL"] = str(flash_total)
 
 
 @contextmanager

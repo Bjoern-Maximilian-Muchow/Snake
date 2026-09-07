@@ -14,30 +14,11 @@
           <h1>Arduino Monitor</h1>
           <p id="connection-status" class="muted">Verbinde mit der Station ...</p>
         </div>
-        <div class="run-controls">
-          <button id="start-button" class="start-button" type="button">Simulation starten</button>
-          <button id="stop-button" class="stop-button" type="button">Simulation beenden</button>
-        </div>
+        <button id="stop-button" class="stop-button" type="button">Simulation beenden</button>
       </header>
 
       <section class="content-grid">
-        <section class="panel led-panel" aria-labelledby="led-title">
-          <div class="panel-heading">
-            <div>
-              <p class="eyebrow">Ausgabe</p>
-              <h2 id="led-title">16x16 LED-Grid</h2>
-            </div>
-            <span id="frame-label" class="badge">Kein Frame</span>
-          </div>
-          <div id="led-grid" class="led-grid" aria-label="Virtuelles 16 mal 16 LED-Grid"></div>
-          <div class="legend">
-            <span><i class="legend-head"></i>Kopf</span>
-            <span><i class="legend-snake"></i>Snake</span>
-            <span><i class="legend-food"></i>Futter</span>
-          </div>
-        </section>
-
-        <aside class="side-column">
+        <section class="panel resources-panel" aria-labelledby="resources-title">
           <section class="panel" aria-labelledby="resources-title">
             <div class="panel-heading">
               <div>
@@ -50,11 +31,14 @@
               <div class="meter"><span id="cpu-meter"></span></div>
             </div>
             <div class="meter-block">
-              <div class="meter-label"><span>Simulierter RAM · live</span><strong id="ram-value">-</strong></div>
+              <div class="meter-label"><span>Arduino-SRAM · live</span><strong id="ram-value">-</strong></div>
               <div class="meter"><span id="ram-meter"></span></div>
             </div>
-          </section>
-        </aside>
+            <div class="meter-block">
+              <div class="meter-label"><span>Arduino-Flash · Buildwert</span><strong id="flash-value">-</strong></div>
+              <div class="meter"><span id="flash-meter"></span></div>
+            </div>
+        </section>
       </section>
     </main>
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>

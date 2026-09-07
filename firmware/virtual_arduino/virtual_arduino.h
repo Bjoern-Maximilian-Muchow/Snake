@@ -6,6 +6,7 @@
 #include <ctime>
 #include <cstdint>
 #include <iostream>
+#include <cstdlib>
 #include <thread>
 #ifdef _WIN32
 #include <windows.h>
@@ -182,6 +183,11 @@ inline uint64_t virtualHostCpuTicks() {
 #endif
 }
 
+inline uint32_t virtualFlashValue(const char* name, uint32_t fallback) {
+  const char* value = std::getenv(name);
+  return value == nullptr ? fallback : static_cast<uint32_t>(std::strtoul(value, nullptr, 10));
+}
+
 inline double virtualCpuSeconds(uint64_t ticks) {
 #ifdef _WIN32
   return static_cast<double>(ticks) / 10000000.0;
@@ -221,6 +227,8 @@ inline void virtualMonitorEmit(uint8_t level, uint16_t score, uint16_t length,
   const uint32_t workUs = botUs + engineUs + renderUs;
   const uint32_t arduinoCpuMilliPercent = (workUs * 100000UL) / 180000UL;
   const uint32_t botBudgetMilliPercent = (botUs * 100000UL) / VIRTUAL_BOT_TIME_LIMIT_US;
+  const uint32_t flashUsed = virtualFlashValue("AUTOSNAKE_FLASH_USED", 7982);
+  const uint32_t flashTotal = virtualFlashValue("AUTOSNAKE_FLASH_TOTAL", 32256);
   if (!botWithinBudget) virtualBudgetFailed() = true;
   std::cout << "AUTOSNAKE_MONITOR {\"frame\":" << virtualFrameNumber()
             << ",\"level\":" << static_cast<unsigned int>(level)
@@ -238,6 +246,8 @@ inline void virtualMonitorEmit(uint8_t level, uint16_t score, uint16_t length,
             << ",\"ram_total_bytes\":" << hostRamTotalBytes
             << ",\"arduino_ram_used\":" << (VIRTUAL_RAM_BASE_USED + length * 4 + level * 8)
             << ",\"arduino_ram_total\":" << VIRTUAL_RAM_TOTAL
+            << ",\"arduino_flash_used\":" << flashUsed
+            << ",\"arduino_flash_total\":" << flashTotal
             << ",\"pins\":{\"D9\":0,\"D13\":" << static_cast<unsigned int>(virtualPins()[LED_BUILTIN])
             << "},\"grid\":[";
   for (uint8_t y = 0; y < 16; ++y) {
