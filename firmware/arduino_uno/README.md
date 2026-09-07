@@ -111,6 +111,18 @@ Für den eigenen Level-3-Bot wird statt des Referenzbots die Vorlage aus `learni
 
 Die Zeichen `S`, `H` und `F` stehen für Snake, Kopf und Futter; `.` bezeichnet ein leeres Feld. Der virtuelle Lauf simuliert 100 Spielschritte und endet danach selbstständig.
 
+### Strikte AVR-Simulation
+
+Für einen hardwareähnlicheren Lauf wird das Uno-HEX zusätzlich mit AVR8js ausgeführt. Dieser Modus verwendet den ATmega328P-Programmspeicher, 2048 Byte SRAM und eine 16-MHz-Zyklusbasis:
+
+```powershell
+npm install
+$code = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes((Get-Content learning\level3\student_bot.h -Raw)))
+& "$env:USERPROFILE\.platformio\penv\Scripts\python.exe" station\runner.py cpp --base64 $code --strict
+```
+
+Der native Modus bleibt für schnelle Entwicklung verfügbar. Der strikte Modus prüft zusätzlich den echten Uno-Build und führt anschließend das erzeugte HEX im AVR-Kern aus.
+
 ### PlatformIO in VS Code
 
 Im Repository-Stamm liegt eine `platformio.ini`. Sie verwendet direkt den vorhandenen Firmware-Ordner und ist für Arduino Uno, `COM3` und `115200` Baud konfiguriert.

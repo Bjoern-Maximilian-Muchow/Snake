@@ -1,8 +1,9 @@
+.station-runtime/
+.pio/
+node_modules/
 __pycache__/
 *.py[cod]
 .pytest_cache/
-.pio/
-.station-runtime/
 .station-venv/
 .tmp-pyxtermjs/
 .vscode/

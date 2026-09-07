@@ -22,10 +22,10 @@ function renderMonitor(data) {
   renderGrid(data.grid);
   setText("#frame-label", `Frame ${data.frame}`);
 
-  const cpuPercent = data.cpu_milli_percent / 1000;
-  const ramPercent = (data.ram_used / data.ram_total) * 100;
-  setText("#cpu-value", `${cpuPercent.toFixed(3)} %`);
-  setText("#ram-value", `${data.ram_used} / ${data.ram_total} Byte (${ramPercent.toFixed(1)} %)`);
+  const cpuPercent = data.cpu_percent;
+  const ramPercent = data.ram_total_bytes > 0 ? (data.ram_bytes / data.ram_total_bytes) * 100 : 0;
+  setText("#cpu-value", `${cpuPercent.toFixed(2)} % Laptop-Prozess`);
+  setText("#ram-value", `${(data.ram_bytes / 1024 / 1024).toFixed(1)} MB / ${(data.ram_total_bytes / 1024 / 1024 / 1024).toFixed(1)} GB (${ramPercent.toFixed(2)} %)`);
   document.querySelector("#cpu-meter").style.width = `${Math.min(cpuPercent, 100)}%`;
   document.querySelector("#ram-meter").style.width = `${Math.min(ramPercent, 100)}%`;
 }

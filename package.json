@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "avr:simulate": "node scripts/run_avr_simulator.js .pio/build/uno-student/firmware.hex 16000000"
+  },
+  "devDependencies": {
+    "avr8js": "^0.21.1"
+  }
+}

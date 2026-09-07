@@ -3,8 +3,16 @@
 
 #include <chrono>
 #include <cstring>
+#include <ctime>
 #include <cstdint>
 #include <iostream>
+#include <thread>
+#ifdef _WIN32
+#include <windows.h>
+#include <psapi.h>
+#else
+#include <fstream>
+#endif
 
 using std::uint8_t;
 using std::uint16_t;
@@ -22,6 +30,7 @@ constexpr uint8_t LED_BUILTIN = 13;
 #define _BV(bit) (static_cast<unsigned int>(1U) << (bit))
 constexpr uint16_t VIRTUAL_RAM_BASE_USED = 770;
 constexpr uint16_t VIRTUAL_RAM_TOTAL = 2048;
+constexpr uint32_t VIRTUAL_BOT_TIME_LIMIT_US = 3000;
 
 template <typename T, typename Lower, typename Upper>
 T constrain(T value, Lower lower, Upper upper) {
@@ -89,6 +98,7 @@ inline uint32_t micros() {
 
 inline void delay(unsigned long milliseconds) {
   virtualClockMs() += static_cast<uint32_t>(milliseconds);
+  std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
 }
 
 inline void pinMode(uint8_t, uint8_t) {}
@@ -128,6 +138,58 @@ inline uint32_t& virtualFrameNumber() {
   return value;
 }
 
+inline bool& virtualBudgetFailed() {
+  static bool failed = false;
+  return failed;
+}
+
+inline uint64_t virtualHostRamBytes() {
+#ifdef _WIN32
+  PROCESS_MEMORY_COUNTERS counters = {};
+  GetProcessMemoryInfo(GetCurrentProcess(), &counters, sizeof(counters));
+  return static_cast<uint64_t>(counters.WorkingSetSize);
+#else
+  std::ifstream statm("/proc/self/statm");
+  uint64_t pages = 0;
+  statm >> pages >> pages;
+  return pages * 4096ULL;
+#endif
+}
+
+inline uint64_t virtualHostRamTotalBytes() {
+#ifdef _WIN32
+  MEMORYSTATUSEX status = {};
+  status.dwLength = sizeof(status);
+  GlobalMemoryStatusEx(&status);
+  return static_cast<uint64_t>(status.ullTotalPhys);
+#else
+  return 0;
+#endif
+}
+
+inline uint64_t virtualHostCpuTicks() {
+#ifdef _WIN32
+  FILETIME creation = {}, exit = {}, kernel = {}, user = {};
+  GetProcessTimes(GetCurrentProcess(), &creation, &exit, &kernel, &user);
+  ULARGE_INTEGER kernelTicks = {}, userTicks = {};
+  kernelTicks.LowPart = kernel.dwLowDateTime;
+  kernelTicks.HighPart = kernel.dwHighDateTime;
+  userTicks.LowPart = user.dwLowDateTime;
+  userTicks.HighPart = user.dwHighDateTime;
+  return kernelTicks.QuadPart + userTicks.QuadPart;
+#else
+  return static_cast<uint64_t>(std::clock());
+#endif
+}
+
+inline double virtualCpuSeconds(uint64_t ticks) {
+#ifdef _WIN32
+  return static_cast<double>(ticks) / 10000000.0;
+#else
+  return static_cast<double>(ticks) / CLOCKS_PER_SEC;
+#endif
+}
+
 inline void virtualLedGridPresent() {
   std::cerr << "FRAME " << ++virtualFrameNumber() << '\n';
   for (const auto& row : virtualFrame()) {
@@ -142,20 +204,35 @@ inline void virtualMonitorEmit(uint8_t level, uint16_t score, uint16_t length,
                                uint32_t botUs, uint32_t engineUs, uint32_t renderUs,
                                int state) {
   static uint16_t steps = 0;
-  const uint32_t workUs = botUs + engineUs + renderUs;
-  const uint32_t cpuMilliPercent = (workUs * 100000UL) / 180000UL;
-  const uint16_t simulatedRamUsed = static_cast<uint16_t>(
-    VIRTUAL_RAM_BASE_USED + length * 4 + level * 8
-  );
+  static uint64_t lastCpu = virtualHostCpuTicks();
+  static const auto monitorStart = std::chrono::steady_clock::now();
+  static auto lastWall = monitorStart;
+  const auto now = std::chrono::steady_clock::now();
+  const auto wallUs = std::chrono::duration_cast<std::chrono::microseconds>(now - lastWall).count();
+  const uint64_t cpuTicks = virtualHostCpuTicks();
+  const double cpuPercent = wallUs > 0
+    ? virtualCpuSeconds(cpuTicks - lastCpu) / (wallUs / 1000000.0) * 100.0
+    : 0.0;
+  lastCpu = cpuTicks;
+  lastWall = now;
+  const uint64_t hostRamBytes = virtualHostRamBytes();
+  const uint64_t hostRamTotalBytes = virtualHostRamTotalBytes();
+  const bool botWithinBudget = botUs <= VIRTUAL_BOT_TIME_LIMIT_US;
+  if (!botWithinBudget) virtualBudgetFailed() = true;
   std::cout << "AUTOSNAKE_MONITOR {\"frame\":" << virtualFrameNumber()
             << ",\"level\":" << static_cast<unsigned int>(level)
             << ",\"score\":" << score
             << ",\"length\":" << length
             << ",\"steps\":" << ++steps
             << ",\"state\":" << state
-            << ",\"cpu_milli_percent\":" << cpuMilliPercent
-            << ",\"ram_used\":" << simulatedRamUsed
-            << ",\"ram_total\":" << VIRTUAL_RAM_TOTAL
+            << ",\"cpu_percent\":" << cpuPercent
+            << ",\"bot_us\":" << botUs
+            << ",\"bot_budget_us\":" << VIRTUAL_BOT_TIME_LIMIT_US
+            << ",\"budget_ok\":" << (botWithinBudget ? "true" : "false")
+            << ",\"ram_bytes\":" << hostRamBytes
+            << ",\"ram_total_bytes\":" << hostRamTotalBytes
+            << ",\"arduino_ram_used\":" << (VIRTUAL_RAM_BASE_USED + length * 4 + level * 8)
+            << ",\"arduino_ram_total\":" << VIRTUAL_RAM_TOTAL
             << ",\"pins\":{\"D9\":0,\"D13\":" << static_cast<unsigned int>(virtualPins()[LED_BUILTIN])
             << "},\"grid\":[";
   for (uint8_t y = 0; y < 16; ++y) {

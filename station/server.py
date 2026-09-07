@@ -55,11 +55,15 @@ def create_app(default_port: str = "COM3") -> tuple[Flask, SocketIO]:
     buffers_lock = Lock()
     active_virtual_processes: dict[str, subprocess.Popen] = {}
     processes_lock = Lock()
+    last_monitor_output = ""
 
     def emit_output(session_id: str, output: str) -> None:
         socketio.emit("pty-output", {"output": output}, room=session_id, namespace="/pty")
 
     def emit_monitor(output: str) -> None:
+        nonlocal last_monitor_output
+        if output.startswith("AUTOSNAKE_MONITOR "):
+            last_monitor_output = output
         socketio.emit("monitor-output", {"output": output}, namespace="/monitor")
 
     def execute(session_id: str, command: StationCommand) -> None:
@@ -174,6 +178,8 @@ def create_app(default_port: str = "COM3") -> tuple[Flask, SocketIO]:
     @socketio.on("connect", namespace="/monitor")
     def monitor_connect():
         emit_monitor("AUTOSNAKE_STATUS Monitor verbunden\n")
+        if last_monitor_output:
+            socketio.emit("monitor-output", {"output": last_monitor_output}, namespace="/monitor")
 
     @socketio.on("pty-input", namespace="/pty")
     def pty_input(data):

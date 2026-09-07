@@ -12,7 +12,7 @@ int main() {
     loop();
     delay(STEP_DELAY_MS);
   }
-  return 0;
+  return virtualBudgetFailed() ? 3 : 0;
 }
 
 #endif

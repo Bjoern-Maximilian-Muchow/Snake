@@ -27,6 +27,8 @@ PYTHON_TIMEOUT_SECONDS = 12
 BUILD_TIMEOUT_SECONDS = 90
 UPLOAD_TIMEOUT_SECONDS = 60
 VIRTUAL_TIMEOUT_SECONDS = 30
+UNO_RAM_BYTES = 2048
+UNO_FLASH_BYTES = 32256
 
 
 class StationError(RuntimeError):
@@ -386,6 +388,7 @@ def run_rules(encoded_rules: str) -> int:
     RULE_RUNTIME_DIR.mkdir(parents=True, exist_ok=True)
     with hardware_lock():
         RULE_RUNTIME_HEADER.write_text(generate_rule_bot(rules), encoding="utf-8")
+        check_uno_budget("uno-rules")
         print("AutoSnake Level 1: Virtuellen Arduino starten", flush=True)
         return_code = run_virtual_environment("virtual-rules")
     print("ERGEBNIS: Virtueller Regelbot erfolgreich beendet." if return_code == 0 else "ERGEBNIS: Virtueller Regelbot fehlgeschlagen.")
@@ -407,6 +410,33 @@ def platformio_executable() -> str:
     raise StationError("PlatformIO wurde nicht gefunden.")
 
 
+def check_uno_budget(environment_name: str) -> None:
+    result = subprocess.run(
+        [platformio_executable(), "run", "--environment", environment_name],
+        cwd=ROOT,
+        timeout=BUILD_TIMEOUT_SECONDS,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        encoding="utf-8",
+        errors="replace",
+        check=False,
+    )
+    print(result.stdout, end="")
+    if result.returncode != 0:
+        raise StationError("Uno-Budget-Build fehlgeschlagen.")
+    ram_match = re.search(r"RAM:.*?\(.*?(\d+) bytes from (\d+) bytes\)", result.stdout)
+    flash_match = re.search(r"Flash:.*?\(.*?(\d+) bytes from (\d+) bytes\)", result.stdout)
+    if not ram_match or not flash_match:
+        raise StationError("PlatformIO-Speicherwerte konnten nicht gelesen werden.")
+    ram_used, ram_total = map(int, ram_match.groups())
+    flash_used, flash_total = map(int, flash_match.groups())
+    if ram_used > UNO_RAM_BYTES or flash_used > UNO_FLASH_BYTES:
+        raise StationError(
+            f"Arduino-Budget überschritten: RAM {ram_used}/{ram_total}, Flash {flash_used}/{flash_total}."
+        )
+
+
 @contextmanager
 def hardware_lock():
     RUNTIME_DIR.mkdir(exist_ok=True)
@@ -423,12 +453,14 @@ def hardware_lock():
         LOCK_FILE.unlink(missing_ok=True)
 
 
-def run_cpp(code: str, *, upload: bool, port: str, virtual_run: bool = False) -> int:
+def run_cpp(code: str, *, upload: bool, port: str, virtual_run: bool = False, strict: bool = False) -> int:
     validate_cpp(code)
     CPP_RUNTIME_DIR.mkdir(parents=True, exist_ok=True)
 
     with hardware_lock():
         CPP_RUNTIME_HEADER.write_text(code, encoding="utf-8")
+        if virtual_run or strict:
+            check_uno_budget("uno-student")
         executable = platformio_executable()
         environment_name = "virtual-student" if virtual_run else "uno-student"
         environment = os.environ.copy()
@@ -464,6 +496,14 @@ def run_cpp(code: str, *, upload: bool, port: str, virtual_run: bool = False) ->
         print(result.stdout, end="")
 
     if result.returncode == 0:
+        if strict:
+            hex_path = ROOT / ".pio" / "build" / "uno-student" / "firmware.hex"
+            print("AutoSnake Level 3: Strikte AVR-Simulation starten", flush=True)
+            return run_command(
+                ["node", str(ROOT / "scripts" / "run_avr_simulator.js"), str(hex_path), "16000000"],
+                cwd=ROOT,
+                timeout=VIRTUAL_TIMEOUT_SECONDS,
+            )
         if virtual_run:
             program_candidates = [
                 ROOT / ".pio" / "build" / environment_name / "program.exe",
@@ -492,6 +532,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--base64", required=True, dest="encoded_code")
     parser.add_argument("--upload", action="store_true")
     parser.add_argument("--virtual", action="store_true")
+    parser.add_argument("--strict", action="store_true")
     parser.add_argument("--port", default=os.environ.get("AUTOSNAKE_PORT", "COM3"))
     return parser.parse_args()
 
@@ -506,7 +547,7 @@ def main() -> int:
             return run_python(code)
         if args.mode == "rules":
             return run_rules(args.encoded_code)
-        return run_cpp(code, upload=args.upload, port=args.port, virtual_run=args.virtual)
+        return run_cpp(code, upload=args.upload, port=args.port, virtual_run=args.virtual, strict=args.strict)
     except StationError as exc:
         print(f"FEHLER: {exc}", file=sys.stderr)
         return 2
