@@ -1,6 +1,7 @@
 const gridElement = document.querySelector("#led-grid");
 const connectionStatus = document.querySelector("#connection-status");
 const frameLabel = document.querySelector("#frame-label");
+const startButton = document.querySelector("#start-button");
 const stopButton = document.querySelector("#stop-button");
 
 function setText(selector, value) {
@@ -59,5 +60,30 @@ stopButton.addEventListener("click", async () => {
     await fetch("/virtual/stop", { method: "POST" });
   } finally {
     stopButton.textContent = "Simulation beendet";
+  }
+});
+
+startButton.addEventListener("click", async () => {
+  startButton.disabled = true;
+  startButton.textContent = "Wird gestartet ...";
+  try {
+    const response = await fetch("/virtual/rules", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify([
+        { condition: "front_blocked", action: "turn_left" },
+        { condition: "food_right", action: "right" },
+        { condition: "food_left", action: "left" },
+        { condition: "food_down", action: "down" },
+        { condition: "food_up", action: "up" },
+        { condition: "always", action: "forward" },
+      ]),
+    });
+    if (!response.ok) throw new Error("Station antwortet nicht erfolgreich.");
+    startButton.textContent = "Simulation läuft";
+  } catch (error) {
+    connectionStatus.textContent = `Start fehlgeschlagen: ${error.message}`;
+    startButton.disabled = false;
+    startButton.textContent = "Simulation starten";
   }
 });

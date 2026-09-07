@@ -36,7 +36,11 @@ h2 { margin-bottom: 0; font-size: 1.05rem; }
 .eyebrow { margin-bottom: 5px; color: var(--muted); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
 .muted, .hint { color: var(--muted); }
 .muted { margin-bottom: 0; }
-.stop-button { border: 1px solid var(--danger); border-radius: 6px; background: transparent; color: var(--danger); cursor: pointer; padding: 9px 13px; }
+.run-controls { display: flex; flex-wrap: wrap; gap: 8px; }
+.start-button, .stop-button { border-radius: 6px; cursor: pointer; padding: 9px 13px; }
+.start-button { border: 1px solid var(--success); background: var(--success); color: #08140e; }
+.start-button:hover { filter: brightness(1.08); }
+.stop-button { border: 1px solid var(--danger); background: transparent; color: var(--danger); }
 .stop-button:hover { background: var(--danger); color: #1a0c0c; }
 .stop-button:disabled { cursor: wait; opacity: 0.7; }
 
@@ -83,5 +87,6 @@ dd { margin: 4px 0 0; font-size: 1rem; font-weight: 700; }
 
 @media (max-width: 540px) {
   .topbar { align-items: flex-start; flex-direction: column; }
-  .stop-button { width: 100%; }
+  .run-controls { width: 100%; }
+  .start-button, .stop-button { flex: 1; }
 }
