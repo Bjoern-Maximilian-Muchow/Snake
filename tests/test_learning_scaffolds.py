@@ -47,7 +47,7 @@ def test_edrys_contains_python_and_cpp_editors():
     assert laboratory.count("module-monaco-editor") == 2
     assert "runCommand: autosnake-python" in laboratory
     assert "runCommand: autosnake-cpp" in laboratory
-    assert laboratory.count("module-pyxtermjs") == 2
+    assert laboratory.count("module-pyxtermjs") == 3
     assert "execute: autosnake-python" in laboratory
     assert "execute: autosnake-cpp" in laboratory
     assert "autosnake-run python $CODE --virtual" in laboratory
