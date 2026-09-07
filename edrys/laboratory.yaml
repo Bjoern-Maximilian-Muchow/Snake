@@ -126,7 +126,7 @@ modules:
       enable:
         teacher: false
         student: true
-    showInCustom: Room 1
+    showInCustom: Lobby
     width: full
     height: medium
 
